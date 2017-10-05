@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "3360346759",
+    "firebase_url": "https://clinics-and-doctors.firebaseio.com",
+    "project_id": "clinics-and-doctors",
+    "storage_bucket": "clinics-and-doctors.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3360346759:android:8c35c81d4b133024",
+        "android_client_info": {
+          "package_name": "com.clinicsanddoctors"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3360346759-1d6vvbqg28s55brf0qks5nddnuus6q8f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clinicsanddoctors",
+            "certificate_hash": "d6aa46bfabfa7fe609c00bc6b1ec87604e5bd575"
+          }
+        },
+        {
+          "client_id": "3360346759-1p7fps4jjn3l7ssn0u2a6uo5j1cll819.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwxoOUIeRouYThr7AsXclSo0DWN-ORy5U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3360346759-1p7fps4jjn3l7ssn0u2a6uo5j1cll819.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

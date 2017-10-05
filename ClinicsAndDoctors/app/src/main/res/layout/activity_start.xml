@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_start" />
+
+    <ImageView
+        android:id="@+id/mLogo"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_above="@+id/mViewMiddle"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_logo_clinic" />
+
+    <TextView
+        style="@style/TextLabelStyleBold"
+        android:layout_below="@+id/mLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/margin_different_view"
+        android:textColor="@color/white"
+        android:text="@string/clinic_and_doctors"
+        android:textSize="@dimen/text_size_super_big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/mViewMiddle"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/mSignIn"
+        style="@style/ButtonStyle"
+        android:layout_above="@+id/mAccessFacebook"
+        android:layout_marginBottom="@dimen/margin_different_view"
+        android:background="@drawable/bg_rectangle_rounded_init"
+        android:text="@string/sign_in" />
+
+    <LinearLayout
+        android:id="@+id/mAccessFacebook"
+        style="@style/ButtonStyle"
+        android:layout_above="@+id/mHaveAccount"
+        android:background="@drawable/bg_rectangle_rounded_facebook"
+        android:gravity="center_horizontal">
+
+        <TextView
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/access_facebook" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/mHaveAccount"
+        fontPath="@string/font_compact_avenir_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/not_account"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/mForgotPassword"
+        fontPath="@string/font_compact_avenir_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/mHaveAccount"
+        android:layout_alignBottom="@+id/mHaveAccount"
+        android:layout_alignEnd="@+id/mSignIn"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/forgot_password"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_small"
+        android:visibility="gone" />
+
+</RelativeLayout>

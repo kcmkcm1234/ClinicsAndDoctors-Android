@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ClinicsAndDoctors</string>
+    <string name="facebook_app_id">355322151568934</string>
+
+    <!-- FONTS -->
+    <string name="font_compact_avenir_light">fonts/AvenirLTStd-Book.otf</string>
+    <string name="font_compact_avenir_medium">fonts/AvenirLTStd-Roman.otf</string>
+    <string name="font_compact_avenir_bold">fonts/AvenirLTStd-Black.otf</string>
+
+    <!-- ERROR MESSAGE-->
+    <string name="alert_title_error">Error</string>
+    <string name="error_generic">Something was wrong</string>
+    <string name="error_internet">No internet connection. Connect to the internet and try again.</string>
+    <string name="complete_all_fields">You must complete all fields</string>
+    <string name="password_not_match">Password must match</string>
+    <string name="error_invalid_email">Invalid email</string>
+    <string name="error_password_length">The password must have more than 5 characters</string>
+    <string name="error_permission">Request permissions</string>
+    <string name="error_user_nor_found">This user doesn\'t exist</string>
+
+    <!-- START -->
+    <string name="clinic_and_doctors">CLINICS &amp; DOCTORS</string>
+    <string name="access_facebook">CONTINUE WITH FACEBOOK</string>
+    <string name="sign_in">LOGIN WITH MOBILE</string>
+    <string name="not_account">Dont\'t have an account? Register Here</string>
+    <string name="forgot_password">Forgot your Password?</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="title_create_account">Register</string>
+    <string name="title_login">Login With Mobile</string>
+    <string name="email">Email</string>
+    <string name="email_optional">Email (optional)</string>
+    <string name="send">Send</string>
+    <string name="name">Name</string>
+    <string name="first_name">Full Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="confirm_password">Re-Type Password</string>
+    <string name="finish">Finish</string>
+    <string name="register">REGISTER</string>
+    <string name="login">LOGIN</string>
+    <string name="save">SAVE</string>
+
+    <!-- FORGOT PASSWORD -->
+    <string name="title_forgot_apssword">Forgot Password</string>
+    <string name="recover_password">RECOVER PASSWORD</string>
+    <string name="description_forgot_apssword">We will send you a sms with\na new password.</string>
+
+</resources>

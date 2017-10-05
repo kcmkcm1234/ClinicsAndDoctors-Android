@@ -1,0 +1,121 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="DefaultToolbar">
+        <item name="fontPath">@string/font_compact_avenir_bold</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="fontPath">@string/font_compact_avenir_bold</item>
+    </style>
+
+    <style name="NavigationView">
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="fontPath">@string/font_compact_avenir_medium</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:layout_height">@dimen/height_buttons</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginRight">@dimen/margin_app</item>
+        <item name="android:layout_marginLeft">@dimen/margin_app</item>
+        <item name="fontPath">@string/font_compact_avenir_bold</item>
+    </style>
+
+    <style name="TextLabelStyle">
+        <item name="fontPath">@string/font_compact_avenir_medium</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="TextLabelStyleBold">
+        <item name="fontPath">@string/font_compact_avenir_bold</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="CustomRatingBar" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomRatingBarBig">
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TextTabAppareance</item>
+    </style>
+
+    <style name="TextTabAppareance" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@string/font_compact_avenir_medium</item>
+    </style>
+
+    <style name="SignInInputFields" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="android:lines">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="fontPath">@string/font_compact_avenir_medium</item>
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+
+    </style>
+
+    <style name="EditTextWhiteStyle">
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="EditTextProfileStyle">
+        <item name="fontPath">@string/font_compact_avenir_medium</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColor">@color/text_color</item>
+
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="EditTextConfirmPhoneStyle">
+        <item name="fontPath">@string/font_compact_avenir_medium</item>
+        <item name="android:textSize">@dimen/text_size_normal</item>
+        <item name="android:textColor">@color/text_color</item>
+
+        <item name="colorPrimary">@color/text_color</item>
+        <item name="colorPrimaryDark">@color/text_color</item>
+        <item name="colorAccent">@color/text_color</item>
+        <item name="colorControlActivated">@color/text_color</item>
+        <item name="colorControlNormal">@color/text_color</item>
+        <item name="colorControlHighlight">@color/text_color</item>
+    </style>
+
+</resources>
