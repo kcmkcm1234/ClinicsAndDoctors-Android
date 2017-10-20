@@ -23,7 +23,7 @@
 
     <dimen name="profile_photo_size">100dp</dimen>
     <dimen name="profile_photo_size_medium">120dp</dimen>
-    <dimen name="profile_photo_rate_size">150dp</dimen>
+    <dimen name="profile_photo_doctor_size">150dp</dimen>
 
     <!-- MAP FRAGMENT -->
     <dimen name="custom_cluster_size">40dp</dimen>
@@ -31,5 +31,10 @@
 
     <dimen name="ad_banner_height">70dp</dimen>
     <dimen name="request_photo_height">180dp</dimen>
+
+    <!-- CLINICS PROFILE -->
+    <dimen name="high_clinic_detail">160dp</dimen>
+    <dimen name="photo_clinic_size">75dp</dimen>
+    <dimen name="size_phone">50dp</dimen>
 
 </resources>

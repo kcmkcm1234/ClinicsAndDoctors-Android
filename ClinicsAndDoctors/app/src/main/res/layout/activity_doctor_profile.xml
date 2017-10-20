@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_rectangle_gradient_green"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/mTool"
+        layout="@layout/toolbar_default" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/mTool">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/mTool"
+            android:layout_marginLeft="@dimen/margin_app"
+            android:layout_marginRight="@dimen/margin_app"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/mRate"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_app"
+                android:isIndicator="true"
+                android:rating="5"
+                android:theme="@style/CustomRatingBar" />
+
+            <TextView
+                android:id="@+id/mSeeReview"
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/see_review"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_big" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/mPhotoClinic"
+                android:layout_width="@dimen/profile_photo_doctor_size"
+                android:layout_height="@dimen/profile_photo_doctor_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:background="@drawable/bg_photo_profile"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_heart" />
+
+            <TextView
+                android:id="@+id/mDoctorName"
+                style="@style/TextLabelStyleBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/margin_app"
+                android:gravity="center"
+                android:text="Name"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_super_big" />
+
+            <TextView
+                android:id="@+id/mNationality"
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_same_view"
+                android:gravity="center"
+                android:text="Australian"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/mAddress"
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_same_view"
+                android:gravity="center"
+                android:text="Address"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/mNameClinic"
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:gravity="center"
+                android:text="Mayo Clinic"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_app"
+                android:layout_marginRight="@dimen/margin_app"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/mDistance"
+                    style="@style/TextLabelStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin_app"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/margin_same_view"
+                    android:drawableRight="@drawable/ic_mode_map"
+                    android:gravity="center_vertical|right"
+                    android:text="4.2 mi away"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_big" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="30dp"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:id="@+id/mProfession"
+                    style="@style/TextLabelStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_app"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_mode_map"
+                    android:drawablePadding="@dimen/margin_same_view"
+                    android:gravity="center_vertical"
+                    android:text="Cardeology"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_big" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mHowArrive"
+                style="@style/TextLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_how_arrive"
+                android:gravity="center"
+                android:text="Get instruction"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:background="@color/gray_line" />
+
+            <RelativeLayout
+                android:id="@+id/mContainerCall"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_buttons"
+                android:layout_marginBottom="@dimen/margin_app"
+                android:layout_marginTop="@dimen/margin_app"
+                android:background="@drawable/bg_rectangle_rounded_green">
+
+                <TextView
+                    android:id="@+id/mCall"
+                    style="@style/TextLabelStyleBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/margin_different_view"
+                    android:layout_toLeftOf="@+id/mCall"
+                    android:src="@drawable/ic_phone" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/mAddFavorite"
+                style="@style/TextLabelStyleBold"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_buttons"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/margin_app"
+                android:background="@drawable/bg_rectangle_rounded_green"
+                android:gravity="center"
+                android:text="@string/add_to_favorite"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_normal" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

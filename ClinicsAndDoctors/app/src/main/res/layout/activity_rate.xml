@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_default" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/TextLabelStyleBold"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/bg_rectangle_gradient_header"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_app"
+                android:text="@string/rate_your_experience"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_big" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/margin_different_view"
+                android:paddingLeft="@dimen/margin_app"
+                android:paddingRight="@dimen/margin_app"
+                android:paddingTop="@dimen/margin_different_view">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/mPhotoClinic"
+                    android:layout_width="@dimen/photo_clinic_size"
+                    android:layout_height="@dimen/photo_clinic_size"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder_heart" />
+
+                <TextView
+                    android:id="@+id/mNameClinic"
+                    style="@style/TextLabelStyleBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/margin_different_view"
+                    android:gravity="center_vertical"
+                    android:text="-"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_super_big" />
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/mOptionsRate"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_app"
+                android:layout_marginRight="@dimen/margin_different_view"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/mRate1"
+                    style="@style/StyleRate1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/mRate2"
+                    style="@style/StyleRate2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/mRate3"
+                    style="@style/StyleRate3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/mRate4"
+                    style="@style/StyleRate4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:id="@+id/mRate5"
+                    style="@style/StyleRate5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:checked="true" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/mTitleOption"
+                style="@style/TextLabelStyleBold"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_app"
+                android:text="@string/tell_us_good"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_big" />
+
+            <RadioGroup
+                android:id="@+id/mOptionsReasons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/margin_app"
+                android:layout_marginRight="@dimen/margin_app"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/optionSuggested1"
+                    style="@style/StyleRateOptions"
+                    android:checked="true"
+                    android:text="@string/rate_good_comment1" />
+
+                <RadioButton
+                    android:id="@+id/optionSuggested2"
+                    style="@style/StyleRateOptions"
+                    android:checked="false"
+                    android:paddingLeft="@dimen/margin_different_view"
+                    android:text="@string/rate_good_comment2" />
+
+                <RadioButton
+                    android:id="@+id/optionSuggested3"
+                    style="@style/StyleRateOptions"
+                    android:checked="false"
+                    android:paddingLeft="@dimen/margin_different_view"
+                    android:text="@string/rate_good_comment3" />
+
+                <RadioButton
+                    android:id="@+id/optionSuggested4"
+                    style="@style/StyleRateOptions"
+                    android:checked="false"
+                    android:paddingLeft="@dimen/margin_different_view"
+                    android:text="@string/rate_good_comment4" />
+
+            </RadioGroup>
+
+            <TextView
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="@dimen/margin_different_view"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/margin_app"
+                android:text="@string/leave_a_comment"
+                android:textSize="@dimen/text_size_big" />
+
+            <EditText
+                android:id="@+id/mComment"
+                style="@style/EditTextConfirmPhoneStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_app"
+                android:layout_marginRight="@dimen/margin_app"
+                app:backgroundTint="@color/text_color" />
+
+            <TextView
+                style="@style/ButtonStyle"
+                android:layout_margin="@dimen/margin_app"
+                android:background="@drawable/bg_rectangle_rounded_green"
+                android:text="@string/submit" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

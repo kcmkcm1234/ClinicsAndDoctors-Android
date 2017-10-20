@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
-import com.clinicsanddoctors.ui.MainActivity;
 import com.clinicsanddoctors.ui.forgetPassword.ForgetPasswordActivity;
+import com.clinicsanddoctors.ui.main.MainActivity;
 
 
 public class SignInActivity extends BaseClinicActivity implements SignInContract.View {
@@ -37,8 +37,11 @@ public class SignInActivity extends BaseClinicActivity implements SignInContract
         mLabelPassword = (TextInputLayout) findViewById(R.id.mLabelPassword);
 
         findViewById(R.id.mForgotPassword).setOnClickListener(v -> forgotPassword());
+        /*
         findViewById(R.id.mSignIn).setOnClickListener(v ->
                 mPresenter.attendOnClickSigIn(mMobile.getText().toString(), mPassword.getText().toString()));
+                */
+        findViewById(R.id.mSignIn).setOnClickListener(v ->onSuccessSignIn());
 
         final Typeface tf = Typeface.createFromAsset(getAssets(), getString(R.string.font_compact_avenir_bold));
         mLabelMobile.setTypeface(tf);

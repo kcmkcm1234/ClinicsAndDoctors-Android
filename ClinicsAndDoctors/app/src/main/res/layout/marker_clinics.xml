@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/custom_cluster_size"
+    android:layout_height="@dimen/custom_cluster_size">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/mPin"
+        android:layout_width="@dimen/custom_cluster_size"
+        android:layout_height="@dimen/custom_cluster_size"
+        android:src="@drawable/ic_launcher" />
+
+</FrameLayout>

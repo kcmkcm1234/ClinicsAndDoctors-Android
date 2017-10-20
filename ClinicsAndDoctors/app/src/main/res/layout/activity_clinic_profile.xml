@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/mAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:contentScrim="@color/colorAccent">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@color/colorAccent"
+            app:layout_scrollFlags="scroll|snap"
+            app:scrimAnimationDuration="250"
+            app:titleEnabled="false">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/high_clinic_detail"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@drawable/bg_rectangle_gradient_header"
+                android:padding="@dimen/margin_app">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/mPhotoClinic"
+                    android:layout_width="@dimen/photo_clinic_size"
+                    android:layout_height="@dimen/photo_clinic_size"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_different_view"
+                    android:background="@drawable/bg_photo_profile"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/placeholder_heart" />
+
+                <TextView
+                    android:id="@+id/mInfoClinic"
+                    style="@style/TextLabelStyleBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/mHowToArrive"
+                    android:layout_marginBottom="@dimen/margin_different_view"
+                    android:layout_marginLeft="@dimen/margin_different_view"
+                    android:layout_marginRight="@dimen/margin_different_view"
+                    android:layout_toLeftOf="@+id/mPhone"
+                    android:layout_toRightOf="@+id/mPhotoClinic"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/mPhone"
+                    android:layout_width="@dimen/size_phone"
+                    android:layout_height="@dimen/size_phone"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/circular_green"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_phone" />
+
+                <TextView
+                    android:id="@+id/mHowToArrive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/margin_different_view"
+                    android:layout_toRightOf="@+id/mPhotoClinic"
+                    android:background="@drawable/bg_rectangle_rounded_green_small"
+                    android:drawablePadding="@dimen/margin_same_view"
+                    android:drawableRight="@drawable/ic_navigation"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_small"
+                    android:paddingLeft="@dimen/margin_same_view"
+                    android:paddingRight="@dimen/margin_same_view"
+                    android:text="@string/get_directions"
+                    android:textColor="@color/white" />
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/mRate"
+                    style="@style/CustomRatingBarBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:rating="3"
+                    android:theme="@style/CustomRatingBar" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/mToolbar"
+                style="@style/DefaultToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorAccent"
+                android:fitsSystemWindows="true"
+                android:theme="@style/DefaultToolbar"
+                android:titleTextColor="@color/white"
+                app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+                app:titleTextColor="@color/white">
+
+                <TextView
+                    android:id="@+id/mTitle"
+                    style="@style/DefaultToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Title"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/mFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/custom_cluster_size"
+    android:layout_height="@dimen/custom_cluster_size"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="@dimen/custom_cluster_size"
+        android:layout_height="@dimen/custom_cluster_size"
+        android:background="@drawable/circular_cluster" />
+
+    <TextView
+        android:id="@+id/mCant"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

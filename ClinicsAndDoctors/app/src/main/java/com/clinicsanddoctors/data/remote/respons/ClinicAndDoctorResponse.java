@@ -4,7 +4,7 @@ package com.clinicsanddoctors.data.remote.respons;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ServiceProviderResponse {
+public class ClinicAndDoctorResponse {
 
     @SerializedName("id")
     @Expose

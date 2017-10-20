@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_app">
+
+    <TextView
+        android:id="@+id/mDescription"
+        style="@style/TextLabelStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Excellent Professional, she is an extraordinary doctor"
+        android:textSize="@dimen/text_size_normal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_different_view"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mNameDate"
+            android:layout_width="wrap_content"
+            style="@style/TextLabelStyle"
+            android:layout_marginRight="@dimen/margin_different_view"
+            android:text="Jane Doe\n08-23-17"
+            android:layout_height="wrap_content" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mPhoto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/placeholder_clinic" />
+
+    </LinearLayout>
+
+</LinearLayout>

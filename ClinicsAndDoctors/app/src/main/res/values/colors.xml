@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#47c6a4</color>
-    <color name="colorPrimaryDark">#47c6a4</color>
-    <color name="colorAccent">#47c6a4</color>
+    <color name="colorPrimary">#23a096</color>
+    <color name="colorPrimaryDark">#23a096</color>
+    <color name="colorAccent">#23a096</color>
 
     <color name="red">#FFFE2619</color>
     <color name="green">#24ce18</color>
@@ -10,12 +10,14 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray">#b7b7b7</color>
+    <color name="gray_light">#55b7b7b7</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_dark">#88000000</color>
 
     <color name="blue_facebook">#3b5998</color>
     <color name="gray_app">#4e606d</color>
     <color name="text_color">#393938</color>
+    <color name="bg_tab">#13293d</color>
 
     <color name="black_bg_detail">#434343</color>
     <color name="gray_header_detail">#dadada</color>

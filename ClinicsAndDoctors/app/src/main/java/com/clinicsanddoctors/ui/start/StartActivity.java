@@ -14,8 +14,8 @@ import android.widget.TextView;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
-import com.clinicsanddoctors.ui.MainActivity;
 import com.clinicsanddoctors.ui.forgetPassword.ForgetPasswordActivity;
+import com.clinicsanddoctors.ui.main.MainActivity;
 import com.clinicsanddoctors.ui.signIn.SignInActivity;
 import com.clinicsanddoctors.ui.signUp.SignUpActivity;
 
@@ -36,7 +36,8 @@ public class StartActivity extends BaseClinicActivity implements StartContract.V
         mHaveAccount = (TextView) findViewById(R.id.mHaveAccount);
         //getFirebaseToken();
 
-        findViewById(R.id.mAccessFacebook).setOnClickListener(v -> mPresenter.attendOnClickFacebook(this));
+        //findViewById(R.id.mAccessFacebook).setOnClickListener(v -> mPresenter.attendOnClickFacebook(this));
+        findViewById(R.id.mAccessFacebook).setOnClickListener(v -> onFacebookConnected());
         findViewById(R.id.mSignIn).setOnClickListener(v -> openSigIn());
         findViewById(R.id.mForgotPassword).setOnClickListener(v -> forgotPassword());
 

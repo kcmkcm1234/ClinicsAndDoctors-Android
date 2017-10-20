@@ -7,6 +7,10 @@
     <string name="font_compact_avenir_medium">fonts/AvenirLTStd-Roman.otf</string>
     <string name="font_compact_avenir_bold">fonts/AvenirLTStd-Black.otf</string>
 
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
     <!-- ERROR MESSAGE-->
     <string name="alert_title_error">Error</string>
     <string name="error_generic">Something was wrong</string>
@@ -45,5 +49,49 @@
     <string name="title_forgot_apssword">Forgot Password</string>
     <string name="recover_password">RECOVER PASSWORD</string>
     <string name="description_forgot_apssword">We will send you a sms with\na new password.</string>
+
+    <!-- NAV BAR -->
+    <string name="menu_home">Home</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_terms_use">Terms of Use</string>
+    <string name="menu_privacy_policy">Privacy Policy</string>
+
+    <!-- MENU -->
+    <string name="see_profile">See Profile</string>
+    <string name="menu_title_profile">Profile</string>
+    <string name="menu_title_favorite">Favorites</string>
+    <string name="menu_title_terms_use">Terms of Use</string>
+    <string name="menu_title_privacy_policy">Privacy Policy</string>
+
+    <string name="title_detail">DETAIL</string>
+    <string name="empty_clinics">Currently there are no clinics or doctors around you. Try increasing the mile range with the above slider.</string>
+
+    <!-- POP UP -->
+    <string name="go">GO</string>
+    <string name="info">INFO</string>
+
+    <string name="see_review">See Reviews</string>
+    <string name="add_to_favorite">ADD TO FAVORITES</string>
+    <string name="get_directions">Get Directions</string>
+    <string name="rate_your_experience">Rate Your Experience At:</string>
+    <string name="tell_us_bad">Tell us what we can improve?</string>
+    <string name="tell_us_good">Tell us what did you like?</string>
+    <string name="leave_a_comment">Leave a comment:</string>
+    <string name="submit">SUBMIT</string>
+    <string name="title_rating">RATING</string>
+    <string name="title_reviews">REVIEWS</string>
+    <string name="reviews">Reviews</string>
+
+    <!-- RATING -->
+    <string name="rate_bad_comment1">The waiting was too long.</string>
+    <string name="rate_bad_comment2">The attention wasn\'t good.</string>
+    <string name="rate_bad_comment3">It was too expensive.</string>
+    <string name="rate_bad_comment4">Other.</string>
+
+    <string name="rate_good_comment1">The attention was so good.</string>
+    <string name="rate_good_comment2">The place is clean and modern.</string>
+    <string name="rate_good_comment3">The waiting was short.</string>
+    <string name="rate_good_comment4">Other.</string>
+
 
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/ic_mode_map"
+        android:icon="@drawable/ic_mode_map"
+        android:orderInCategory="100"
+        android:title="map"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/ic_mode_list"
+        android:icon="@drawable/ic_mode_list"
+        android:menuCategory="secondary"
+        android:orderInCategory="100"
+        android:title="list"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/ic_edit_profile"
+        android:icon="@drawable/ic_edit_profile"
+        android:menuCategory="secondary"
+        android:orderInCategory="100"
+        android:title="edit"
+        android:visible="false"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/ic_add_request"
+        android:icon="@drawable/ic_menu_add"
+        android:menuCategory="secondary"
+        android:orderInCategory="100"
+        android:title="edit"
+        android:visible="false"
+        app:showAsAction="always" />
+
+
+</menu>

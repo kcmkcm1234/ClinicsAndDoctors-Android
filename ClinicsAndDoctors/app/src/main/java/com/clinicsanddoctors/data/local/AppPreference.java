@@ -32,4 +32,13 @@ public class AppPreference {
         editor.putString(USER_CLIENT, json);
         editor.commit();
     }
+
+    public static void deleteUserData(Context ctx) {
+        SharedPreferences prefs = ctx.getSharedPreferences(PREFS_NAME, MODE);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(null);
+        editor.putString(USER_CLIENT, json);
+        editor.commit();
+    }
 }

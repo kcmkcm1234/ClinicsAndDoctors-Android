@@ -17,13 +17,13 @@ import com.clinicsanddoctors.data.remote.requests.RegisterFacebookRequest;
 import com.clinicsanddoctors.data.remote.requests.RegisterRequest;
 import com.clinicsanddoctors.data.remote.requests.ReportRequest;
 import com.clinicsanddoctors.data.remote.requests.ServiceProviderIdRequest;
-import com.clinicsanddoctors.data.remote.requests.ServiceProviderRequest;
+import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
 import com.clinicsanddoctors.data.remote.respons.AdvertisingResponse;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
 import com.clinicsanddoctors.data.remote.respons.PlanResponse;
 import com.clinicsanddoctors.data.remote.respons.PostResponse;
 import com.clinicsanddoctors.data.remote.respons.RegisterResponse;
-import com.clinicsanddoctors.data.remote.respons.ServiceProviderResponse;
+import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -51,7 +51,7 @@ import rx.exceptions.OnErrorFailedException;
  */
 
 public class ClinicServices {
-    public static String API_URL = "http://united.xanthops.com/api/v1/"; //http://www.equineunited.com/api/v1/";
+    public static String API_URL = "http://clinic.xanthops.com/api/v1/";
     private static ApiClientInterface sApiClient;
     private static Retrofit sRestAdapter;
 
@@ -87,27 +87,6 @@ public class ClinicServices {
         int INTERVAL = 1;
     }
 
-    public interface UserType {
-        int USER = 1;
-        int PROVIDER = 2;
-    }
-
-    public interface StatusRequest {
-        String FINISHED = "finished";
-        String ACTIVE = "active";
-    }
-
-    public interface FilterProvider {
-        int POSTED_JOB = 1;
-        int PROVIDER = 2;
-    }
-
-    public interface AdType {
-        String OWNER = "owner";
-        String PROVIDER = "provider";
-        String BOTH = "both";
-    }
-
     public interface ApiError {
         String getError();
 
@@ -116,9 +95,12 @@ public class ClinicServices {
 
     public static ApiError attendError(HttpException error) {
         try {
-            return new Gson().fromJson(error.response().errorBody().string(), ErrorApi.class);
+            if (error.code() != 404)
+                return new Gson().fromJson(error.response().errorBody().string(), ErrorApi.class);
+            else
+                return new ErrorApi("Something was wrong", "418");
         } catch (IOException e) {
-            return new ErrorApi("IOException", "418");
+            return new ErrorApi("Something was wrong", "418");
         } catch (OnErrorFailedException e) {
             return new ErrorApi("Something was wrong", "418");
         } catch (CompositeException e) {
@@ -130,10 +112,13 @@ public class ClinicServices {
 
     public interface ApiClientInterface {
 
-        @POST("get_service_provider")
-        Observable<List<ServiceProviderResponse>> getServiceProviders(@Body ServiceProviderRequest getStoreRequest);
+        @POST("get_clincs")
+        Observable<List<ClinicAndDoctorResponse>> getClinics(@Body ClinicsRequest getStoreRequest);
 
-        @GET("get_categories")
+        @POST("get_doctors")
+        Observable<List<ClinicAndDoctorResponse>> getDoctors(@Body ClinicsRequest getStoreRequest);
+
+        @GET("get_specialties")
         Observable<List<CategoryResponse>> getCategories();
 
         @GET("get_terms_of_use")

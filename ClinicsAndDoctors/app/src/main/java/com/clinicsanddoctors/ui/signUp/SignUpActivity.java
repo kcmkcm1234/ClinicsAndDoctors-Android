@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
-import com.clinicsanddoctors.ui.MainActivity;
+import com.clinicsanddoctors.ui.main.MainActivity;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 
@@ -56,6 +56,7 @@ public class SignUpActivity extends BaseClinicActivity implements SignUpContract
         mLabelConfirmPassword.setTypeface(tf);
 
         mPhoto.setOnClickListener(v -> onClickPhoto());
+        /*
         findViewById(R.id.mSignUp).setOnClickListener(v -> {
                     String mobile = mMobile.getText().toString();
                     mPresenter.validateData(mobile, mEmail.getText().toString(),
@@ -63,6 +64,8 @@ public class SignUpActivity extends BaseClinicActivity implements SignUpContract
                             mPassword.getText().toString(), mConfirmPassword.getText().toString());
                 }
         );
+        */
+        findViewById(R.id.mSignUp).setOnClickListener(v -> onSuccessSignUp());
 
     }
 

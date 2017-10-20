@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/mNavHome"
+            android:icon="@drawable/ic_menu_home"
+            android:title="@string/menu_home" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/mNavFavorite"
+            android:icon="@drawable/ic_menu_request"
+            android:title="@string/menu_favorites" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/mNavTerms"
+            android:icon="@drawable/ic_menu_terms_of_use"
+            android:title="@string/menu_terms_use" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/mNavPrivacyPolicy"
+            android:icon="@drawable/ic_menu_privacy_policy"
+            android:title="@string/menu_privacy_policy" />
+    </group>
+
+
+</menu>

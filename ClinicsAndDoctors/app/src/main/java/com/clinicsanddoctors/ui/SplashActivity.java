@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
+import com.clinicsanddoctors.ui.main.MainActivity;
 import com.clinicsanddoctors.ui.start.StartActivity;
 
 
