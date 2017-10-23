@@ -103,8 +103,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_app"
-                android:layout_marginRight="@dimen/margin_app"
                 android:layout_marginTop="@dimen/margin_different_view"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -114,10 +112,9 @@
                     style="@style/TextLabelStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin_app"
                     android:layout_weight="1"
                     android:drawablePadding="@dimen/margin_same_view"
-                    android:drawableRight="@drawable/ic_mode_map"
+                    android:drawableRight="@drawable/ic_map_profile"
                     android:gravity="center_vertical|right"
                     android:text="4.2 mi away"
                     android:textColor="@color/white"
@@ -126,6 +123,8 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="30dp"
+                    android:layout_marginRight="@dimen/margin_different_view"
+                    android:layout_marginLeft="@dimen/margin_different_view"
                     android:background="@color/white" />
 
                 <TextView
@@ -133,9 +132,8 @@
                     style="@style/TextLabelStyle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_app"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_mode_map"
+                    android:drawableLeft="@drawable/ic_category_profile"
                     android:drawablePadding="@dimen/margin_same_view"
                     android:gravity="center_vertical"
                     android:text="Cardeology"

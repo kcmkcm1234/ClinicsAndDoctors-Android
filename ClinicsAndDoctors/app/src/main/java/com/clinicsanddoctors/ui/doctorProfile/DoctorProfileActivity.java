@@ -1,12 +1,12 @@
 package com.clinicsanddoctors.ui.doctorProfile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -31,19 +31,17 @@ import java.util.Locale;
 
 public class DoctorProfileActivity extends BaseClinicActivity implements DoctorProfileContract.View {
 
-    private Toolbar mToolbar;
     private DoctorProfilePresenter mPresenter;
     public static final int REQUEST_CODE = 10;
 
-    public static final String ARG_POSITION = "ARG_POSITION";
-    public static final String ARG_SERVICE_PROVIDER = "ARG_SERVICE_PROVIDER";
+    public static final String ARG_DOCTOR = "ARG_DOCTOR";
 
-    private int position = -1;
     private ClinicAndDoctor mClinicAndDoctor;
 
     private ImageView mPhoto;
-    private TextView mDoctorName, mProfession, mNationality, mAddress, mNameClinic, mCall, mDistance;
+    private TextView mDoctorName, mProfession, mNationality, mAddress, mNameClinic, mCall, mDistance, mAddFavorite;
     private AppCompatRatingBar mRate;
+    private boolean mustRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,8 +49,7 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         setContentView(R.layout.activity_doctor_profile);
         mPresenter = new DoctorProfilePresenter(this, this);
         setupToolbar(getString(R.string.title_detail));
-        position = getIntent().getIntExtra(ARG_POSITION, -1);
-        mClinicAndDoctor = getIntent().getParcelableExtra(ARG_SERVICE_PROVIDER);
+        mClinicAndDoctor = getIntent().getParcelableExtra(ARG_DOCTOR);
 
         mPhoto = (ImageView) findViewById(R.id.mPhotoClinic);
         mDoctorName = (TextView) findViewById(R.id.mDoctorName);
@@ -62,6 +59,7 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         mNameClinic = (TextView) findViewById(R.id.mNameClinic);
         mDistance = (TextView) findViewById(R.id.mDistance);
         mCall = (TextView) findViewById(R.id.mCall);
+        mAddFavorite = (TextView) findViewById(R.id.mAddFavorite);
         mRate = (AppCompatRatingBar) findViewById(R.id.mRate);
 
         findViewById(R.id.mSeeReview).setOnClickListener(v -> {
@@ -88,6 +86,18 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
 
         if (mClinicAndDoctor.getName() != null && !mClinicAndDoctor.getName().isEmpty())
             mDoctorName.setText(mClinicAndDoctor.getName());
+
+        if (mClinicAndDoctor.isFavorite())
+            mAddFavorite.setText(getString(R.string.remove_from_favorite));
+        else
+            mAddFavorite.setText(getString(R.string.add_to_favorite));
+
+        mAddFavorite.setOnClickListener(v -> {
+            if (mAddFavorite.getText().toString().equalsIgnoreCase(getString(R.string.add_to_favorite)))
+                mPresenter.addToFavorite();
+            else
+                mPresenter.removeFromFavorite();
+        });
 
         String sNationality = ((Doctor) mClinicAndDoctor).getNationality();
         if (sNationality != null && !sNationality.isEmpty())
@@ -162,14 +172,6 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         return super.onSupportNavigateUp();
     }
 
-    @Override
-    public void onRateSuccess() {
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result", true);
-        returnIntent.putExtra("position", position);
-        setResult(REQUEST_CODE, returnIntent);
-        finish();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -197,5 +199,29 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSuccessAdd() {
+        mustRefresh = true;
+        mAddFavorite.setText(getString(R.string.remove_from_favorite));
+    }
+
+    @Override
+    public void onSuccessRemove() {
+        mustRefresh = true;
+        mAddFavorite.setText(getString(R.string.add_to_favorite));
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mustRefresh) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("UPDATE", true);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        } else
+            super.onBackPressed();
+
     }
 }

@@ -24,15 +24,13 @@ public class DoctorProfilePresenter implements DoctorProfileContract.Presenter {
     }
 
     @Override
-    public void rate(float rate, String comment, ClinicAndDoctor clinicAndDoctor) {
-
-        mView.showProgressDialog();
-        mView.onRateSuccess();
+    public void addToFavorite() {
+        mView.onSuccessAdd();
     }
 
-    private void onSuccess(JSONObject storeResponse) {
-        mView.hideProgressDialog();
-        mView.onRateSuccess();
+    @Override
+    public void removeFromFavorite() {
+        mView.onSuccessRemove();
     }
 
     private void onError(Throwable throwable) {

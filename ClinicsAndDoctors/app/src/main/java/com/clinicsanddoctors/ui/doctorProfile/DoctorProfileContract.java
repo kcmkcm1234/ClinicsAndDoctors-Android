@@ -10,10 +10,14 @@ import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 
 public interface DoctorProfileContract {
     interface View extends LoaderView {
-        void onRateSuccess();
+        void onSuccessAdd();
+
+        void onSuccessRemove();
     }
 
     interface Presenter {
-        void rate(float rate, String comment, ClinicAndDoctor clinicAndDoctor);
+        void addToFavorite();
+
+        void removeFromFavorite();
     }
 }

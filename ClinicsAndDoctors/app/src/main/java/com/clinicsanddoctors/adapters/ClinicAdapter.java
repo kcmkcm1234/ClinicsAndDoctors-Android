@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.ClinicsApplication;
 import com.clinicsanddoctors.R;
+import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
-import com.clinicsanddoctors.data.entity.Doctor;
 
 import java.util.List;
 import java.util.Locale;
@@ -25,12 +25,12 @@ import java.util.Locale;
  * Created by Daro on 28/07/2017.
  */
 
-public class ClinicDoctorAdapter extends RecyclerView.Adapter<ClinicDoctorAdapter.ViewHolder> {
+public class ClinicAdapter extends RecyclerView.Adapter<ClinicAdapter.ViewHolder> {
 
-    private List<Doctor> mClinicAndDoctors;
+    private List<Clinic> mClinicAndDoctors;
     private CallbackProvider mCallbackProvider;
 
-    public ClinicDoctorAdapter(List<Doctor> clinicAndDoctors, CallbackProvider callbackProvider) {
+    public ClinicAdapter(List<Clinic> clinicAndDoctors, CallbackProvider callbackProvider) {
         this.mClinicAndDoctors = clinicAndDoctors;
         this.mCallbackProvider = callbackProvider;
     }
@@ -59,7 +59,7 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<ClinicDoctorAdapte
         public abstract void bindItem(T data, int position);
     }
 
-    private class ArtistInfoViewHolder extends ClinicDoctorAdapter.ViewHolder<Doctor> {
+    private class ArtistInfoViewHolder extends ClinicAdapter.ViewHolder<Clinic> {
 
         private View mItemView;
         private ImageView mPhoto;
@@ -76,7 +76,7 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<ClinicDoctorAdapte
         }
 
         @Override
-        public void bindItem(Doctor data, int position) {
+        public void bindItem(Clinic data, int position) {
 
             if (data.getPicture() != null && !data.getPicture().isEmpty())
                 Glide.with(mPhoto.getContext()).load(data.getPicture())
@@ -89,8 +89,8 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<ClinicDoctorAdapte
             Location currentLocation = ClinicsApplication.getInstance().getCurrentLocation();
             if (currentLocation != null) {
                 Location locationProvider = new Location("");
-                locationProvider.setLongitude(data.getClinic().getLongitude());
-                locationProvider.setLatitude(data.getClinic().getLatitude());
+                locationProvider.setLongitude(data.getLongitude());
+                locationProvider.setLatitude(data.getLatitude());
 
                 String distanceResult;
                 String sbDistance = "";
@@ -108,14 +108,14 @@ public class ClinicDoctorAdapter extends RecyclerView.Adapter<ClinicDoctorAdapte
                     sbDistance = distanceResult + " mi Away";
                 }
 
-                String info = data.getClinic().getName() + "\n" + sbDistance;
+                String info = data.getName() + "\n" + sbDistance;
                 SpannableStringBuilder spannableInfo = new SpannableStringBuilder(info);
                 spannableInfo.setSpan(new ForegroundColorSpan(mNameDistance.getResources().getColor(R.color.gray))
                         , info.indexOf(sbDistance), info.indexOf(sbDistance) + sbDistance.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mNameDistance.setText(spannableInfo, TextView.BufferType.SPANNABLE);
             } else {
                 String sbDistance = "- mi Away";
-                String info = data.getClinic().getName() + "\n" + sbDistance;
+                String info = data.getName() + "\n" + sbDistance;
                 SpannableStringBuilder spannableInfo = new SpannableStringBuilder(info);
                 spannableInfo.setSpan(new ForegroundColorSpan(mNameDistance.getResources().getColor(R.color.gray))
                         , info.indexOf(sbDistance), info.indexOf(sbDistance) + sbDistance.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);

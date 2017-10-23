@@ -112,7 +112,7 @@ public class ClinicServices {
 
     public interface ApiClientInterface {
 
-        @POST("get_clincs")
+        @POST("get_clinics")
         Observable<List<ClinicAndDoctorResponse>> getClinics(@Body ClinicsRequest getStoreRequest);
 
         @POST("get_doctors")

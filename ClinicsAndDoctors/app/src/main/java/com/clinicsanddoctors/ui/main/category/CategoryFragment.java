@@ -16,7 +16,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.clinicsanddoctors.R;
-import com.clinicsanddoctors.adapters.ClinicDoctorAdapter;
+import com.clinicsanddoctors.adapters.DoctorAdapter;
 import com.clinicsanddoctors.adapters.EmptyAdapter;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
@@ -116,11 +116,11 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mList.setLayoutManager(linearLayoutManager);
         if (doctorsList != null && !doctorsList.isEmpty())
-            mList.setAdapter(new ClinicDoctorAdapter(doctorsList, new ClinicDoctorAdapter.CallbackProvider() {
+            mList.setAdapter(new DoctorAdapter(doctorsList, new DoctorAdapter.CallbackProvider() {
                 @Override
                 public void onProviderSelected(ClinicAndDoctor clinicAndDoctor) {
                     Intent intent = new Intent(getContext(), DoctorProfileActivity.class);
-                    intent.putExtra(DoctorProfileActivity.ARG_SERVICE_PROVIDER, clinicAndDoctor);
+                    intent.putExtra(DoctorProfileActivity.ARG_DOCTOR, clinicAndDoctor);
                     startActivity(intent);
                 }
             }));

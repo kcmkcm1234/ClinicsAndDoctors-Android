@@ -54,6 +54,9 @@ public class ClinicAndDoctorResponse {
     @SerializedName("longitude")
     @Expose
     private String longitude;
+    @SerializedName("is_favorite")
+    @Expose
+    private boolean isFavorite;
 
     public String getId() {
         return id;
@@ -183,4 +186,11 @@ public class ClinicAndDoctorResponse {
         this.longitude = longitude;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 }

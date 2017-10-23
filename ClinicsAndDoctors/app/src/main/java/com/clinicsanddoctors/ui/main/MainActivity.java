@@ -26,6 +26,7 @@ import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.ui.dialog.AdvertisingDialog;
+import com.clinicsanddoctors.ui.favorites.FavoriteFragment;
 import com.clinicsanddoctors.ui.main.list.ListFragment;
 import com.clinicsanddoctors.ui.main.map.MapFragment;
 import com.clinicsanddoctors.ui.privacyPolicy.PrivacyPolicyFragment;
@@ -209,7 +210,7 @@ public class MainActivity extends BaseClinicActivity
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_left_out,
                         R.anim.card_flip_right_in, R.anim.card_flip_left_out)
-                .replace(R.id.mFragmentContainer, new ListFragment(mapFragment.getmClinicList(), location, category,  fromCluster, null))
+                .replace(R.id.mFragmentContainer, new ListFragment(mapFragment.getmClinicList(), location, category, fromCluster, null))
                 .addToBackStack(null)
                 .commit();
 
@@ -236,7 +237,7 @@ public class MainActivity extends BaseClinicActivity
                 this.menu.getItem(1).setVisible(false); //list mode
                 this.menu.getItem(2).setVisible(false); //edit
                 this.menu.getItem(3).setVisible(false); //add request
-                changeFragmentSection(getString(R.string.menu_title_favorite), new TermsOfUseFragment());
+                changeFragmentSection(getString(R.string.menu_title_favorite), new FavoriteFragment());
                 break;
             case R.id.mNavTerms:
                 this.menu.getItem(0).setVisible(false); //map mode

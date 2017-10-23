@@ -25,6 +25,7 @@ public class ClinicAndDoctor implements Parcelable {
     private String address;
     private double latitude;
     private double longitude;
+    private boolean isFavorite;
 
     public ClinicAndDoctor() {
 
@@ -47,6 +48,7 @@ public class ClinicAndDoctor implements Parcelable {
         address = clinicAndDoctorResponse.getAddress();
         latitude = Double.parseDouble(clinicAndDoctorResponse.getLatitude());
         longitude = Double.parseDouble(clinicAndDoctorResponse.getLongitude());
+        isFavorite = clinicAndDoctorResponse.isFavorite();
     }
 
 
@@ -65,6 +67,7 @@ public class ClinicAndDoctor implements Parcelable {
         address = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        isFavorite = in.readByte() != 0;
     }
 
     public static final Creator<ClinicAndDoctor> CREATOR = new Creator<ClinicAndDoctor>() {
@@ -205,6 +208,16 @@ public class ClinicAndDoctor implements Parcelable {
         return this;
     }
 
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public ClinicAndDoctor setFavorite(boolean favorite) {
+        isFavorite = favorite;
+        return this;
+    }
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -226,5 +239,6 @@ public class ClinicAndDoctor implements Parcelable {
         dest.writeString(address);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
     }
 }

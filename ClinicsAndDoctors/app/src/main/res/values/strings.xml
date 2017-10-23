@@ -72,6 +72,7 @@
 
     <string name="see_review">See Reviews</string>
     <string name="add_to_favorite">ADD TO FAVORITES</string>
+    <string name="remove_from_favorite">REMOVE FROM FAVORITES</string>
     <string name="get_directions">Get Directions</string>
     <string name="rate_your_experience">Rate Your Experience At:</string>
     <string name="tell_us_bad">Tell us what we can improve?</string>
@@ -92,6 +93,11 @@
     <string name="rate_good_comment2">The place is clean and modern.</string>
     <string name="rate_good_comment3">The waiting was short.</string>
     <string name="rate_good_comment4">Other.</string>
+
+    <string name="doctors">Doctors</string>
+    <string name="clinics">Clinics</string>
+    <string name="empty_favorite_doctors">You don\'t have favorite doctors yet.</string>
+    <string name="empty_favorite_clinics">You don\'t have favorite clinics yet.</string>
 
 
 </resources>

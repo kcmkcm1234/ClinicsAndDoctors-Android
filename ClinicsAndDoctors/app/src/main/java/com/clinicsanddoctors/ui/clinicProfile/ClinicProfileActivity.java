@@ -1,5 +1,6 @@
 package com.clinicsanddoctors.ui.clinicProfile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,12 +32,14 @@ import uk.co.chrisjenx.calligraphy.TypefaceUtils;
 public class ClinicProfileActivity extends BaseClinicActivity implements ClinicProfileContract.View {
 
     public static final String ARG_CLINIC = "ARG_CLINIC";
+    public static final int REQUEST_CODE = 10;
     private Clinic mClinic;
     private List<Category> categoryList;
     private ClinicProfilePresenter mPresenter;
 
     private TextView mInfoClinic;
     private ImageView mPhotoClinic;
+    private boolean mustRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,4 +124,15 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mustRefresh) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("UPDATE", true);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        } else
+            super.onBackPressed();
+
+    }
 }
