@@ -28,7 +28,7 @@ public interface ProfileContract {
 
         void attendOnClickPhoto(int resultCode, Intent data);
 
-        void editProfile(String name, String lastName, String mobile, String password, String confirmPassword);
+        void editProfile(String fullName, String mobile, String email, String password, String confirmPassword);
 
     }
 }

@@ -3,7 +3,12 @@ package com.clinicsanddoctors.data.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Daro on 27/07/2017.
@@ -14,6 +19,7 @@ public class ClinicAndDoctor implements Parcelable {
     private String id;
     private String name;
     private Category category;
+    private List<Category> categoryList;
     private String rating;
     private String picture;
     private String email;
@@ -26,17 +32,28 @@ public class ClinicAndDoctor implements Parcelable {
     private double latitude;
     private double longitude;
     private boolean isFavorite;
+    private boolean isRated;
 
     public ClinicAndDoctor() {
 
     }
 
 
-    public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse) {
+    public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse, Category category) {
         id = clinicAndDoctorResponse.getId();
         name = clinicAndDoctorResponse.getName();
-        if (clinicAndDoctorResponse.getCategoryResponse() != null)
-            category = new Category(clinicAndDoctorResponse.getCategoryResponse());
+        if (category != null)
+            this.category = category;
+
+        if (clinicAndDoctorResponse.getCategoryResponseList() != null
+                && !clinicAndDoctorResponse.getCategoryResponseList().isEmpty()) {
+            categoryList = new ArrayList<>();
+            for (CategoryResponse categoryResponse : clinicAndDoctorResponse.getCategoryResponseList())
+                categoryList.add(new Category(categoryResponse));
+            if (this.category == null)
+                this.category = categoryList.get(0);
+        }
+
         rating = clinicAndDoctorResponse.getRating();
         picture = clinicAndDoctorResponse.getPicture();
         email = clinicAndDoctorResponse.getEmail();
@@ -46,16 +63,73 @@ public class ClinicAndDoctor implements Parcelable {
         state = clinicAndDoctorResponse.getState();
         country = clinicAndDoctorResponse.getCountry();
         address = clinicAndDoctorResponse.getAddress();
-        latitude = Double.parseDouble(clinicAndDoctorResponse.getLatitude());
-        longitude = Double.parseDouble(clinicAndDoctorResponse.getLongitude());
+        if (clinicAndDoctorResponse.getLatitude() != null && !clinicAndDoctorResponse.getLatitude().isEmpty())
+            latitude = Double.parseDouble(clinicAndDoctorResponse.getLatitude());
+        if (clinicAndDoctorResponse.getLongitude() != null && !clinicAndDoctorResponse.getLongitude().isEmpty())
+            longitude = Double.parseDouble(clinicAndDoctorResponse.getLongitude());
         isFavorite = clinicAndDoctorResponse.isFavorite();
+        isRated = clinicAndDoctorResponse.isRated();
     }
 
+    public ClinicAndDoctor(DoctorResponse doctorResponse, Category category) {
+        id = doctorResponse.getId();
+        name = doctorResponse.getName();
+        if (category != null)
+            this.category = category;
+        else
+            this.category = new Category(doctorResponse.getCategoryResponse());
+
+        rating = doctorResponse.getRating();
+        picture = doctorResponse.getPicture();
+        email = doctorResponse.getEmail();
+        phoneNumber = doctorResponse.getPhoneNumber();
+        description = doctorResponse.getDescription();
+        city = doctorResponse.getCity();
+        state = doctorResponse.getState();
+        country = doctorResponse.getCountry();
+        address = doctorResponse.getAddress();
+        if (doctorResponse.getLatitude() != null && !doctorResponse.getLatitude().isEmpty())
+            latitude = Double.parseDouble(doctorResponse.getLatitude());
+        if (doctorResponse.getLongitude() != null && !doctorResponse.getLongitude().isEmpty())
+            longitude = Double.parseDouble(doctorResponse.getLongitude());
+        isFavorite = doctorResponse.isFavorite();
+        isRated = doctorResponse.isRated();
+    }
+
+    public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse) {
+        id = clinicAndDoctorResponse.getId();
+        name = clinicAndDoctorResponse.getName();
+
+        if (clinicAndDoctorResponse.getCategoryResponseList() != null
+                && !clinicAndDoctorResponse.getCategoryResponseList().isEmpty()) {
+            categoryList = new ArrayList<>();
+            for (CategoryResponse categoryResponse : clinicAndDoctorResponse.getCategoryResponseList())
+                categoryList.add(new Category(categoryResponse));
+            category = categoryList.get(0);
+        }
+
+        rating = clinicAndDoctorResponse.getRating();
+        picture = clinicAndDoctorResponse.getPicture();
+        email = clinicAndDoctorResponse.getEmail();
+        phoneNumber = clinicAndDoctorResponse.getPhoneNumber();
+        description = clinicAndDoctorResponse.getDescription();
+        city = clinicAndDoctorResponse.getCity();
+        state = clinicAndDoctorResponse.getState();
+        country = clinicAndDoctorResponse.getCountry();
+        address = clinicAndDoctorResponse.getAddress();
+        if (clinicAndDoctorResponse.getLatitude() != null && !clinicAndDoctorResponse.getLatitude().isEmpty())
+            latitude = Double.parseDouble(clinicAndDoctorResponse.getLatitude());
+        if (clinicAndDoctorResponse.getLongitude() != null && !clinicAndDoctorResponse.getLongitude().isEmpty())
+            longitude = Double.parseDouble(clinicAndDoctorResponse.getLongitude());
+        isFavorite = clinicAndDoctorResponse.isFavorite();
+        isRated = clinicAndDoctorResponse.isRated();
+    }
 
     protected ClinicAndDoctor(Parcel in) {
         id = in.readString();
         name = in.readString();
         category = in.readParcelable(Category.class.getClassLoader());
+        categoryList = in.createTypedArrayList(Category.CREATOR);
         rating = in.readString();
         picture = in.readString();
         email = in.readString();
@@ -68,6 +142,7 @@ public class ClinicAndDoctor implements Parcelable {
         latitude = in.readDouble();
         longitude = in.readDouble();
         isFavorite = in.readByte() != 0;
+        isRated = in.readByte() != 0;
     }
 
     public static final Creator<ClinicAndDoctor> CREATOR = new Creator<ClinicAndDoctor>() {
@@ -110,6 +185,8 @@ public class ClinicAndDoctor implements Parcelable {
     }
 
     public String getRating() {
+        if (rating == null || rating.isEmpty())
+            rating = "0";
         return rating;
     }
 
@@ -217,6 +294,13 @@ public class ClinicAndDoctor implements Parcelable {
         return this;
     }
 
+    public boolean isRated() {
+        return isRated;
+    }
+
+    public void setRated(boolean rated) {
+        isRated = rated;
+    }
 
     @Override
     public int describeContents() {
@@ -228,6 +312,7 @@ public class ClinicAndDoctor implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeParcelable(category, flags);
+        dest.writeTypedList(categoryList);
         dest.writeString(rating);
         dest.writeString(picture);
         dest.writeString(email);
@@ -240,5 +325,6 @@ public class ClinicAndDoctor implements Parcelable {
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeByte((byte) (isFavorite ? 1 : 0));
+        dest.writeByte((byte) (isRated ? 1 : 0));
     }
 }

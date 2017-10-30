@@ -32,7 +32,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private View view;
     private SweetAlertDialog mSweetAlertDialog;
 
-    private EditText mEmail, mName, mLastName, mPassword, mConfirmPassword, mMobile, mPrefix;
+    private EditText mEmail, mName, mPassword, mConfirmPassword, mMobile;
     private ImageView mPhoto;
     private TextView mSave, mPasswordLabel, mConfirmPasswordLabel;
     private boolean isEdited = false;
@@ -53,18 +53,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         mConfirmPasswordLabel = (TextView) view.findViewById(R.id.mConfirmPasswordLabel);
         mEmail = (EditText) view.findViewById(R.id.mEmail);
         mName = (EditText) view.findViewById(R.id.mName);
-        mLastName = (EditText) view.findViewById(R.id.mLastName);
         mPassword = (EditText) view.findViewById(R.id.mPassword);
         mConfirmPassword = (EditText) view.findViewById(R.id.mConfirmPassword);
         mMobile = (EditText) view.findViewById(R.id.mMobile);
-        mPrefix = (EditText) view.findViewById(R.id.mPrefix);
         mPhoto = (ImageView) view.findViewById(R.id.mPhoto);
 
         mPhoto.setEnabled(false);
         mPhoto.setOnClickListener(v -> onClickPhoto());
         mSave.setOnClickListener(v -> mPresenter.editProfile(mName.getText().toString(),
-                mLastName.getText().toString(),
-                mPrefix.getText().toString() + " " + mMobile.getText().toString(),
+                mMobile.getText().toString(), mEmail.getText().toString(),
                 mPassword.getText().toString(),
                 mConfirmPassword.getText().toString()));
         mPresenter.getProfile();
@@ -81,11 +78,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         view.findViewById(R.id.mPlusPhoto).setVisibility(View.VISIBLE);
         setFieldEnable(mName, true);
-        setFieldEnable(mLastName, true);
         setFieldEnable(mPassword, true);
         setFieldEnable(mConfirmPassword, true);
         setFieldEnable(mMobile, true);
-        setFieldEnable(mPrefix, true);
+        setFieldEnable(mEmail, true);
         checkFacebookUser();
     }
 
@@ -116,13 +112,11 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     @Override
     public void showProfile(UserClient userClient) {
         mEmail.setText(userClient.getEmail());
-        mName.setText(userClient.getFirstName());
-        mLastName.setText(userClient.getLastName());
+        mName.setText(userClient.getFullName());
         mPassword.setText(userClient.getPassword());
         mMobile.setText(userClient.getMobile());
-        if (userClient.getMobile() != null && userClient.getMobile().contains(" ")) {
-            mPrefix.setText(userClient.getMobile().split(" ")[0]);
-            mMobile.setText(userClient.getMobile().split(" ")[1]);
+        if (userClient.getMobile() != null) {
+            mMobile.setText(userClient.getMobile());
         }
 
         if (userClient.getUrl() != null && !userClient.getUrl().isEmpty()) {

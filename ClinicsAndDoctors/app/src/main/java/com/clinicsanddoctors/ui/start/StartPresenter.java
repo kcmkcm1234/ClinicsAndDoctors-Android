@@ -38,7 +38,7 @@ public class StartPresenter implements StartContract.Presenter {
     private StartContract.View mView;
     private Context mContext;
     private CallbackManager callbackManager;
-    public final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64, ";
+    public final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64,";
 
 
     public StartPresenter(StartContract.View view, Context context) {

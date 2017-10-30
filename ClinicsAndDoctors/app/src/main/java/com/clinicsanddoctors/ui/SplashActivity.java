@@ -22,11 +22,14 @@ public class SplashActivity extends BaseClinicActivity {
             @Override
             public void run() {
 
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                /*
                 UserClient userClient = AppPreference.getUser(SplashActivity.this);
                 if (userClient != null) {
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 } else
                     startActivity(new Intent(SplashActivity.this, StartActivity.class));
+                    */
                 finish();
             }
         }, 3000);

@@ -1,18 +1,14 @@
 package com.clinicsanddoctors.ui.main;
 
 import android.content.Context;
-import android.location.Location;
 import android.os.Handler;
 
 import com.clinicsanddoctors.R;
-import com.clinicsanddoctors.data.entity.AdvertisingPopOver;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
-import com.clinicsanddoctors.data.remote.requests.AdvertisingRequest;
 import com.clinicsanddoctors.data.remote.requests.LogoutRequest;
-import com.clinicsanddoctors.data.remote.respons.AdvertisingResponse;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
 
 import org.json.JSONObject;
@@ -20,7 +16,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
@@ -64,45 +59,9 @@ public class MainPresenter implements MainContract.Presenter {
                 .subscribe(this::onSuccess, this::onError);
     }
 
-    @Override
-    public void getAdvertising(Location location) {
-        ClinicServices.getServiceClient().getAdvertisingPopOver(new AdvertisingRequest()
-                .setLatitude("" + location.getLatitude()).setLongitude("" + location.getLongitude()))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMapIterable(adsResponse -> adsResponse)
-                .map(this::getAdvertising)
-                .toList()
-                .subscribe(this::onSuccessAdvertising, this::onErrorAdvertising);
-    }
-
-    private void onErrorAdvertising(Throwable throwable) {
-    }
-
-    private void onSuccessAdvertising(List<AdvertisingPopOver> advertisingPopOvers) {
-        advertisingPopOvers = filterAds(advertisingPopOvers);
-        if (advertisingPopOvers != null && !advertisingPopOvers.isEmpty()) {
-            AdvertisingPopOver advertisingPopOver = advertisingPopOvers.get(new Random().nextInt(advertisingPopOvers.size()));
-            mView.showAdvertising(advertisingPopOver);
-        }
-    }
-
-    private List<AdvertisingPopOver> filterAds(List<AdvertisingPopOver> advertisingPopOvers) {
-        List<AdvertisingPopOver> list = new ArrayList<>();
-        if (advertisingPopOvers != null)
-            for (AdvertisingPopOver advertisingPopOver : advertisingPopOvers) {
-                list.add(advertisingPopOver);
-            }
-        return list;
-    }
-
-    private AdvertisingPopOver getAdvertising(AdvertisingResponse advertisingResponse) {
-        return new AdvertisingPopOver(advertisingResponse);
-    }
-
     private void onSuccess(List<Category> categories) {
         if (categories == null) categories = new ArrayList<>();
-        categories.add(0, new Category().setName("All").setId("0"));
+        //categories.add(0, new Category().setName("All").setId("0"));
         this.categories = categories;
         mView.hideProgressDialog();
         mView.showCategory(categories);

@@ -73,14 +73,14 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         mDistance = (TextView) view.findViewById(R.id.mDistance);
         mSeekDistance = (AppCompatSeekBar) view.findViewById(R.id.mSeekDistance);
 
-        mDistance.setText(ClinicServices.RadiusSearch.RADIUS + "\nMiles Away");
-        mSeekDistance.setMax(99);
+        mDistance.setText(ClinicServices.RadiusSearch.RADIUS + "\n" + getString(R.string.kilometers_away));
+        mSeekDistance.setMax(ClinicServices.RadiusSearch.RADIUS-1);
         mSeekDistance.setProgress((ClinicServices.RadiusSearch.RADIUS / ClinicServices.RadiusSearch.INTERVAL) + 1);
         mSeekDistance.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 int progress = (seekBar.getProgress() * ClinicServices.RadiusSearch.INTERVAL) + 1;
-                mDistance.setText(progress + "\nMiles Away");
+                mDistance.setText(progress + "\n" + getString(R.string.kilometers_away));
             }
 
             @Override
@@ -97,7 +97,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
             showClinics(mClinicCluster);
         else {
             if (mClinic != null) {
-                mPresenter.getDoctorsFromClinic(mClinic);
+                mPresenter.getDoctorsFromClinic(mClinic, mCategory);
                 view.findViewById(R.id.mContainerSeekDistance).setVisibility(View.GONE);
             } else
                 mPresenter.getDoctors(mCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS);
@@ -125,7 +125,10 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
                 }
             }));
         else {
-            mList.setAdapter(new EmptyAdapter(getString(R.string.empty_clinics)));
+            if (mClinic != null)
+                mList.setAdapter(new EmptyAdapter(getString(R.string.empty_doctors_in_clinic)));
+            else
+                mList.setAdapter(new EmptyAdapter(getString(R.string.empty_doctors)));
         }
     }
 

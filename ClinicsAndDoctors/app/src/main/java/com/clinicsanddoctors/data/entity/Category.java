@@ -14,7 +14,7 @@ public class Category implements Parcelable {
 
     private String id;
     private String name;
-    private String color;
+    private String icon;
 
     public Category() {
 
@@ -23,13 +23,16 @@ public class Category implements Parcelable {
     public Category(CategoryResponse categoryResponse) {
         id = categoryResponse.getId();
         name = categoryResponse.getName();
-        color = categoryResponse.getColor();
+        icon = categoryResponse.getIcon();
+
+        if (name == null || name.isEmpty())
+            name = categoryResponse.getFull_name();
     }
 
     protected Category(Parcel in) {
         id = in.readString();
         name = in.readString();
-        color = in.readString();
+        icon = in.readString();
     }
 
     public static final Creator<Category> CREATOR = new Creator<Category>() {
@@ -62,12 +65,12 @@ public class Category implements Parcelable {
         return this;
     }
 
-    public String getColor() {
-        return color;
+    public String getIcon() {
+        return icon;
     }
 
-    public Category setColor(String color) {
-        this.color = color;
+    public Category setIcon(String icon) {
+        this.icon = icon;
         return this;
     }
 
@@ -80,6 +83,6 @@ public class Category implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(id);
         parcel.writeString(name);
-        parcel.writeString(color);
+        parcel.writeString(icon);
     }
 }

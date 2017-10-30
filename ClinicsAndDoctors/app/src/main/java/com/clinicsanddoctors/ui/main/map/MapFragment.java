@@ -25,7 +25,6 @@ import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
-import com.clinicsanddoctors.ui.doctorProfile.DoctorProfileActivity;
 import com.clinicsanddoctors.ui.dialog.PreviewClinicDialog;
 import com.clinicsanddoctors.ui.main.MainActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -91,8 +90,10 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
             view = inflater.inflate(R.layout.fragment_map, container, false);
             mPresenter = new MapPresenter(this, getActivity());
             mTabLayout = (TabLayout) view.findViewById(R.id.mTabLayout);
+            /*
             if (mCurrentCategory == null)
                 mCurrentCategory = new Category().setName("All").setId("0");
+                */
 
             ((MainActivity) getActivity()).getCategories();
             initMap();
@@ -134,12 +135,11 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
                                     .subscribe(location -> {
                                         if (noReload) {
                                             clearCluster();
-                                            mPresenter.getServiceProviders(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
+                                            //mPresenter.getClinics(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
                                             return;
                                         }
                                         ClinicsApplication.getInstance().setCurrentLocation(location);
                                         getNearTattooShops(location);
-                                        ((MainActivity) getActivity()).getAdvertising(location);
                                         setCameraPosition(location);
                                     });
                         }
@@ -165,8 +165,8 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
     }
 
     private void getNearTattooShops(Location location) {
-        //mPresenter.getClinics(location);
-        mPresenter.getServiceProviders(mCurrentCategory, location, ClinicServices.RadiusSearch.RADIUS, false);
+        if (mCurrentCategory != null)
+            mPresenter.getClinics(mCurrentCategory, location, ClinicServices.RadiusSearch.RADIUS, false);
     }
 
     private void setCameraPosition(Location location) {
@@ -256,13 +256,11 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
             dialog = new PreviewClinicDialog(getActivity(), new PreviewClinicDialog.CallbackDialog() {
                 @Override
                 public void onGo(Dialog dialog, ClinicAndDoctor clinicAndDoctor) {
-                    /*
-                    if (clinicAndDoctor.getPhoneNumber() != null && !clinicAndDoctor.getPhoneNumber().isEmpty()) {
-                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + clinicAndDoctor.getPhoneNumber()));
-                        startActivity(intent);
-                        //dialog.dismiss();
-                    }
-                    */
+                    String latitude = "" + clinicAndDoctor.getLatitude();
+                    String longitude = "" + clinicAndDoctor.getLongitude();
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?daddr=" + latitude + "," + longitude));
+                    startActivity(intent);
                 }
 
                 @Override
@@ -323,6 +321,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 
     public void showCategory(List<Category> categories) {
         if (!isAdded()) return;
+
         if (categories != null && !categories.isEmpty()) {
             this.categories = categories;
             for (Category category : categories)
@@ -330,13 +329,12 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
 
             TabLayout.Tab tab = mTabLayout.getTabAt(positionTab);
             tab.select();
-
             mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
                     positionTab = tab.getPosition();
                     mCurrentCategory = categories.get(positionTab);
-                    mPresenter.getServiceProviders(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
+                    mPresenter.getClinics(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
                 }
 
                 @Override
@@ -347,6 +345,9 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
+
+            mCurrentCategory = categories.get(0);
+            mPresenter.getClinics(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
         }
     }
 

@@ -18,10 +18,13 @@ import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.data.entity.UserClient;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
 import com.clinicsanddoctors.ui.rate.RateActivity;
 import com.clinicsanddoctors.ui.review.ReviewActivity;
+import com.clinicsanddoctors.ui.start.StartActivity;
 
 import java.util.Locale;
 
@@ -38,10 +41,10 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
 
     private ClinicAndDoctor mClinicAndDoctor;
 
-    private ImageView mPhoto;
+    private ImageView mPhoto, mIconCategory;
     private TextView mDoctorName, mProfession, mNationality, mAddress, mNameClinic, mCall, mDistance, mAddFavorite;
     private AppCompatRatingBar mRate;
-    private boolean mustRefresh = false;
+    private boolean mMustRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +55,7 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         mClinicAndDoctor = getIntent().getParcelableExtra(ARG_DOCTOR);
 
         mPhoto = (ImageView) findViewById(R.id.mPhotoClinic);
+        mIconCategory = (ImageView) findViewById(R.id.mIconCategory);
         mDoctorName = (TextView) findViewById(R.id.mDoctorName);
         mNationality = (TextView) findViewById(R.id.mNationality);
         mProfession = (TextView) findViewById(R.id.mProfession);
@@ -93,18 +97,27 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             mAddFavorite.setText(getString(R.string.add_to_favorite));
 
         mAddFavorite.setOnClickListener(v -> {
-            if (mAddFavorite.getText().toString().equalsIgnoreCase(getString(R.string.add_to_favorite)))
-                mPresenter.addToFavorite();
-            else
-                mPresenter.removeFromFavorite();
+
+            UserClient userClient = AppPreference.getUser(this);
+            if (userClient != null) {
+                if (mAddFavorite.getText().toString().equalsIgnoreCase(getString(R.string.add_to_favorite)))
+                    mPresenter.addToFavorite((Doctor) mClinicAndDoctor);
+                else
+                    mPresenter.removeFromFavorite((Doctor) mClinicAndDoctor);
+            } else
+                startActivity(new Intent(this, StartActivity.class));
         });
 
         String sNationality = ((Doctor) mClinicAndDoctor).getNationality();
         if (sNationality != null && !sNationality.isEmpty())
             mNationality.setText(sNationality);
 
-        if (mClinicAndDoctor.getCategory() != null)
+        if (mClinicAndDoctor.getCategory() != null) {
             mProfession.setText(mClinicAndDoctor.getCategory().getName());
+            if (mClinicAndDoctor.getCategory().getIcon() != null && !mClinicAndDoctor.getCategory().getIcon().isEmpty())
+                Glide.with(this).load(mClinicAndDoctor.getCategory().getIcon())
+                        .dontAnimate().placeholder(R.drawable.ic_category_profile).into(mIconCategory);
+        }
 
         Clinic clinic = ((Doctor) mClinicAndDoctor).getClinic();
         if (clinic != null) {
@@ -152,15 +165,14 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
 
             float distance = currentLocation.distanceTo(locationProvider);
             float meters = Float.parseFloat(String.format(Locale.US, "%.2f", distance));
-            float miles = meters * 0.000621371f;
-            float feets = meters * 3.28084f;
+            float kilometers = meters / 1000;
 
-            if (miles < 0.1) {
-                distanceResult = String.format(Locale.US, "%.2f", feets);
-                sbDistance = distanceResult + " ft Away";
+            if (kilometers < 1) {
+                distanceResult = String.format(Locale.US, "%.2f", meters);
+                sbDistance = distanceResult + " " + mDistance.getContext().getString(R.string.mtrs_away);
             } else {
-                distanceResult = String.format(Locale.US, "%.2f", miles);
-                sbDistance = distanceResult + " mi Away";
+                distanceResult = String.format(Locale.US, "%.2f", kilometers);
+                sbDistance = distanceResult + " " + mDistance.getContext().getString(R.string.km_away);
             }
             mDistance.setText(sbDistance);
         }
@@ -172,10 +184,14 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         return super.onSupportNavigateUp();
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_rate, menu);
+
+        if (mClinicAndDoctor.isRated())
+            menu.getItem(1).setVisible(false);
+        else
+            menu.getItem(1).setVisible(true);
         return true;
     }
 
@@ -193,9 +209,14 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             }
         }
         if (id == R.id.mRateDoctor) {
-            Intent intent = new Intent(this, RateActivity.class);
-            intent.putExtra(RateActivity.ARG_CLINIC_DOCTOR, mClinicAndDoctor);
-            startActivity(new Intent(intent));
+            UserClient userClient = AppPreference.getUser(this);
+            if (userClient != null) {
+                Intent intent = new Intent(this, RateActivity.class);
+                intent.putExtra(RateActivity.ARG_CLINIC_DOCTOR, mClinicAndDoctor);
+                startActivityForResult(intent, RateActivity.REQUEST_CODE);
+            } else
+                startActivity(new Intent(this, StartActivity.class));
+
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -203,25 +224,37 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
 
     @Override
     public void onSuccessAdd() {
-        mustRefresh = true;
+        mMustRefresh = true;
         mAddFavorite.setText(getString(R.string.remove_from_favorite));
     }
 
     @Override
     public void onSuccessRemove() {
-        mustRefresh = true;
+        mMustRefresh = true;
         mAddFavorite.setText(getString(R.string.add_to_favorite));
     }
 
     @Override
     public void onBackPressed() {
-        if (mustRefresh) {
+        if (mMustRefresh) {
             Intent returnIntent = new Intent();
             returnIntent.putExtra("UPDATE", true);
             setResult(Activity.RESULT_OK, returnIntent);
             finish();
         } else
             super.onBackPressed();
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RateActivity.REQUEST_CODE) {
+            if (data != null) {
+                boolean mustRefresh = data.getBooleanExtra("UPDATE", false);
+                if (mustRefresh) {
+                    mMustRefresh = true;
+                }
+            }
+        }
     }
 }

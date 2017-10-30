@@ -73,11 +73,11 @@
                     android:drawablePadding="@dimen/margin_same_view"
                     android:drawableRight="@drawable/ic_navigation"
                     android:gravity="center"
-                    android:textSize="@dimen/text_size_small"
                     android:paddingLeft="@dimen/margin_same_view"
                     android:paddingRight="@dimen/margin_same_view"
                     android:text="@string/get_directions"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
 
                 <android.support.v7.widget.AppCompatRatingBar
                     android:id="@+id/mRate"
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:rating="3"
+                    android:rating="0"
                     android:theme="@style/CustomRatingBar" />
 
             </RelativeLayout>

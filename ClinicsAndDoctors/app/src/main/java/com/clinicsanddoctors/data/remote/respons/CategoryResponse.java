@@ -18,9 +18,12 @@ public class CategoryResponse {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("color")
+    @SerializedName("icon")
     @Expose
-    private String color;
+    private String icon;
+    @SerializedName("full_name")
+    @Expose
+    private String full_name;
 
     public String getId() {
         return id;
@@ -54,12 +57,15 @@ public class CategoryResponse {
         this.name = name;
     }
 
-    public String getColor() {
-        return color;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
+    public String getFull_name() {
+        return full_name;
+    }
 }

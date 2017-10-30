@@ -11,8 +11,7 @@ public class UserClient implements Parcelable {
     protected String accessToken;
     protected int id;
     protected String facebookId;
-    protected String firstName;
-    protected String lastName;
+    protected String fullName;
     protected String email;
     protected String url;
     protected String password;
@@ -37,8 +36,7 @@ public class UserClient implements Parcelable {
         id = registerResponse.getUserId();
         accessToken = registerResponse.getAccessToken();
         facebookId = registerResponse.getFb_id();
-        firstName = registerResponse.getFirstName();
-        lastName = registerResponse.getLastName();
+        fullName = registerResponse.getFullname();
         email = registerResponse.getEmail();
         url = registerResponse.getProfilePicture();
         mobile = registerResponse.getMobileNumber();
@@ -58,8 +56,7 @@ public class UserClient implements Parcelable {
         if (userPostResponse != null) {
             id = Integer.parseInt(userPostResponse.getId());
             email = userPostResponse.getEmail();
-            firstName = userPostResponse.getName();
-            lastName = userPostResponse.getSurname();
+            fullName = userPostResponse.getName();
             url = userPostResponse.getPicture();
             mobile = userPostResponse.getPhoneNumber();
         }
@@ -69,8 +66,7 @@ public class UserClient implements Parcelable {
         accessToken = in.readString();
         id = in.readInt();
         facebookId = in.readString();
-        firstName = in.readString();
-        lastName = in.readString();
+        fullName = in.readString();
         email = in.readString();
         url = in.readString();
         password = in.readString();
@@ -123,20 +119,12 @@ public class UserClient implements Parcelable {
         this.facebookId = facebookId;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -164,8 +152,7 @@ public class UserClient implements Parcelable {
     }
 
     public String getCompleteName() {
-        if (lastName == null) lastName = "";
-        return firstName + " " + lastName;
+        return fullName;
     }
 
     public boolean isFacebookUer() {
@@ -271,8 +258,7 @@ public class UserClient implements Parcelable {
         dest.writeString(accessToken);
         dest.writeInt(id);
         dest.writeString(facebookId);
-        dest.writeString(firstName);
-        dest.writeString(lastName);
+        dest.writeString(fullName);
         dest.writeString(email);
         dest.writeString(url);
         dest.writeString(password);

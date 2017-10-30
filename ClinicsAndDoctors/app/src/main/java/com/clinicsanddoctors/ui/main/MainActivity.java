@@ -18,14 +18,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.clinicsanddoctors.ClinicsApplication;
 import com.clinicsanddoctors.R;
-import com.clinicsanddoctors.data.entity.AdvertisingPopOver;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
-import com.clinicsanddoctors.ui.dialog.AdvertisingDialog;
 import com.clinicsanddoctors.ui.favorites.FavoriteFragment;
 import com.clinicsanddoctors.ui.main.list.ListFragment;
 import com.clinicsanddoctors.ui.main.map.MapFragment;
@@ -54,13 +51,6 @@ public class MainActivity extends BaseClinicActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        UserClient userClient = new UserClient();
-        userClient.setFirstName("User");
-        userClient.setLastName("Test");
-        userClient.setEmail("test@test.com");
-        userClient.setUrl("http://www.thedailymash.co.uk/images/stories/man425-26.jpg");
-        AppPreference.setUser(this, userClient);
 
         mainPresenter = new MainPresenter(this, this);
         setContentView(R.layout.activity_main);
@@ -112,6 +102,16 @@ public class MainActivity extends BaseClinicActivity
         View headerView = navigationView.getHeaderView(0);
         headerView.setOnClickListener(v -> goToProfile());
         setUserData((ImageView) headerView.findViewById(R.id.mPhoto), (TextView) headerView.findViewById(R.id.mHelloUser));
+
+
+        UserClient userClient = AppPreference.getUser(this);
+        if (userClient != null) {
+            navigationView.findViewById(R.id.mLogout).setVisibility(View.VISIBLE);
+            headerView.findViewById(R.id.mSeeProfile).setVisibility(View.VISIBLE);
+        } else {
+            navigationView.findViewById(R.id.mLogout).setVisibility(View.GONE);
+            headerView.findViewById(R.id.mSeeProfile).setVisibility(View.GONE);
+        }
     }
 
     public void hideSoftKeyboard() {
@@ -123,29 +123,39 @@ public class MainActivity extends BaseClinicActivity
 
     private void goToProfile() {
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        if (currentSection == 0) return;
+        UserClient userClient = AppPreference.getUser(this);
+        if (userClient != null) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            if (currentSection == 0) return;
 
-        this.menu.getItem(0).setVisible(false); //map mode
-        this.menu.getItem(1).setVisible(false); //list mode
-        this.menu.getItem(2).setVisible(true); //edit
-        this.menu.getItem(3).setVisible(false); //add request
+            this.menu.getItem(0).setVisible(false); //map mode
+            this.menu.getItem(1).setVisible(false); //list mode
+            this.menu.getItem(2).setVisible(true); //edit
+            this.menu.getItem(3).setVisible(false); //add request
 
-        changeFragmentSection(getString(R.string.menu_title_profile), new ProfileFragment());
-        currentSection = 0;
+            changeFragmentSection(getString(R.string.menu_title_profile), new ProfileFragment());
+            currentSection = 0;
+        } else {
+            startActivity(new Intent(this, StartActivity.class));
+        }
+
     }
 
     private void setUserData(ImageView imageView, TextView textView) {
         UserClient userClient = AppPreference.getUser(this);
-        Glide.with(this)
-                .load(userClient.getUrl())
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .placeholder(R.drawable.placeholder_clinic)
-                .skipMemoryCache(true)
-                .dontAnimate()
-                .into(imageView);
-        textView.setText(userClient.getCompleteName());
+        if (userClient != null) {
+            Glide.with(this)
+                    .load(userClient.getUrl())
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(R.drawable.placeholder_clinic)
+                    .skipMemoryCache(true)
+                    .dontAnimate()
+                    .into(imageView);
+            textView.setText(userClient.getCompleteName());
+        } else
+            textView.setText(getString(R.string.login_register));
+
     }
 
     @Override
@@ -232,12 +242,17 @@ public class MainActivity extends BaseClinicActivity
                 break;
 
             case R.id.mNavFavorite:
-                if (id == currentSection) break;
-                this.menu.getItem(0).setVisible(false); //map mode
-                this.menu.getItem(1).setVisible(false); //list mode
-                this.menu.getItem(2).setVisible(false); //edit
-                this.menu.getItem(3).setVisible(false); //add request
-                changeFragmentSection(getString(R.string.menu_title_favorite), new FavoriteFragment());
+                UserClient userClient = AppPreference.getUser(this);
+                if (userClient != null) {
+                    if (id == currentSection) break;
+                    this.menu.getItem(0).setVisible(false); //map mode
+                    this.menu.getItem(1).setVisible(false); //list mode
+                    this.menu.getItem(2).setVisible(false); //edit
+                    this.menu.getItem(3).setVisible(false); //add request
+                    changeFragmentSection(getString(R.string.menu_title_favorite), new FavoriteFragment());
+                } else
+                    startActivity(new Intent(this, StartActivity.class));
+
                 break;
             case R.id.mNavTerms:
                 this.menu.getItem(0).setVisible(false); //map mode
@@ -305,22 +320,6 @@ public class MainActivity extends BaseClinicActivity
         mainPresenter.getCategory();
     }
 
-    public void getAdvertising(Location location) {
-        if (showAdvertising) {
-            showAdvertising = false;
-            mainPresenter.getAdvertising(location);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (getSupportFragmentManager().findFragmentById(R.id.mFragmentContainer) instanceof MapFragment && !showAdvertising) {
-            if (!((MapFragment) getSupportFragmentManager().findFragmentById(R.id.mFragmentContainer)).isPreviewShowing())
-                mainPresenter.getAdvertising(ClinicsApplication.getInstance().getCurrentLocation());
-        }
-    }
-
     @Override
     public void showCategory(List<Category> categories) {
         if (getSupportFragmentManager().findFragmentById(R.id.mFragmentContainer) instanceof ListFragment) {
@@ -330,16 +329,11 @@ public class MainActivity extends BaseClinicActivity
         }
     }
 
-    @Override
-    public void showAdvertising(AdvertisingPopOver advertisingPopOver) {
-        AdvertisingDialog dialog = new AdvertisingDialog(this, advertisingPopOver);
-        dialog.show();
-    }
 
     @Override
     public void onSuccessLogout() {
         AppPreference.deleteUserData(this);
-        startActivity(new Intent(this, StartActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }

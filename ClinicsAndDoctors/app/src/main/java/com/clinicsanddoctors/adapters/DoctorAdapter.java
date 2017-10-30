@@ -97,15 +97,14 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
 
                 float distance = currentLocation.distanceTo(locationProvider);
                 float meters = Float.parseFloat(String.format(Locale.US, "%.2f", distance));
-                float miles = meters * 0.000621371f;
-                float feets = meters * 3.28084f;
+                float kilometers = meters / 1000;
 
-                if (miles < 0.1) {
-                    distanceResult = String.format(Locale.US, "%.2f", feets);
-                    sbDistance = distanceResult + " ft Away";
+                if (kilometers < 1) {
+                    distanceResult = String.format(Locale.US, "%.2f", meters);
+                    sbDistance = distanceResult + " " + mNameDistance.getContext().getString(R.string.mtrs_away);
                 } else {
-                    distanceResult = String.format(Locale.US, "%.2f", miles);
-                    sbDistance = distanceResult + " mi Away";
+                    distanceResult = String.format(Locale.US, "%.2f", kilometers);
+                    sbDistance = distanceResult + " " + mNameDistance.getContext().getString(R.string.km_away);
                 }
 
                 String info = data.getClinic().getName() + "\n" + sbDistance;
@@ -114,7 +113,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
                         , info.indexOf(sbDistance), info.indexOf(sbDistance) + sbDistance.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 mNameDistance.setText(spannableInfo, TextView.BufferType.SPANNABLE);
             } else {
-                String sbDistance = "- mi Away";
+                String sbDistance = "- " + mNameDistance.getContext().getString(R.string.km_away);
                 String info = data.getClinic().getName() + "\n" + sbDistance;
                 SpannableStringBuilder spannableInfo = new SpannableStringBuilder(info);
                 spannableInfo.setSpan(new ForegroundColorSpan(mNameDistance.getResources().getColor(R.color.gray))

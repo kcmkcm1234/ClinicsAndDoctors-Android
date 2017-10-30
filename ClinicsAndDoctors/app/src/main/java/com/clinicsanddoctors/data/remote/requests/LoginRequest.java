@@ -8,12 +8,12 @@ import com.google.gson.annotations.Expose;
 
 public class LoginRequest {
     @Expose
-    String email;
+    String phone_number;
     @Expose
     String password;
 
-    public LoginRequest setEmail(String email) {
-        this.email = email;
+    public LoginRequest setMobile(String phone_number) {
+        this.phone_number = phone_number;
         return this;
     }
 

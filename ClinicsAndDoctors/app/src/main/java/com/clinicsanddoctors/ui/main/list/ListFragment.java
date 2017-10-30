@@ -15,10 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.adapters.CategoryAdapter;
-import com.clinicsanddoctors.data.entity.AdvertisingBanner;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
@@ -79,7 +77,6 @@ public class ListFragment extends Fragment implements ListContract.View {
         else {
             showCategory(((ClinicProfileActivity) getActivity()).getCategories());
         }
-        mPresenter.getAdsBanner();
         return view;
     }
 
@@ -110,19 +107,6 @@ public class ListFragment extends Fragment implements ListContract.View {
                 mTabLayout.getTabAt(i).setCustomView(tabSimple);
             }
         }
-    }
-
-    @Override
-    public void showAdvertising(AdvertisingBanner advertisingBanner) {
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (!isAdded()) return;
-                mAdBanner.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load(advertisingBanner.getBanner()).into(mAdBanner);
-                mAdBanner.setOnClickListener(v -> openWebsite(advertisingBanner.getLink()));
-            }
-        });
     }
 
     private void openWebsite(String urlLink) {

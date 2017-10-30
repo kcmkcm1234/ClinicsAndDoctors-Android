@@ -15,12 +15,9 @@ public class RegisterResponse {
     @SerializedName("fb_id")
     @Expose
     private String fb_id;
-    @SerializedName("name")
+    @SerializedName("full_name")
     @Expose
-    private String firstName;
-    @SerializedName("surname")
-    @Expose
-    private String lastName;
+    private String full_name;
     @SerializedName("phone_number")
     @Expose
     private String mobileNumber;
@@ -30,7 +27,6 @@ public class RegisterResponse {
     @SerializedName("picture")
     @Expose
     private String profilePicture;
-
 
     @SerializedName("user_role")
     @Expose
@@ -94,12 +90,8 @@ public class RegisterResponse {
         return fb_id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
+    public String getFullname() {
+        return full_name;
     }
 
     public String getMobileNumber() {

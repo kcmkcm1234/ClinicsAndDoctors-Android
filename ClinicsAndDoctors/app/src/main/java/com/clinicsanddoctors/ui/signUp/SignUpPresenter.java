@@ -39,7 +39,7 @@ import rx.schedulers.Schedulers;
 public class SignUpPresenter implements SignUpContract.Presenter {
     private Context mContext;
     private SignUpContract.View mView;
-    final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64, ";
+    final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64,";
     private Uri mSelectedImageUri;
     private Uri mOutputFileUri;
     protected String mImageBase64 = "";
@@ -52,12 +52,12 @@ public class SignUpPresenter implements SignUpContract.Presenter {
     @Override
     public void validateData(String mobile, String email, String completeName, String password, String confirmPassword) {
 
-        if (completeName.isEmpty()  || mobile.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (completeName.isEmpty() || mobile.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             mView.showErrorAlert(mContext.getString(R.string.complete_all_fields));
             return;
         }
 
-        if (!isValidEmail(email)) {
+        if (email != null && !email.isEmpty() && !isValidEmail(email)) {
             mView.showErrorAlert(mContext.getString(R.string.error_invalid_email));
             return;
         }
@@ -158,7 +158,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
         RegisterRequest registerRequest = new RegisterRequest();
         registerRequest.setPassword(password)
                 .setEmail(email)
-                .setFirst_name(completeName)
+                .setFull_name(completeName)
                 .setMobile_phone(mobile)
                 .setProfile_picture(mImageBase64);
 

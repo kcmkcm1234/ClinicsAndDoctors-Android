@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ClinicAndDoctorResponse {
+public class DoctorResponse {
 
     @SerializedName("id")
     @Expose
@@ -20,9 +20,9 @@ public class ClinicAndDoctorResponse {
     @SerializedName("full_name")
     @Expose
     private String name;
-    @SerializedName("specialties")
+    @SerializedName("specialty")
     @Expose
-    private List<CategoryResponse> categoryResponseList;
+    private CategoryResponse categoryResponse;
     @SerializedName("rating")
     @Expose
     private String rating;
@@ -103,8 +103,8 @@ public class ClinicAndDoctorResponse {
         this.name = name;
     }
 
-    public List<CategoryResponse> getCategoryResponseList() {
-        return categoryResponseList;
+    public CategoryResponse getCategoryResponse() {
+        return categoryResponse;
     }
 
     public String getRating() {

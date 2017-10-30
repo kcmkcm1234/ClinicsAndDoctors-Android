@@ -8,9 +8,12 @@ import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
+import com.clinicsanddoctors.data.remote.requests.DoctorsRequest;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -43,68 +46,56 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         mView.showProgressDialog();
         if (location == null) location = new Location("");
 
-        ClinicsRequest clinicsRequest = new ClinicsRequest();
-        clinicsRequest.setLatitude("" + location.getLatitude()).setLongitude("" + location.getLongitude()).setRadius("" + radius);
+        DoctorsRequest clinicsRequest = new DoctorsRequest();
+        clinicsRequest
+                .setCategoryId(category.getId())
+                .setLatitude("" + location.getLatitude())
+                .setLongitude("" + location.getLongitude())
+                .setRadius("" + radius);
 
-        if (!category.getId().equalsIgnoreCase("0"))
-            clinicsRequest.setCategoryId(category.getId());
+        if (AppPreference.getUser(mContext) != null)
+            clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        else
+            clinicsRequest.setUser_id("0");
 
-        LatLng latLng1 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng2 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng3 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-
-        Clinic clinic1 = (Clinic) new Clinic().setCantDoctors(30).setAddress("Dallas, TX, United State").setName("Mayo Clinic").setLatitude(latLng1.latitude).setLongitude(latLng1.longitude).setRating("3");
-        Clinic clinic2 = (Clinic) new Clinic().setCantDoctors(10).setAddress("Dallas, TX, United State").setName("Infinix Clinic").setPicture("https://pbs.twimg.com/profile_images/531871789672980482/N_mXF1j0.png").setLatitude(latLng2.latitude).setLongitude(latLng2.longitude).setRating("3");
-        Clinic clinic3 = (Clinic) new Clinic().setCantDoctors(20).setAddress("Dallas, TX, United State").setName("Infi-Health").setLatitude(latLng3.latitude).setLongitude(latLng3.longitude).setRating("3");
-
-        Category category1 = new Category();
-        category1.setName("Cardiology");
-
-        List<Doctor> doctors = new ArrayList<>();
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Mery Clough").setCategory(category1).setPicture("https://bestdoctors.com/wp-content/uploads/2016/11/Doctor-with-Tablet.jpg").setRating("3"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("M.D. Bryant Word").setCategory(category1).setPicture("http://www.doctormateos.com/wp-content/uploads/2014/11/drmateos0.png").setRating("5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Selma Godoy").setCategory(category1).setPicture("http://www.omagg.com/wp-content/uploads/2017/07/Doctor.jpg").setRating("2.5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic2).setName("Dr. James Arthur").setCategory(category1).setPicture("").setRating("4"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic3).setName("Dr. Doug Caudell").setCategory(category1).setPicture("http://www.clinicacemtro.com/media/djcatalog2/images/item/0/manuel-leyes-vince_f.jpg").setRating("3.8"));
-
-        mView.hideProgressDialog();
-        mView.showDoctors(doctors);
-        /*
         ClinicServices.getServiceClient().getDoctors(clinicsRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable(equineResponse -> equineResponse)
-                .map(this::getServiceProviders)
+                .map(obj -> newDoctor(obj, category))
                 .toList()
                 .subscribe(this::onSuccess, this::onError);
-                */
-
     }
 
     @Override
-    public void getDoctorsFromClinic(Clinic clinic) {
+    public void getDoctorsFromClinic(Clinic clinic, Category category) {
         mView.showProgressDialog();
 
-        Clinic clinic1 = (Clinic) new Clinic().setCantDoctors(30).setAddress("Dallas, TX, United State").setName("Mayo Clinic").setRating("3");
-        Clinic clinic2 = (Clinic) new Clinic().setCantDoctors(10).setAddress("Dallas, TX, United State").setName("Infinix Clinic").setPicture("https://pbs.twimg.com/profile_images/531871789672980482/N_mXF1j0.png").setRating("3");
-        Clinic clinic3 = (Clinic) new Clinic().setCantDoctors(20).setAddress("Dallas, TX, United State").setName("Infi-Health").setRating("3");
+        DoctorsRequest clinicsRequest = new DoctorsRequest();
+        clinicsRequest
+                .setCategoryId(category.getId())
+                .setClinic_id(clinic.getId());
+        if (AppPreference.getUser(mContext) != null)
+            clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        else
+            clinicsRequest.setUser_id("0");
 
-        Category category1 = new Category();
-        category1.setName("Cardiology");
+        if (AppPreference.getUser(mContext) != null)
+            clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        else
+            clinicsRequest.setUser_id("0");
 
-        List<Doctor> doctors = new ArrayList<>();
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Mery Clough").setCategory(category1).setPicture("https://bestdoctors.com/wp-content/uploads/2016/11/Doctor-with-Tablet.jpg").setRating("3"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("M.D. Bryant Word").setCategory(category1).setPicture("http://www.doctormateos.com/wp-content/uploads/2014/11/drmateos0.png").setRating("5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Selma Godoy").setCategory(category1).setPicture("http://www.omagg.com/wp-content/uploads/2017/07/Doctor.jpg").setRating("2.5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic2).setName("Dr. James Arthur").setCategory(category1).setPicture("").setRating("4"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic3).setName("Dr. Doug Caudell").setCategory(category1).setPicture("http://www.clinicacemtro.com/media/djcatalog2/images/item/0/manuel-leyes-vince_f.jpg").setRating("3.8"));
-
-        mView.hideProgressDialog();
-        mView.showDoctors(doctors);
+        ClinicServices.getServiceClient().getDoctors(clinicsRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapIterable(equineResponse -> equineResponse)
+                .map(obj -> newDoctor(obj, null))
+                .toList()
+                .subscribe(this::onSuccess, this::onError);
     }
 
-    private Doctor getServiceProviders(ClinicAndDoctorResponse storeResponse) {
-        return new Doctor(storeResponse);
+    private Doctor newDoctor(DoctorResponse doctorResponse, Category category) {
+        return new Doctor(doctorResponse, category);
     }
 
     private void onSuccess(List<Doctor> doctors) {

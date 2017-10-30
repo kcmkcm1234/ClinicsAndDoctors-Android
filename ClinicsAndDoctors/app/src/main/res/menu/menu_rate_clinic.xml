@@ -4,7 +4,11 @@
     <group>
         <item
             android:id="@+id/mRate"
-            android:title="Rate" />
+            android:title="@string/menu_rate" />
+
+        <item
+            android:id="@+id/mAddFavorite"
+            android:title="@string/menu_add_favorite" />
 
     </group>
 

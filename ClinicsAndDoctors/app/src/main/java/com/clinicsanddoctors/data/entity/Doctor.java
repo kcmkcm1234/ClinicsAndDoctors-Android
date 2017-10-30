@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
 
 /**
  * Created by Daro on 27/07/2017.
@@ -18,8 +19,16 @@ public class Doctor extends ClinicAndDoctor implements Parcelable {
 
     }
 
-    public Doctor(ClinicAndDoctorResponse clinicAndDoctorResponse) {
-        super(clinicAndDoctorResponse);
+    public Doctor(DoctorResponse doctorResponse, Category category){
+        super(doctorResponse, category);
+        clinic = new Clinic(doctorResponse.getClinic());
+        nationality = doctorResponse.getNationality();
+    }
+
+    public Doctor(ClinicAndDoctorResponse clinicAndDoctorResponse, Category category) {
+        super(clinicAndDoctorResponse, category);
+        clinic = new Clinic(clinicAndDoctorResponse.getClinic());
+        nationality = clinicAndDoctorResponse.getNationality();
     }
 
     protected Doctor(Parcel in) {

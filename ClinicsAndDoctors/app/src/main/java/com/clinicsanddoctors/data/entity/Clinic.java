@@ -16,6 +16,10 @@ public class Clinic extends ClinicAndDoctor implements Parcelable {
     public Clinic() {
     }
 
+    public Clinic(ClinicAndDoctorResponse clinicAndDoctorResponse, Category category) {
+        super(clinicAndDoctorResponse, category);
+    }
+
     public Clinic(ClinicAndDoctorResponse clinicAndDoctorResponse) {
         super(clinicAndDoctorResponse);
     }

@@ -3,16 +3,25 @@ package com.clinicsanddoctors.ui.favorites.favoriteDoctor;
 import android.content.Context;
 import android.location.Location;
 
-import com.clinicsanddoctors.ClinicsApplication;
-import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.data.local.AppPreference;
+import com.clinicsanddoctors.data.remote.ClinicServices;
+import com.clinicsanddoctors.data.remote.requests.FavoriteRequest;
+import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import retrofit2.adapter.rxjava.HttpException;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Daro on 23/10/2017.
@@ -31,41 +40,66 @@ public class FavoritePresenter implements FavoriteContract.Presenter {
     @Override
     public void getDoctorFavorite() {
 
-        Location location = ClinicsApplication.getInstance().getCurrentLocation();
-        LatLng latLng1 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng2 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng3 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
+        mView.showProgressDialog();
 
-        Clinic clinic1 = (Clinic) new Clinic().setCantDoctors(30).setAddress("Dallas, TX, United State").setName("Mayo Clinic").setLatitude(latLng1.latitude).setLongitude(latLng1.longitude).setRating("3");
-        Clinic clinic2 = (Clinic) new Clinic().setCantDoctors(10).setAddress("Dallas, TX, United State").setName("Infinix Clinic").setPicture("https://pbs.twimg.com/profile_images/531871789672980482/N_mXF1j0.png").setLatitude(latLng2.latitude).setLongitude(latLng2.longitude).setRating("3");
-        Clinic clinic3 = (Clinic) new Clinic().setCantDoctors(20).setAddress("Dallas, TX, United State").setName("Infi-Health").setLatitude(latLng3.latitude).setLongitude(latLng3.longitude).setRating("3");
+        FavoriteRequest favoriteRequest = new FavoriteRequest();
+        favoriteRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        favoriteRequest.setType(ClinicServices.FavoriteType.DOCTOR);
 
-        Category category1 = new Category();
-        category1.setName("Cardiology");
+        ClinicServices.getServiceClient().getDoctorsFavorites(favoriteRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapIterable(equineResponse -> equineResponse)
+                .map(this::newDoctor)
+                .toList()
+                .subscribe(this::onSuccessDoctors, this::onError);
+    }
 
-        List<Doctor> doctors = new ArrayList<>();
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Mery Clough").setCategory(category1).setPicture("https://bestdoctors.com/wp-content/uploads/2016/11/Doctor-with-Tablet.jpg").setRating("3"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("M.D. Bryant Word").setCategory(category1).setPicture("http://www.doctormateos.com/wp-content/uploads/2014/11/drmateos0.png").setRating("5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic1).setName("Dr. Selma Godoy").setCategory(category1).setPicture("http://www.omagg.com/wp-content/uploads/2017/07/Doctor.jpg").setRating("2.5"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic2).setName("Dr. James Arthur").setCategory(category1).setPicture("").setRating("4"));
-        doctors.add((Doctor) new Doctor().setNationality("Australian").setClinic(clinic3).setName("Dr. Doug Caudell").setCategory(category1).setPicture("http://www.clinicacemtro.com/media/djcatalog2/images/item/0/manuel-leyes-vince_f.jpg").setRating("3.8"));
+    private Doctor newDoctor(DoctorResponse doctorResponse) {
+        return new Doctor(doctorResponse, null);
+    }
 
-        mView.showDoctorFavorite(doctors);
+    private void onSuccessDoctors(List<Doctor> doctorList) {
+        mView.hideProgressDialog();
+        mView.showDoctorFavorite(doctorList);
     }
 
     @Override
     public void getClinicFavorite() {
-        Location location = ClinicsApplication.getInstance().getCurrentLocation();
-        List<Clinic> clinicList = new ArrayList<>();
-        LatLng latLng1 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng2 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng3 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
 
-        clinicList.add((Clinic) new Clinic().setCantDoctors(30).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Mayo Clinic").setLatitude(latLng1.latitude).setLongitude(latLng1.longitude).setRating("3"));
-        clinicList.add((Clinic) new Clinic().setCantDoctors(10).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Infinix Clinic").setPicture("https://pbs.twimg.com/profile_images/531871789672980482/N_mXF1j0.png").setLatitude(latLng2.latitude).setLongitude(latLng2.longitude).setRating("3"));
-        clinicList.add((Clinic) new Clinic().setCantDoctors(20).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Infi-Health").setLatitude(latLng3.latitude).setLongitude(latLng3.longitude).setRating("3"));
+        mView.showProgressDialog();
+        FavoriteRequest favoriteRequest = new FavoriteRequest();
+        favoriteRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        favoriteRequest.setType(ClinicServices.FavoriteType.CLINIC);
 
-        mView.showClinicFavorite(clinicList);
+        ClinicServices.getServiceClient().getClinicsFavorites(favoriteRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMapIterable(equineResponse -> equineResponse)
+                .map(this::getNewClinic)
+                .toList()
+                .subscribe(this::onSuccessClinics, this::onError);
+    }
+
+    private void onSuccessClinics(List<Clinic> clinics) {
+        mView.hideProgressDialog();
+        mView.showClinicFavorite(clinics);
+    }
+
+    private Clinic getNewClinic(ClinicAndDoctorResponse storeResponse) {
+        return new Clinic(storeResponse, null);
+    }
+
+    private void onError(Throwable throwable) {
+        mView.hideProgressDialog();
+        if (throwable != null) {
+            if (throwable instanceof HttpException)
+                mView.showErrorAlert(ClinicServices.attendError((HttpException) throwable).getError());
+            else if (throwable instanceof IOException)
+                mView.showErrorAlert(mContext.getString(R.string.error_internet));
+            else
+                mView.showErrorAlert(mContext.getString(R.string.error_generic));
+        }
     }
 
     private LatLng getRandomLocation(LatLng point) {

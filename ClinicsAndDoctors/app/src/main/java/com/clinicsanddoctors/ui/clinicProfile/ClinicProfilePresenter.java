@@ -1,12 +1,16 @@
 package com.clinicsanddoctors.ui.clinicProfile;
 
 import android.content.Context;
-import android.os.Handler;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.data.entity.Clinic;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
+import com.clinicsanddoctors.data.remote.requests.AddRemoveFavoriteRequest;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +45,43 @@ public class ClinicProfilePresenter implements ClinicProfileContract.Presenter {
                 .map(this::getCategory)
                 .toList()
                 .subscribe(this::onSuccess, this::onError);
+    }
+
+    @Override
+    public void addToFavorite(Clinic clinic) {
+
+        AddRemoveFavoriteRequest addRemoveFavoriteRequest = new AddRemoveFavoriteRequest();
+        addRemoveFavoriteRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        addRemoveFavoriteRequest.setClinic_id(clinic.getId());
+
+        mView.showProgressDialog();
+        ClinicServices.getServiceClient().addFavorite(addRemoveFavoriteRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccessAddFavorite, this::onError);
+    }
+
+    private void onSuccessAddFavorite(JSONObject jsonObject) {
+        mView.hideProgressDialog();
+        mView.onSuccessAdd();
+    }
+
+    @Override
+    public void removeFromFavorite(Clinic clinic) {
+        AddRemoveFavoriteRequest addRemoveFavoriteRequest = new AddRemoveFavoriteRequest();
+        addRemoveFavoriteRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        addRemoveFavoriteRequest.setClinic_id(clinic.getId());
+
+        mView.showProgressDialog();
+        ClinicServices.getServiceClient().removeFavorite(addRemoveFavoriteRequest)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccessRemoveFavorite, this::onError);
+    }
+
+    private void onSuccessRemoveFavorite(JSONObject jsonObject) {
+        mView.hideProgressDialog();
+        mView.onSuccessRemove();
     }
 
     private void onSuccess(List<Category> categories) {

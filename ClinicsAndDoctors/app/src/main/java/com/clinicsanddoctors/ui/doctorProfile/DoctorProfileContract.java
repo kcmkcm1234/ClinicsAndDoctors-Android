@@ -3,6 +3,7 @@ package com.clinicsanddoctors.ui.doctorProfile;
 
 import com.clinicsanddoctors.contracts.LoaderView;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
+import com.clinicsanddoctors.data.entity.Doctor;
 
 /**
  * Created by Daro on 07/08/2017.
@@ -16,8 +17,8 @@ public interface DoctorProfileContract {
     }
 
     interface Presenter {
-        void addToFavorite();
+        void addToFavorite(Doctor doctor);
 
-        void removeFromFavorite();
+        void removeFromFavorite(Doctor doctor);
     }
 }

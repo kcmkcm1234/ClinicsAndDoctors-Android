@@ -88,15 +88,14 @@ public class PreviewClinicDialog extends Dialog {
 
             float distance = currentLocation.distanceTo(locationProvider);
             float meters = Float.parseFloat(String.format(Locale.US, "%.2f", distance));
-            float miles = meters * 0.000621371f;
-            float feets = meters * 3.28084f;
+            float kilometers = meters / 1000;
 
-            if (miles < 0.1) {
-                distanceResult = String.format(Locale.US, "%.2f", feets);
-                sbDistance = distanceResult + " ft Away";
+            if (kilometers < 1) {
+                distanceResult = String.format(Locale.US, "%.2f", meters);
+                sbDistance = distanceResult + " " + mDistance.getContext().getString(R.string.mtrs_away);
             } else {
-                distanceResult = String.format(Locale.US, "%.2f", miles);
-                sbDistance = distanceResult + " mi Away";
+                distanceResult = String.format(Locale.US, "%.2f", kilometers);
+                sbDistance = distanceResult + " " + mDistance.getContext().getString(R.string.km_away);
             }
             mDistance.setText(sbDistance);
         } else

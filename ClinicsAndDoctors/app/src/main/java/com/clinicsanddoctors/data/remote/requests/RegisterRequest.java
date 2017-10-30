@@ -8,9 +8,7 @@ import com.google.gson.annotations.Expose;
 
 public class RegisterRequest {
     @Expose
-    String surname;
-    @Expose
-    String name;
+    String full_name;
     @Expose
     String email;
     @Expose
@@ -18,15 +16,10 @@ public class RegisterRequest {
     @Expose
     String phone_number;
     @Expose
-    String profile_picture;
+    String picture;
 
-    public RegisterRequest setLast_name(String last_name) {
-        this.surname = last_name;
-        return this;
-    }
-
-    public RegisterRequest setFirst_name(String first_name) {
-        this.name = first_name;
+    public RegisterRequest setFull_name(String full_name) {
+        this.full_name = full_name;
         return this;
     }
 
@@ -46,7 +39,7 @@ public class RegisterRequest {
     }
 
     public RegisterRequest setProfile_picture(String profile_picture) {
-        this.profile_picture = profile_picture;
+        this.picture = profile_picture;
         return this;
     }
 

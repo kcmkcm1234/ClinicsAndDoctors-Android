@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">ClinicsAndDoctors</string>
+    <string name="facebook_app_id">355322151568934</string>
+
+    <!-- FONTS -->
+    <string name="font_compact_avenir_light">fonts/AvenirLTStd-Book.otf</string>
+    <string name="font_compact_avenir_medium">fonts/AvenirLTStd-Roman.otf</string>
+    <string name="font_compact_avenir_bold">fonts/AvenirLTStd-Black.otf</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- ERROR MESSAGE-->
+    <string name="alert_title_error">خطأ</string>
+    <string name="error_generic">كان هناك شيء خاطئ</string>
+    <string name="error_internet">لا يوجد اتصال بالإنترنت. الاتصال بالإنترنت والمحاولة مرة أخرى.</string>
+    <string name="complete_all_fields">يجب إكمال جميع الحقول</string>
+    <string name="password_not_match">كلمة المرور يجب ان تتطابق</string>
+    <string name="error_invalid_email">بريد إلكتروني خاطئ</string>
+    <string name="error_password_length">يجب أن تحتوي كلمة المرور على أكثر من 5 أحرف</string>
+    <string name="error_permission">طلب الأذونات</string>
+    <string name="error_user_nor_found">هذا المستخدم غير موجود</string>
+
+    <!-- START -->
+    <string name="clinic_and_doctors">العيادات والأطباء</string>
+    <string name="access_facebook">تابع مع الفيسبوك</string>
+    <string name="sign_in">تسجيل الدخول مع المحمول</string>
+    <string name="not_account">ليس لديك حساب؟ سجل هنا</string>
+    <string name="forgot_password">نسيت رقمك السري؟</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="password">كلمه السر</string>
+    <string name="title_create_account">تسجيل</string>
+    <string name="title_login">تسجيل الدخول مع الجوال</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="email_optional">البريد الإلكتروني اختياري</string>
+    <string name="send">إرسال</string>
+    <string name="name">اسم</string>
+    <string name="first_name">الاسم الكامل</string>
+    <string name="last_name">الكنية</string>
+    <string name="mobile">التليفون المحمول</string>
+    <string name="confirm_password">أعد إدخال كلمة السر</string>
+    <string name="finish">إنهاء</string>
+    <string name="register">تسجيل</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="save">حفظ</string>
+
+    <!-- FORGOT PASSWORD -->
+    <string name="title_forgot_apssword">هل نسيت كلمة المرور</string>
+    <string name="recover_password">إستعادة كلمة المرور</string>
+    <string name="description_forgot_apssword">سوف نرسل لك رسالة قصيرة مع كلمة مرور جديدة</string>
+
+    <!-- NAV BAR -->
+    <string name="menu_home">الصفحة الرئيسية</string>
+    <string name="menu_favorites">المفضلة</string>
+    <string name="menu_terms_use">تعليمات الاستخدام</string>
+    <string name="menu_privacy_policy">سياسة الخصوصية</string>
+
+    <!-- MENU -->
+    <string name="see_profile">انظر الملف الشخصي</string>
+    <string name="menu_title_profile">الملف الشخصي</string>
+    <string name="menu_title_favorite">المفضلة</string>
+    <string name="menu_title_terms_use">تعليمات الاستخدام</string>
+    <string name="menu_title_privacy_policy">سياسة الخصوصية</string>
+
+    <string name="title_detail">بالتفصيل</string>
+    <string name="empty_clinics">حاليا لا توجد عيادات أو أطباء من حولك. حاول زيادة نطاق الميل مع شريط التمرير أعلاه.</string>
+
+    <!-- POP UP -->
+    <string name="go">اذهب</string>
+    <string name="info">معلومات</string>
+
+    <string name="see_review">انظر التعليقات</string>
+    <string name="add_to_favorite">اضافة الى المفضلة</string>
+    <string name="remove_from_favorite">إزالة من المفضلة</string>
+    <string name="get_directions">احصل على الاتجاهات</string>
+    <string name="rate_your_experience">قيم تجربتك في</string>
+    <string name="tell_us_bad">يقول لنا ما يمكننا تحسين؟</string>
+    <string name="tell_us_good">أخبرنا ما الذي أعجبك؟</string>
+    <string name="leave_a_comment">اترك تعليقا</string>
+    <string name="submit">عرض</string>
+    <string name="title_rating">تقييم</string>
+    <string name="title_reviews">استعراضات</string>
+    <string name="reviews">التعليقات</string>
+
+    <!-- RATING -->
+    <string name="rate_bad_comment1">كان الانتظار طويلا جدا</string>
+    <string name="rate_bad_comment2">لم يكن الاهتمام جيدا</string>
+    <string name="rate_bad_comment3">أنها مكلفة للغاية.</string>
+    <string name="rate_bad_comment4">آخر</string>
+
+    <string name="rate_good_comment1">كان الاهتمام جيدا جدا</string>
+    <string name="rate_good_comment2">المكان نظيف وحديث</string>
+    <string name="rate_good_comment3">كان الانتظار قصير</string>
+    <string name="rate_good_comment4">آخر</string>
+
+    <string name="doctors">الأطباء</string>
+    <string name="clinics">عيادات</string>
+    <string name="empty_favorite_doctors">ليس لديك أطباء مفضلين حتى الآن</string>
+    <string name="empty_favorite_clinics">ليس لديك عيادات مفضلة حتى الآن</string>
+
+</resources>

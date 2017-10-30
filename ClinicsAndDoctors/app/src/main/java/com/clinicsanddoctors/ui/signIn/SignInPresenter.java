@@ -1,7 +1,6 @@
 package com.clinicsanddoctors.ui.signIn;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.UserClient;
@@ -26,14 +25,14 @@ public class SignInPresenter implements SignInContract.Presenter {
     }
 
     @Override
-    public void attendOnClickSigIn(String email, String password) {
-        if (email.isEmpty() || password.isEmpty()) {
+    public void attendOnClickSigIn(String mobile, String password) {
+        if (mobile.isEmpty() || password.isEmpty()) {
             mView.showErrorAlert(mContext.getString(R.string.complete_all_fields));
             return;
         }
 
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(email).setPassword(password);
+        loginRequest.setMobile(mobile).setPassword(password);
         mView.showProgressDialog();
         ClinicServices.getServiceClient().login(loginRequest)
                 .subscribeOn(Schedulers.newThread())
@@ -43,9 +42,9 @@ public class SignInPresenter implements SignInContract.Presenter {
 
     private void onSuccess(RegisterResponse registerResponse, String password) {
         mView.hideProgressDialog();
-        UserClient userTattoo = new UserClient(registerResponse);
-        userTattoo.setPassword(password);
-        AppPreference.setUser(mContext, userTattoo);
+        UserClient userClient = new UserClient(registerResponse);
+        userClient.setPassword(password);
+        AppPreference.setUser(mContext, userClient);
         mView.onSuccessSignIn();
     }
 

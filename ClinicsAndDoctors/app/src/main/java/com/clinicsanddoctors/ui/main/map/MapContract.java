@@ -29,7 +29,7 @@ public interface MapContract {
 
         Observable<Bitmap> getCustomMarker(android.view.View marker, ClinicAndDoctor clinicAndDoctor);
 
-        void getServiceProviders(Category category, Location location, int radius, boolean isFromTab);
+        void getClinics(Category category, Location location, int radius, boolean isFromTab);
     }
 }
 

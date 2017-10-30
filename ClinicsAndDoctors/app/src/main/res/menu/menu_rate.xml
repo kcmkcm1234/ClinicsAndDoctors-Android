@@ -4,11 +4,11 @@
     <group>
         <item
             android:id="@+id/mGoToClinic"
-            android:title="Go To Clinic Page" />
+            android:title="@string/menu_go_to_page" />
 
         <item
             android:id="@+id/mRateDoctor"
-            android:title="Rate Doctor" />
+            android:title="@string/menu_rate_doctor" />
 
     </group>
 

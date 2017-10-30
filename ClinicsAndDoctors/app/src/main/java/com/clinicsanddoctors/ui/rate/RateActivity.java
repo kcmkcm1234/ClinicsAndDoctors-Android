@@ -1,18 +1,21 @@
 package com.clinicsanddoctors.ui.rate;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
+import com.clinicsanddoctors.data.entity.Doctor;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.utils.ManagerAnimation;
 
@@ -20,10 +23,12 @@ import com.clinicsanddoctors.utils.ManagerAnimation;
  * Created by Daro on 20/10/2017.
  */
 
-public class RateActivity extends BaseClinicActivity {
+public class RateActivity extends BaseClinicActivity implements RateContract.View {
 
+    public static final int REQUEST_CODE = 10;
     public static final String ARG_CLINIC_DOCTOR = "ARG_CLINIC_DOCTOR";
     private ClinicAndDoctor mClinicAndDoctor;
+    private RatePresenter mPresenter;
 
     private ImageView mPhotoClinic;
     private TextView mNameClinic;
@@ -36,11 +41,13 @@ public class RateActivity extends BaseClinicActivity {
 
     private String sOptionSuggested;
     private boolean isGood = true;
+    private boolean mustRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
+        mPresenter = new RatePresenter(this, this);
         setupToolbar(getString(R.string.title_rating));
         mClinicAndDoctor = getIntent().getParcelableExtra(ARG_CLINIC_DOCTOR);
         mPhotoClinic = (ImageView) findViewById(R.id.mPhotoClinic);
@@ -69,20 +76,39 @@ public class RateActivity extends BaseClinicActivity {
                 mPhotoClinic.setImageResource(R.drawable.placeholder_clinic);
         }
 
-        optionSuggested(optionSuggested1);
-        optionSuggested(optionSuggested2);
-        optionSuggested(optionSuggested3);
-        optionSuggested(optionSuggested4);
-
         mRate1.setOnClickListener(v -> changeToBad());
         mRate2.setOnClickListener(v -> changeToBad());
         mRate3.setOnClickListener(v -> changeToBad());
         mRate4.setOnClickListener(v -> changeToGood());
         mRate5.setOnClickListener(v -> changeToGood());
+
+        findViewById(R.id.mSubmit).setOnClickListener(v -> {
+            String clinicId = null, doctorId = null;
+            if (mClinicAndDoctor instanceof Doctor)
+                doctorId = mClinicAndDoctor.getId();
+            else
+                clinicId = mClinicAndDoctor.getId();
+            mPresenter.sendRate(clinicId, doctorId, getRatingValue(), getReason(), mComment.getText().toString());
+        });
     }
 
-    private void optionSuggested(RadioButton radioButton) {
-        radioButton.setOnClickListener(v -> sOptionSuggested = radioButton.getText().toString());
+    private int getRatingValue() {
+        if (mRate1.isChecked()) return 1;
+        if (mRate2.isChecked()) return 2;
+        if (mRate3.isChecked()) return 3;
+        if (mRate4.isChecked()) return 4;
+        if (mRate5.isChecked()) return 5;
+
+        return 0;
+    }
+
+    private String getReason() {
+        if (optionSuggested1.isChecked()) return optionSuggested1.getText().toString();
+        if (optionSuggested2.isChecked()) return optionSuggested2.getText().toString();
+        if (optionSuggested3.isChecked()) return optionSuggested3.getText().toString();
+        if (optionSuggested4.isChecked()) return optionSuggested4.getText().toString();
+
+        return "";
     }
 
     private void changeToBad() {
@@ -125,5 +151,23 @@ public class RateActivity extends BaseClinicActivity {
         optionSuggested2.setText(getString(R.string.rate_bad_comment2));
         optionSuggested3.setText(getString(R.string.rate_bad_comment3));
         optionSuggested4.setText(getString(R.string.rate_bad_comment4));
+    }
+
+    @Override
+    public void onSuccessRating() {
+        Toast.makeText(this, "Rated", Toast.LENGTH_SHORT).show();
+        mustRefresh = true;
+        onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mustRefresh) {
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("UPDATE", true);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        } else
+            super.onBackPressed();
     }
 }

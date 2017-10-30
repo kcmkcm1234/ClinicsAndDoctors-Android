@@ -65,42 +65,20 @@
                 android:layout_marginTop="@dimen/margin_different_view"
                 android:layout_weight="1"
                 android:text="@string/last_name"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/mName"
+            style="@style/EditTextProfileStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/mName"
-                style="@style/EditTextProfileStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_different_view"
-                android:layout_weight="1"
-                android:enabled="false"
-                android:inputType="textCapSentences"
-                android:nextFocusDown="@+id/mLastName"
-                android:textColor="@color/white"
-                android:theme="@style/EditTextProfileStyle"/>
-
-
-            <EditText
-                android:id="@+id/mLastName"
-                style="@style/EditTextProfileStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:enabled="false"
-                android:inputType="textCapSentences"
-                android:nextFocusDown="@+id/mPrefix"
-                android:textColor="@color/white"
-                android:theme="@style/EditTextProfileStyle" />
-
-        </LinearLayout>
+            android:enabled="false"
+            android:inputType="textCapSentences"
+            android:textColor="@color/white"
+            android:theme="@style/EditTextProfileStyle" />
 
         <TextView
             style="@style/TextLabelStyleBold"
@@ -109,38 +87,15 @@
             android:text="@string/mobile"
             android:textColor="@color/white" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/mMobile"
+            style="@style/EditTextProfileStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/mPrefix"
-                style="@style/EditTextProfileStyle"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/margin_different_view"
-                android:enabled="false"
-                android:gravity="center"
-                android:inputType="phone"
-                android:nextFocusDown="@+id/mMobile"
-                android:textColor="@color/white"
-                android:theme="@style/EditTextProfileStyle" />
-
-
-            <EditText
-                android:id="@+id/mMobile"
-                style="@style/EditTextProfileStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:enabled="false"
-                android:inputType="phone"
-                android:nextFocusDown="@+id/mPassword"
-                android:textColor="@color/white"
-                android:theme="@style/EditTextProfileStyle" />
-
-        </LinearLayout>
+            android:enabled="false"
+            android:inputType="phone"
+            android:textColor="@color/white"
+            android:theme="@style/EditTextProfileStyle" />
 
         <TextView
             style="@style/TextLabelStyleBold"
@@ -155,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:focusable="false"
+            android:inputType="textEmailAddress"
             android:textColor="@color/white"
             android:theme="@style/EditTextProfileStyle" />
 

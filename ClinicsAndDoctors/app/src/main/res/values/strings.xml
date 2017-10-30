@@ -99,5 +99,18 @@
     <string name="empty_favorite_doctors">You don\'t have favorite doctors yet.</string>
     <string name="empty_favorite_clinics">You don\'t have favorite clinics yet.</string>
 
+    <!-- SIN TRADUCIR -->
+    <string name="kilometers_away">Kilometers Away</string>
+    <string name="km_away">km Away</string>
+    <string name="mtrs_away">mtrs Away</string>
+    <string name="login_register">Login/Register</string>
+    <string name="empty_doctors">Currently there are no doctors around you. Try increasing the mile range with the above slider.</string>
+    <string name="empty_doctors_in_clinic">Currently there are no doctors in this clinic.</string>
+
+    <string name="menu_rate">Rate</string>
+    <string name="menu_add_favorite">Add To Favorites</string>
+    <string name="menu_remove_favorite">Remove From Favorites</string>
+    <string name="menu_go_to_page">Go To Clinic Page</string>
+    <string name="menu_rate_doctor">Rate Doctor</string>
 
 </resources>

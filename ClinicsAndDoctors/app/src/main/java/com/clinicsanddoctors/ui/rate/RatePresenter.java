@@ -1,51 +1,59 @@
-package com.clinicsanddoctors.ui.main.list;
+package com.clinicsanddoctors.ui.rate;
 
 import android.content.Context;
 
 import com.clinicsanddoctors.R;
-import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
-import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
+import com.clinicsanddoctors.data.remote.requests.RateRequest;
+
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Timer;
 
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by Daro on 09/08/2017.
+ * Created by Daro on 30/10/2017.
  */
 
-public class ListPresenter implements ListContract.Presenter {
+public class RatePresenter implements RateContract.Presenter {
 
-    private ListContract.View mView;
+    private RateContract.View mView;
     private Context mContext;
-    private Timer mTimerBanner;
-    private int position = 0;
 
-    public ListPresenter(ListContract.View view, Context context) {
+    public RatePresenter(RateContract.View view, Context context) {
         mView = view;
         mContext = context;
     }
 
     @Override
-    public void getCategory() {
+    public void sendRate(String clinicId, String doctorId, int value, String reason, String comment) {
+
         mView.showProgressDialog();
-        ClinicServices.getServiceClient().getCategories()
+        RateRequest rateRequest = new RateRequest()
+                .setUser_id("" + AppPreference.getUser(mContext).getId())
+                .setValue(value)
+                .setReason(reason.trim())
+                .setComment(comment.trim());
+
+        if (clinicId != null && !clinicId.isEmpty())
+            rateRequest.setClinic_id(clinicId);
+
+        if (doctorId != null && !doctorId.isEmpty())
+            rateRequest.setDoctor_id(doctorId);
+
+        ClinicServices.getServiceClient().sendRate(rateRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMapIterable(categoryResponse -> categoryResponse)
-                .map(this::getCategory)
-                .toList()
                 .subscribe(this::onSuccess, this::onError);
     }
 
-    private void onSuccess(List<Category> categories) {
+    private void onSuccess(JSONObject jsonObject) {
         mView.hideProgressDialog();
-        mView.showCategory(categories);
+        mView.onSuccessRating();
     }
 
     private void onError(Throwable throwable) {
@@ -57,17 +65,6 @@ public class ListPresenter implements ListContract.Presenter {
                 mView.showErrorAlert(mContext.getString(R.string.error_internet));
             else
                 mView.showErrorAlert(mContext.getString(R.string.error_generic));
-        }
-    }
-
-    private Category getCategory(CategoryResponse categoryResponse) {
-        return new Category(categoryResponse);
-    }
-
-    public void cancelTimer() {
-        if (mTimerBanner != null) {
-            mTimerBanner.cancel();
-            mTimerBanner = null;
         }
     }
 }

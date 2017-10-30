@@ -21,7 +21,7 @@ import rx.schedulers.Schedulers;
 
 public class ForgetPasswordActivity extends BaseClinicActivity {
 
-    private EditText mEmail;
+    private EditText mMobile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,8 +29,8 @@ public class ForgetPasswordActivity extends BaseClinicActivity {
         setContentView(R.layout.activity_forgot_password);
         setupToolbar(getString(R.string.title_forgot_apssword));
 
-        mEmail = (EditText) findViewById(R.id.mEmail);
-        findViewById(R.id.mRecoverPassword).setOnClickListener(v -> sendEmail(mEmail.getText().toString()));
+        mMobile = (EditText) findViewById(R.id.mMobile);
+        findViewById(R.id.mRecoverPassword).setOnClickListener(v -> sendEmail(mMobile.getText().toString()));
     }
 
     @Override
@@ -39,37 +39,24 @@ public class ForgetPasswordActivity extends BaseClinicActivity {
         return super.onSupportNavigateUp();
     }
 
-    private void sendEmail(String email) {
-        if (email.isEmpty()) {
-            Toast.makeText(this, "You must enter your email", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!isValidEmail(email)) {
-            showErrorAlert(this.getString(R.string.error_invalid_email));
+    private void sendEmail(String mobile) {
+        if (mobile.isEmpty()) {
+            Toast.makeText(this, "You must enter your phone number", Toast.LENGTH_SHORT).show();
             return;
         }
 
         showProgressDialog();
-        ClinicServices.getServiceClient().forgotPassword(new ForgotPasswordRequest(email))
+        ClinicServices.getServiceClient().forgotPassword(new ForgotPasswordRequest(mobile))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccess, this::onError);
     }
 
-    private boolean isValidEmail(CharSequence target) {
-        if (TextUtils.isEmpty(target)) {
-            return false;
-        } else {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-        }
-    }
-
     private void onSuccess(JSONObject jsonObject) {
         hideProgressDialog();
         InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(mEmail.getWindowToken(), 0);
-        Toast.makeText(this, "You will receive an email", Toast.LENGTH_LONG).show();
+        imm.hideSoftInputFromWindow(mMobile.getWindowToken(), 0);
+        Toast.makeText(this, "You will receive a sms", Toast.LENGTH_LONG).show();
         finish();
     }
 

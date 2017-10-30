@@ -6,14 +6,9 @@ package com.clinicsanddoctors.data.remote.requests;
 
 public class ForgotPasswordRequest {
 
-    private String email;
+    private String phone_number;
 
-    public ForgotPasswordRequest(String email) {
-        this.email = email;
-    }
-
-    public ForgotPasswordRequest setEmail(String email) {
-        this.email = email;
-        return this;
+    public ForgotPasswordRequest(String phone_number) {
+        this.phone_number = phone_number;
     }
 }

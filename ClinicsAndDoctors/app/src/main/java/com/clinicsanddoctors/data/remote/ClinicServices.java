@@ -2,28 +2,21 @@ package com.clinicsanddoctors.data.remote;
 
 import com.clinicsanddoctors.data.entity.ErrorApi;
 import com.clinicsanddoctors.data.entity.SettingDescription;
-import com.clinicsanddoctors.data.remote.requests.AdvertisingRequest;
-import com.clinicsanddoctors.data.remote.requests.DeleteRequest;
+import com.clinicsanddoctors.data.remote.requests.AddRemoveFavoriteRequest;
+import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
+import com.clinicsanddoctors.data.remote.requests.DoctorsRequest;
 import com.clinicsanddoctors.data.remote.requests.EditProfileRequest;
+import com.clinicsanddoctors.data.remote.requests.FavoriteRequest;
 import com.clinicsanddoctors.data.remote.requests.ForgotPasswordRequest;
 import com.clinicsanddoctors.data.remote.requests.LoginRequest;
 import com.clinicsanddoctors.data.remote.requests.LogoutRequest;
-import com.clinicsanddoctors.data.remote.requests.MyRequestServiceRequest;
-import com.clinicsanddoctors.data.remote.requests.PlanRequest;
-import com.clinicsanddoctors.data.remote.requests.PostRequest;
-import com.clinicsanddoctors.data.remote.requests.PostSaveRemoveRequest;
 import com.clinicsanddoctors.data.remote.requests.RateRequest;
 import com.clinicsanddoctors.data.remote.requests.RegisterFacebookRequest;
 import com.clinicsanddoctors.data.remote.requests.RegisterRequest;
-import com.clinicsanddoctors.data.remote.requests.ReportRequest;
-import com.clinicsanddoctors.data.remote.requests.ServiceProviderIdRequest;
-import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
-import com.clinicsanddoctors.data.remote.respons.AdvertisingResponse;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
-import com.clinicsanddoctors.data.remote.respons.PlanResponse;
-import com.clinicsanddoctors.data.remote.respons.PostResponse;
-import com.clinicsanddoctors.data.remote.respons.RegisterResponse;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
+import com.clinicsanddoctors.data.remote.respons.RegisterResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
@@ -83,8 +76,13 @@ public class ClinicServices {
 
 
     public interface RadiusSearch {
-        int RADIUS = 100;
+        int RADIUS = 10000;
         int INTERVAL = 1;
+    }
+
+    public interface FavoriteType {
+        String CLINIC = "clinic";
+        String DOCTOR = "doctor";
     }
 
     public interface ApiError {
@@ -112,33 +110,6 @@ public class ClinicServices {
 
     public interface ApiClientInterface {
 
-        @POST("get_clinics")
-        Observable<List<ClinicAndDoctorResponse>> getClinics(@Body ClinicsRequest getStoreRequest);
-
-        @POST("get_doctors")
-        Observable<List<ClinicAndDoctorResponse>> getDoctors(@Body ClinicsRequest getStoreRequest);
-
-        @GET("get_specialties")
-        Observable<List<CategoryResponse>> getCategories();
-
-        @GET("get_terms_of_use")
-        Observable<SettingDescription> getTermsOfUse();
-
-        @GET("get_privacy_policy")
-        Observable<SettingDescription> getPrivacyPolicy();
-
-        @POST("send_rating")
-        Observable<JSONObject> sendRate(@Body RateRequest rateRequest);
-
-        @POST("send_report")
-        Observable<JSONObject> sendReport(@Body ReportRequest reportRequest);
-
-        @GET("get_advertising_banner")
-        Observable<List<AdvertisingResponse>> getAdvertisingBanner();
-
-        @POST("get_advertising_popover")
-        Observable<List<AdvertisingResponse>> getAdvertisingPopOver(@Body AdvertisingRequest advertisingRequest);
-
         @POST("register")
         Observable<RegisterResponse> register(@Body RegisterRequest registerFacebookRequest);
 
@@ -154,33 +125,37 @@ public class ClinicServices {
         @POST("logout")
         Observable<JSONObject> logout(@Body LogoutRequest logoutRequest);
 
+        @POST("get_clinics")
+        Observable<List<ClinicAndDoctorResponse>> getClinics(@Body ClinicsRequest getStoreRequest);
+
+        @POST("get_doctors")
+        Observable<List<DoctorResponse>> getDoctors(@Body DoctorsRequest doctorsRequest);
+
+        @GET("get_specialties")
+        Observable<List<CategoryResponse>> getCategories();
+
+        @GET("get_terms_of_use")
+        Observable<SettingDescription> getTermsOfUse();
+
+        @GET("get_privacy_policy")
+        Observable<SettingDescription> getPrivacyPolicy();
+
+        @POST("add_favorite")
+        Observable<JSONObject> addFavorite(@Body AddRemoveFavoriteRequest addRemoveFavoriteRequest);
+
+        @POST("remove_favorite")
+        Observable<JSONObject> removeFavorite(@Body AddRemoveFavoriteRequest addRemoveFavoriteRequest);
+
+        @POST("send_rating")
+        Observable<JSONObject> sendRate(@Body RateRequest rateRequest);
+
+        @POST("get_favorites")
+        Observable<List<DoctorResponse>> getDoctorsFavorites(@Body FavoriteRequest favoriteRequest);
+
+        @POST("get_favorites")
+        Observable<List<ClinicAndDoctorResponse>> getClinicsFavorites(@Body FavoriteRequest favoriteRequest);
+
         @POST("edit_profile")
         Observable<EditProfileRequest> editProfile(@Body EditProfileRequest editProfileRequest);
-
-        @POST("get_post")
-        Observable<List<PostResponse>> getPosts(@Body MyRequestServiceRequest serviceRequest);
-
-        @POST("create_edit_post")
-        Observable<JSONObject> createEditPost(@Body PostRequest postRequest);
-
-        @GET("get_plan")
-        Observable<List<PlanResponse>> getPlan();
-
-        @POST("set_plan")
-        Observable<JSONObject> setPlan(@Body PlanRequest planRequest);
-
-        @POST("delete_post")
-        Observable<JSONObject> deletePost(@Body DeleteRequest deleteRequest);
-
-        @POST("save_post")
-        Observable<JSONObject> savePost(@Body PostSaveRemoveRequest postSaveRemoveRequest);
-
-        @POST("remove_post")
-        Observable<JSONObject> removePost(@Body PostSaveRemoveRequest postSaveRemoveRequest);
-
-        @POST("get_saved_post")
-        Observable<List<PostResponse>> getSavePost(@Body ServiceProviderIdRequest serviceProviderIdRequest);
-
     }
-
 }

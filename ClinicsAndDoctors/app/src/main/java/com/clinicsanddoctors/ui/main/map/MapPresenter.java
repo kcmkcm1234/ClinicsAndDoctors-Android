@@ -16,6 +16,7 @@ import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
@@ -47,7 +48,7 @@ public class MapPresenter implements MapContract.Presenter {
     private CompositeSubscription mCompositeSubscriptions;
 
     //delete this line
-    private List<Clinic> clinicList;
+    //private List<Clinic> clinicList;
 
     public MapPresenter(MapContract.View view, Context context) {
         mView = view;
@@ -56,8 +57,8 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
 
-    private Clinic getNewClinic(ClinicAndDoctorResponse storeResponse) {
-        return new Clinic(storeResponse);
+    private Clinic getNewClinic(ClinicAndDoctorResponse storeResponse, Category category) {
+        return new Clinic(storeResponse, category);
     }
 
     private void onSuccess(List<Clinic> clinics) {
@@ -93,7 +94,7 @@ public class MapPresenter implements MapContract.Presenter {
     }
 
     @Override
-    public void getServiceProviders(Category category, Location location, int radius, boolean isFromTab) {
+    public void getClinics(Category category, Location location, int radius, boolean isFromTab) {
         if (isFromTab)
             mView.showProgressDialog();
 
@@ -101,41 +102,24 @@ public class MapPresenter implements MapContract.Presenter {
             return;
 
         ClinicsRequest clinicsRequest = new ClinicsRequest();
-        clinicsRequest.setLatitude("" + location.getLatitude())
-                .setLongitude("" + location.getLongitude()).setRadius("" + radius);
+        clinicsRequest
+                .setCategoryId(category.getId())
+                .setLatitude("" + location.getLatitude())
+                .setLongitude("" + location.getLongitude())
+                .setRadius("" + radius);
 
-        if (!category.getId().equalsIgnoreCase("0"))
-            clinicsRequest.setCategoryId(category.getId());
+        if (AppPreference.getUser(mContext) != null)
+            clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
+        else
+            clinicsRequest.setUser_id("0");
 
-        if (isFromTab)
-            clinicList = null;
-
-        if (clinicList != null) {
-            mView.showClinics(clinicList);
-            return;
-        }
-
-        clinicList = new ArrayList<>();
-        LatLng latLng1 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng2 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-        LatLng latLng3 = getRandomLocation(new LatLng(location.getLatitude(), location.getLongitude()));
-
-        clinicList.add((Clinic) new Clinic().setCantDoctors(30).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Mayo Clinic").setLatitude(latLng1.latitude).setLongitude(latLng1.longitude).setRating("3"));
-        clinicList.add((Clinic) new Clinic().setCantDoctors(10).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Infinix Clinic").setPicture("https://pbs.twimg.com/profile_images/531871789672980482/N_mXF1j0.png").setLatitude(latLng2.latitude).setLongitude(latLng2.longitude).setRating("3"));
-        clinicList.add((Clinic) new Clinic().setCantDoctors(20).setCategory(new Category().setName("Medial Center")).setAddress("Dallas, TX, United State").setName("Infi-Health").setLatitude(latLng3.latitude).setLongitude(latLng3.longitude).setRating("3"));
-
-        mView.hideProgressDialog();
-        mView.showClinics(clinicList);
-
-        /*
         ClinicServices.getServiceClient().getClinics(clinicsRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable(equineResponse -> equineResponse)
-                .map(this::getNewClinic)
+                .map(obj -> getNewClinic(obj, category))
                 .toList()
                 .subscribe(this::onSuccess, this::onError);
-                */
     }
 
     private Observable<Bitmap> getBitmapColorFromDrawable(View marker, Drawable drawable, int color, ClinicAndDoctor clinicAndDoctor) {

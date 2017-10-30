@@ -23,6 +23,6 @@ public interface CategoryContract {
 
     interface Presenter {
         void getDoctors(Category category, Location location, int radius);
-        void getDoctorsFromClinic(Clinic clinic);
+        void getDoctorsFromClinic(Clinic clinic, Category category);
     }
 }

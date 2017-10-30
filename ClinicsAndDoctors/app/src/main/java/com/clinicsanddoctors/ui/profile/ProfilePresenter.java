@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 
 import com.bumptech.glide.Glide;
@@ -39,7 +40,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     private ProfileContract.View mView;
     private Context mContext;
 
-    final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64, ";
+    final static String HEADER_PHOTO_BASE_64 = "data:image/jpeg;base64,";
     private Uri mSelectedImageUri;
     private Uri mOutputFileUri;
     protected String mImageBase64 = "";
@@ -119,9 +120,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void editProfile(String name, String lastName, String mobile, String password, String confirmPassword) {
+    public void editProfile(String fullName, String mobile, String email, String password, String confirmPassword) {
 
-        if (name.isEmpty()) {
+        if (fullName.isEmpty()) {
             mView.showErrorAlert("You must write your name");
             return;
         }
@@ -143,15 +144,21 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 mView.showErrorAlert(mContext.getString(R.string.password_not_match));
                 return;
             }
+
+            if (!isValidEmail(email)) {
+                mView.showErrorAlert(mContext.getString(R.string.error_invalid_email));
+                return;
+            }
+
             editProfileRequest = new EditProfileRequest();
             editProfileRequest.setPassword(password);
         }
         if (editProfileRequest == null)
             editProfileRequest = new EditProfileRequest();
 
+        editProfileRequest.setEmail(email);
         editProfileRequest.setMobile(mobile);
-        editProfileRequest.setFirst_name(name);
-        editProfileRequest.setLast_name(lastName);
+        editProfileRequest.setFull_name(fullName);
         editProfileRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
 
         if (mImageBase64 != null && !mImageBase64.isEmpty())
@@ -161,15 +168,16 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         ClinicServices.getServiceClient().editProfile(editProfileRequest)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> onSuccessEdit(response, name, lastName, password), this::onError);
+                .subscribe(response -> onSuccessEdit(response, fullName, password, mobile, email), this::onError);
     }
 
-    private void onSuccessEdit(EditProfileRequest editProfileRequest, String name, String lastName, String password) {
+    private void onSuccessEdit(EditProfileRequest editProfileRequest, String fullName, String password, String mobile, String email) {
         mView.hideProgressDialog();
         UserClient userClient = AppPreference.getUser(mContext);
         userClient.setPassword(password);
-        userClient.setFirstName(name);
-        userClient.setLastName(lastName);
+        userClient.setEmail(email);
+        userClient.setMobile(mobile);
+        userClient.setFullName(fullName);
         userClient.setUrl(editProfileRequest.getPicture());
         /*
         if (userClient.getUrl() == null
@@ -198,6 +206,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 else
                     mView.showErrorAlert(mContext.getString(R.string.error_generic));
             }
+        }
+    }
+
+    private boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
 
