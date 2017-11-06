@@ -14,6 +14,7 @@ import com.clinicsanddoctors.data.remote.requests.RegisterFacebookRequest;
 import com.clinicsanddoctors.data.remote.respons.RegisterResponse;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
@@ -66,6 +67,11 @@ public class StartPresenter implements StartContract.Presenter {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(mContext, mContext.getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
+                if (error instanceof FacebookAuthorizationException) {
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        LoginManager.getInstance().logOut();
+                    }
+                }
             }
         };
         LoginManager.getInstance().registerCallback(callbackManager, facebookCallback);

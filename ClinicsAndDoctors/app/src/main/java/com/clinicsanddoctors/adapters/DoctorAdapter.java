@@ -80,9 +80,9 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.ViewHolder
 
             if (data.getPicture() != null && !data.getPicture().isEmpty())
                 Glide.with(mPhoto.getContext()).load(data.getPicture())
-                        .dontAnimate().placeholder(R.drawable.placeholder_heart).into(mPhoto);
+                        .dontAnimate().placeholder(R.drawable.placeholder_clinic).into(mPhoto);
             else
-                mPhoto.setImageResource(R.drawable.placeholder_heart);
+                mPhoto.setImageResource(R.drawable.placeholder_clinic);
 
             mDoctorName.setText(data.getName());
             mRate.setRating(Float.parseFloat(data.getRating()));

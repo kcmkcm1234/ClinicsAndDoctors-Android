@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.InflateException;
@@ -24,6 +23,7 @@ import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.remote.ClinicServices;
+import com.clinicsanddoctors.ui.BaseClinicFragment;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
 import com.clinicsanddoctors.ui.dialog.PreviewClinicDialog;
 import com.clinicsanddoctors.ui.main.MainActivity;
@@ -43,14 +43,13 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import rx.Observable;
 
 /**
  * Created by Daro on 27/07/2017.
  */
 
-public class MapFragment extends Fragment implements ClusterManager.OnClusterClickListener<ClinicCluster>,
+public class MapFragment extends BaseClinicFragment implements ClusterManager.OnClusterClickListener<ClinicCluster>,
         GoogleMap.OnMarkerClickListener, MapContract.View {
 
     private View view;
@@ -58,7 +57,6 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
     private ClusterManager<ClinicCluster> mClusterManager;
     private MapPresenter mPresenter;
     private List<Clinic> mClinicList;
-    private SweetAlertDialog mSweetAlertDialog;
 
     private Location mLocationMap = new Location("");
     private Category mCurrentCategory;
@@ -90,10 +88,10 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
             view = inflater.inflate(R.layout.fragment_map, container, false);
             mPresenter = new MapPresenter(this, getActivity());
             mTabLayout = (TabLayout) view.findViewById(R.id.mTabLayout);
-            /*
+
             if (mCurrentCategory == null)
                 mCurrentCategory = new Category().setName("All").setId("0");
-                */
+
 
             ((MainActivity) getActivity()).getCategories();
             initMap();
@@ -298,27 +296,6 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
         return mClinicList != null ? mClinicList : new ArrayList<>();
     }
 
-    @Override
-    public void showProgressDialog() {
-        mSweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        if (mSweetAlertDialog != null && mSweetAlertDialog.isShowing())
-            mSweetAlertDialog.hide();
-    }
-
-    @Override
-    public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
-    }
-
     public void showCategory(List<Category> categories) {
         if (!isAdded()) return;
 
@@ -346,7 +323,7 @@ public class MapFragment extends Fragment implements ClusterManager.OnClusterCli
                 }
             });
 
-            mCurrentCategory = categories.get(0);
+            //mCurrentCategory = categories.get(0);
             mPresenter.getClinics(mCurrentCategory, mLocationMap, ClinicServices.RadiusSearch.RADIUS, true);
         }
     }

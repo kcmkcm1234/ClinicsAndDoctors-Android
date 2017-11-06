@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +17,17 @@ import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
+import com.clinicsanddoctors.ui.BaseClinicFragment;
 import com.tbruyelle.rxpermissions.RxPermissions;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by Daro on 01/08/2017.
  */
 
-public class ProfileFragment extends Fragment implements ProfileContract.View {
+public class ProfileFragment extends BaseClinicFragment implements ProfileContract.View {
 
     private ProfilePresenter mPresenter;
     private View view;
-    private SweetAlertDialog mSweetAlertDialog;
 
     private EditText mEmail, mName, mPassword, mConfirmPassword, mMobile;
     private ImageView mPhoto;
@@ -159,25 +156,5 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void showProgressDialog() {
-        mSweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        mSweetAlertDialog.hide();
-    }
-
-    @Override
-    public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
     }
 }

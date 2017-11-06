@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
@@ -83,7 +84,14 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
             mPhotoClinic.setImageResource(R.drawable.placeholder_clinic);
 
         String sCategory = "-";
-        if (mClinic.getCategory() != null) sCategory = mClinic.getCategory().getName();
+        if (mClinic.getCategory() != null)
+            sCategory = mClinic.getCategory().getName();
+
+        if (sCategory.equalsIgnoreCase("all")) {
+            sCategory = "-";
+            if (mClinic.getCategoryList() != null && !mClinic.getCategoryList().isEmpty())
+                sCategory = mClinic.getCategoryList().get(0).getName();
+        }
         mInfoClinic.setText(setSpanBoldAndLight(mClinic.getName(), sCategory, mClinic.getAddress()));
         mPresenter.getCategory();
     }
@@ -129,12 +137,14 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
     public void onSuccessAdd() {
         mMenu.getItem(1).setTitle(getString(R.string.menu_remove_favorite));
         mMustRefresh = true;
+        Toast.makeText(this, getString(R.string.added_to_favorite), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccessRemove() {
         mMenu.getItem(1).setTitle(getString(R.string.menu_add_favorite));
         mMustRefresh = true;
+        Toast.makeText(this, getString(R.string.removed_from_favorite), Toast.LENGTH_SHORT).show();
     }
 
     public List<Category> getCategories() {

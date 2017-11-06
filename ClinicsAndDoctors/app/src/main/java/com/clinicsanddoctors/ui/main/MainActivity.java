@@ -295,27 +295,6 @@ public class MainActivity extends BaseClinicActivity
                 .commit();
     }
 
-    @Override
-    public void showProgressDialog() {
-        mSweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        if (mSweetAlertDialog != null && mSweetAlertDialog.isShowing())
-            mSweetAlertDialog.hide();
-    }
-
-    @Override
-    public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
-    }
-
     public void getCategories() {
         mainPresenter.getCategory();
     }

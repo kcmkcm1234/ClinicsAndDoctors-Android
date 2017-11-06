@@ -48,7 +48,6 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
         DoctorsRequest clinicsRequest = new DoctorsRequest();
         clinicsRequest
-                .setCategoryId(category.getId())
                 .setLatitude("" + location.getLatitude())
                 .setLongitude("" + location.getLongitude())
                 .setRadius("" + radius);
@@ -57,6 +56,9 @@ public class CategoryPresenter implements CategoryContract.Presenter {
             clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
         else
             clinicsRequest.setUser_id("0");
+
+        if (!category.getId().equalsIgnoreCase("0"))
+            clinicsRequest.setCategoryId(category.getId());
 
         ClinicServices.getServiceClient().getDoctors(clinicsRequest)
                 .subscribeOn(Schedulers.newThread())

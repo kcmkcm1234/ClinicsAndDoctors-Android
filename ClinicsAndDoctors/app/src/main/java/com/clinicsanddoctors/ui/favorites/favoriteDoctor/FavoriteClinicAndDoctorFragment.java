@@ -3,13 +3,11 @@ package com.clinicsanddoctors.ui.favorites.favoriteDoctor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.adapters.ClinicAdapter;
@@ -18,6 +16,7 @@ import com.clinicsanddoctors.adapters.EmptyAdapter;
 import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.ui.BaseClinicFragment;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
 import com.clinicsanddoctors.ui.doctorProfile.DoctorProfileActivity;
 
@@ -29,12 +28,11 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
  * Created by Daro on 23/10/2017.
  */
 
-public class FavoriteClinicAndDoctorFragment extends Fragment implements FavoriteContract.View {
+public class FavoriteClinicAndDoctorFragment extends BaseClinicFragment implements FavoriteContract.View {
 
     public static final String ARG_IS_DOCTOR = "ARG_IS_DOCTOR";
     private View view;
     private FavoritePresenter mPresenter;
-    private SweetAlertDialog mSweetAlertDialog;
     private RecyclerView mList;
 
 
@@ -91,29 +89,6 @@ public class FavoriteClinicAndDoctorFragment extends Fragment implements Favorit
             }));
         } else
             mList.setAdapter(new EmptyAdapter(getString(R.string.empty_favorite_clinics)));
-    }
-
-    @Override
-    public void showProgressDialog() {
-
-        mSweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        if (mSweetAlertDialog != null && mSweetAlertDialog.isShowing())
-            mSweetAlertDialog.hide();
-    }
-
-    @Override
-    public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
     }
 
     @Override

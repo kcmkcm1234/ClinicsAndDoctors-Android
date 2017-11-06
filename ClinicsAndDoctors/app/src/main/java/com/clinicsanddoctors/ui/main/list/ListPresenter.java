@@ -8,6 +8,7 @@ import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
@@ -45,6 +46,10 @@ public class ListPresenter implements ListContract.Presenter {
 
     private void onSuccess(List<Category> categories) {
         mView.hideProgressDialog();
+
+        if (categories == null) categories = new ArrayList<>();
+        categories.add(0, new Category().setName("All").setId("0"));
+
         mView.showCategory(categories);
     }
 

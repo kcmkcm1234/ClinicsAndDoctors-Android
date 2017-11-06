@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,22 +18,20 @@ import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.adapters.CategoryAdapter;
 import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.Clinic;
+import com.clinicsanddoctors.ui.BaseClinicFragment;
 import com.clinicsanddoctors.ui.clinicProfile.ClinicProfileActivity;
 import com.clinicsanddoctors.ui.main.MainActivity;
 
 import java.util.List;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 /**
  * Created by Daro on 28/07/2017.
  */
 
-public class ListFragment extends Fragment implements ListContract.View {
+public class ListFragment extends BaseClinicFragment implements ListContract.View {
 
     private View view;
     private List<Clinic> mClinicCluster;
-    private SweetAlertDialog mSweetAlertDialog;
     private ListPresenter mPresenter;
     private ViewPager mViewPager;
     private ImageView mAdBanner;
@@ -113,26 +110,6 @@ public class ListFragment extends Fragment implements ListContract.View {
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(urlLink));
         startActivity(i);
-    }
-
-    @Override
-    public void showProgressDialog() {
-        mSweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        mSweetAlertDialog.hide();
-    }
-
-    @Override
-    public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.adapters.FavoriteAdapter;
+import com.clinicsanddoctors.ui.BaseClinicFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by Daro on 23/10/2017.
  */
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends BaseClinicFragment {
 
     private View view;
     private ViewPager mViewPager;

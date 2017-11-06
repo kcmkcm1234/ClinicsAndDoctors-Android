@@ -61,7 +61,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     private void onSuccess(List<Category> categories) {
         if (categories == null) categories = new ArrayList<>();
-        //categories.add(0, new Category().setName("All").setId("0"));
+        categories.add(0, new Category().setName("All").setId("0"));
         this.categories = categories;
         mView.hideProgressDialog();
         mView.showCategory(categories);

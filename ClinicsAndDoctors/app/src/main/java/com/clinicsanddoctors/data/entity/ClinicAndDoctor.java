@@ -294,6 +294,10 @@ public class ClinicAndDoctor implements Parcelable {
         return this;
     }
 
+    public List<Category> getCategoryList() {
+        return categoryList;
+    }
+
     public boolean isRated() {
         return isRated;
     }

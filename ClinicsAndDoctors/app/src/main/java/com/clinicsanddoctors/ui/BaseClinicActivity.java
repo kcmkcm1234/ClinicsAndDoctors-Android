@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.contracts.LoaderView;
+import com.clinicsanddoctors.ui.dialog.LoaderDialog;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -17,7 +18,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class BaseClinicActivity extends AppCompatActivity implements LoaderView {
 
-    private SweetAlertDialog mSweetAlertDialog;
+    //private SweetAlertDialog mSweetAlertDialog;
+    private LoaderDialog loaderDialog;
 
     protected void setupToolbar(String title) {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.mToolbar);
@@ -42,14 +44,23 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
 
     @Override
     public void showProgressDialog() {
+        /*
         mSweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
                 .setTitleText(getString(R.string.app_name));
         mSweetAlertDialog.show();
+        */
+        loaderDialog = new LoaderDialog(this, R.style.NewDialog);
+        loaderDialog.show();
     }
 
     @Override
     public void hideProgressDialog() {
+        /*
+        if (mSweetAlertDialog!=null && mSweetAlertDialog.isShowing())
         mSweetAlertDialog.hide();
+        */
+        if (loaderDialog != null && loaderDialog.isShowing())
+            loaderDialog.hide();
     }
 
     @Override

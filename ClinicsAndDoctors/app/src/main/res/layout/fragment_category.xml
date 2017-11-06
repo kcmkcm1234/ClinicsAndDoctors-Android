@@ -44,7 +44,6 @@
                 android:progress="10" />
         </RelativeLayout>
 
-
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

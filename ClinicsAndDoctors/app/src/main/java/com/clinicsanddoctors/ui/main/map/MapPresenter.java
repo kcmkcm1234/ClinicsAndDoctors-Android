@@ -103,7 +103,6 @@ public class MapPresenter implements MapContract.Presenter {
 
         ClinicsRequest clinicsRequest = new ClinicsRequest();
         clinicsRequest
-                .setCategoryId(category.getId())
                 .setLatitude("" + location.getLatitude())
                 .setLongitude("" + location.getLongitude())
                 .setRadius("" + radius);
@@ -112,6 +111,9 @@ public class MapPresenter implements MapContract.Presenter {
             clinicsRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
         else
             clinicsRequest.setUser_id("0");
+
+        if (!category.getId().equalsIgnoreCase("0"))
+            clinicsRequest.setCategoryId(category.getId());
 
         ClinicServices.getServiceClient().getClinics(clinicsRequest)
                 .subscribeOn(Schedulers.newThread())

@@ -4,6 +4,8 @@ import android.location.Location;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.facebook.FacebookSdk;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -19,6 +21,7 @@ public class ClinicsApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        FacebookSdk.sdkInitialize(this);
         MultiDex.install(this);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath(getResources().getString(R.string.font_compact_avenir_medium))
