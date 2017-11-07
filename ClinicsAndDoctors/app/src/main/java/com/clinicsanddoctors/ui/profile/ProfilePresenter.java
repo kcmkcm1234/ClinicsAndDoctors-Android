@@ -162,7 +162,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         editProfileRequest.setUser_id("" + AppPreference.getUser(mContext).getId());
 
         if (mImageBase64 != null && !mImageBase64.isEmpty())
-            editProfileRequest.setProfile_picture(mImageBase64);
+            editProfileRequest.setProfile_picture(mImageBase64.replace("\n", ""));
 
         mView.showProgressDialog();
         ClinicServices.getServiceClient().editProfile(editProfileRequest)

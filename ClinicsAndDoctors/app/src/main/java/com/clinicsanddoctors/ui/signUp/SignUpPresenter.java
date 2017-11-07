@@ -160,7 +160,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
                 .setEmail(email)
                 .setFull_name(completeName)
                 .setMobile_phone(mobile)
-                .setProfile_picture(mImageBase64);
+                .setProfile_picture(mImageBase64.replace("\n", ""));
 
         ClinicServices.getServiceClient().register(registerRequest)
                 .subscribeOn(Schedulers.newThread())

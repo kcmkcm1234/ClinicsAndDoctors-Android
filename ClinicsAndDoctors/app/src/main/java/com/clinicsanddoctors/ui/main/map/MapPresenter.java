@@ -98,8 +98,10 @@ public class MapPresenter implements MapContract.Presenter {
         if (isFromTab)
             mView.showProgressDialog();
 
-        if (location.getLongitude() == 0 || location.getLatitude() == 0)
+        if (location.getLongitude() == 0 || location.getLatitude() == 0) {
+            mView.hideProgressDialog();
             return;
+        }
 
         ClinicsRequest clinicsRequest = new ClinicsRequest();
         clinicsRequest
