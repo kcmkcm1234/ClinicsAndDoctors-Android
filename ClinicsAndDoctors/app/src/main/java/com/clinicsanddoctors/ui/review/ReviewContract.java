@@ -1,7 +1,7 @@
 package com.clinicsanddoctors.ui.review;
 
 import com.clinicsanddoctors.contracts.LoaderView;
-import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.entity.Review;
 
 import java.util.List;
@@ -16,6 +16,6 @@ public interface ReviewContract {
     }
 
     interface Presenter {
-        void getReviews(Doctor doctor);
+        void getReviews(ClinicAndDoctor clinicAndDoctor);
     }
 }

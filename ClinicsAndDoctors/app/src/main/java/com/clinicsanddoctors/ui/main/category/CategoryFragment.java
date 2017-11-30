@@ -77,7 +77,7 @@ public class CategoryFragment extends BaseClinicFragment implements CategoryCont
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 int progress = (seekBar.getProgress() * ClinicServices.RadiusSearch.INTERVAL) + 1;
-                mDistance.setText(progress + "\n" + getString(R.string.kilometers_away));
+                mDistance.setText(progress + "\n" + getString(R.string.km_away));
             }
 
             @Override

@@ -35,7 +35,7 @@
             android:layout_marginLeft="6dp"
             android:gravity="center_vertical"
             android:padding="10dp"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="@color/white" />
 
     </android.support.design.widget.NavigationView>

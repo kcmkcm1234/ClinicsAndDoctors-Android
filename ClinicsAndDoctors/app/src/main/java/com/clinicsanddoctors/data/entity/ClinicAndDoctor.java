@@ -29,6 +29,7 @@ public class ClinicAndDoctor implements Parcelable {
     private String state;
     private String country;
     private String address;
+    private String type;
     private double latitude;
     private double longitude;
     private boolean isFavorite;
@@ -74,6 +75,7 @@ public class ClinicAndDoctor implements Parcelable {
     public ClinicAndDoctor(DoctorResponse doctorResponse, Category category) {
         id = doctorResponse.getId();
         name = doctorResponse.getName();
+        type = doctorResponse.getType();
         if (category != null)
             this.category = category;
         else
@@ -143,6 +145,7 @@ public class ClinicAndDoctor implements Parcelable {
         longitude = in.readDouble();
         isFavorite = in.readByte() != 0;
         isRated = in.readByte() != 0;
+        type = in.readString();
     }
 
     public static final Creator<ClinicAndDoctor> CREATOR = new Creator<ClinicAndDoctor>() {
@@ -306,6 +309,10 @@ public class ClinicAndDoctor implements Parcelable {
         isRated = rated;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -330,5 +337,6 @@ public class ClinicAndDoctor implements Parcelable {
         dest.writeDouble(longitude);
         dest.writeByte((byte) (isFavorite ? 1 : 0));
         dest.writeByte((byte) (isRated ? 1 : 0));
+        dest.writeString(type);
     }
 }

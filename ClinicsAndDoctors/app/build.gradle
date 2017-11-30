@@ -23,7 +23,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("C:\\Users\\Daro\\.android\\debugKeystoreShared\\debug.keystore")
+            storeFile file("/home/evaristo/Escritorio/Apps/infinixDebug.keystore")
         }
     }
 }
@@ -54,5 +54,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.makeramen:roundedimageview:2.3.0'
     compile 'com.facebook.android:facebook-android-sdk:4.24.0'
+    compile 'org.parceler:parceler-api:1.1.9'
+    annotationProcessor 'org.parceler:parceler:1.1.9'
 }
 apply plugin: 'com.google.gms.google-services'

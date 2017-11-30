@@ -16,8 +16,11 @@ import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.entity.Doctor;
+import com.clinicsanddoctors.data.entity.Review;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.utils.ManagerAnimation;
+
+import org.parceler.Parcels;
 
 /**
  * Created by Daro on 20/10/2017.
@@ -27,7 +30,9 @@ public class RateActivity extends BaseClinicActivity implements RateContract.Vie
 
     public static final int REQUEST_CODE = 10;
     public static final String ARG_CLINIC_DOCTOR = "ARG_CLINIC_DOCTOR";
+    public static final String ARG_REVIEW = "ARG_REVIEW";
     private ClinicAndDoctor mClinicAndDoctor;
+    private Review review;
     private RatePresenter mPresenter;
 
     private ImageView mPhotoClinic;
@@ -50,6 +55,7 @@ public class RateActivity extends BaseClinicActivity implements RateContract.Vie
         mPresenter = new RatePresenter(this, this);
         setupToolbar(getString(R.string.title_rating));
         mClinicAndDoctor = getIntent().getParcelableExtra(ARG_CLINIC_DOCTOR);
+        review = Parcels.unwrap(getIntent().getParcelableExtra(ARG_REVIEW));
         mPhotoClinic = (ImageView) findViewById(R.id.mPhotoClinic);
         mNameClinic = (TextView) findViewById(R.id.mNameClinic);
         mTitleOption = (TextView) findViewById(R.id.mTitleOption);
@@ -90,6 +96,26 @@ public class RateActivity extends BaseClinicActivity implements RateContract.Vie
                 clinicId = mClinicAndDoctor.getId();
             mPresenter.sendRate(clinicId, doctorId, getRatingValue(), getReason(), mComment.getText().toString());
         });
+
+        if(review!=null) {
+            mComment.setText(review.getComment());
+            mComment.setSelection(mComment.getText().length());
+            setRating(review.getRating());
+            if(review.getRating()>3)
+                changeToGood();
+            else
+                changeToBad();
+        }
+    }
+
+    private void setRating(int rating) {
+        switch (rating) {
+            case 1: mRate1.setChecked(true);break;
+            case 2: mRate2.setChecked(true);break;
+            case 3: mRate3.setChecked(true);break;
+            case 4: mRate4.setChecked(true);break;
+            case 5: mRate5.setChecked(true);break;
+        }
     }
 
     private int getRatingValue() {
@@ -170,4 +196,5 @@ public class RateActivity extends BaseClinicActivity implements RateContract.Vie
         } else
             super.onBackPressed();
     }
+
 }

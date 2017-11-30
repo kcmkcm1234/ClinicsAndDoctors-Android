@@ -24,12 +24,15 @@ import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.ui.main.list.ListFragment;
 import com.clinicsanddoctors.ui.rate.RateActivity;
+import com.clinicsanddoctors.ui.review.ReviewActivity;
 import com.clinicsanddoctors.ui.start.StartActivity;
 
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyTypefaceSpan;
 import uk.co.chrisjenx.calligraphy.TypefaceUtils;
+
+import static com.clinicsanddoctors.ui.rate.RateActivity.ARG_CLINIC_DOCTOR;
 
 /**
  * Created by Daro on 13/10/2017.
@@ -44,7 +47,7 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
     private ClinicProfilePresenter mPresenter;
 
     private TextView mInfoClinic;
-    private ImageView mPhotoClinic;
+    private ImageView mPhotoClinic, mAddFavorite;
     private boolean mMustRefresh = false;
     private AppCompatRatingBar mRate;
     private Menu mMenu;
@@ -60,6 +63,7 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
         mInfoClinic = (TextView) findViewById(R.id.mInfoClinic);
         mPhotoClinic = (ImageView) findViewById(R.id.mPhotoClinic);
         mRate = (AppCompatRatingBar) findViewById(R.id.mRate);
+        mAddFavorite = (ImageView) findViewById(R.id.mAddFavorite);
 
         findViewById(R.id.mPhone).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mClinic.getPhoneNumber()));
@@ -76,12 +80,42 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
             }
         });
 
+        findViewById(R.id.mAddFavorite).setOnClickListener(v -> {
+            UserClient userClient = AppPreference.getUser(this);
+            if (userClient != null) {
+                if (!mClinic.isFavorite())
+                    mPresenter.addToFavorite(mClinic);
+                else
+                    mPresenter.removeFromFavorite(mClinic);
+            } else
+                startActivity(new Intent(this, StartActivity.class));
+        });
+
+        findViewById(R.id.mShare).setOnClickListener(v -> {
+            String shareBody = mClinic.getName() + " - " + mClinic.getAddress() + " - " + mClinic.getPhoneNumber();
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(shareIntent, "Compartir con"));
+        });
+
+        findViewById(R.id.mSeeReview).setOnClickListener(v -> {
+            Intent intent = new Intent(this, ReviewActivity.class);
+            intent.putExtra(ARG_CLINIC_DOCTOR, mClinic);
+            startActivity(intent);
+        });
+
         mRate.setRating(Float.parseFloat(mClinic.getRating()));
         if (mClinic.getPicture() != null && !mClinic.getPicture().isEmpty())
             Glide.with(this).load(mClinic.getPicture())
                     .dontAnimate().placeholder(R.drawable.placeholder_clinic).into(mPhotoClinic);
         else
             mPhotoClinic.setImageResource(R.drawable.placeholder_clinic);
+
+        if(mClinic.isFavorite())
+            mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
+        else
+            mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
 
         String sCategory = "-";
         if (mClinic.getCategory() != null)
@@ -99,26 +133,26 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
     private SpannableStringBuilder setSpanBoldAndLight(String sClinicName, String sCategory, String sAddress) {
 
         if (sClinicName == null || sClinicName.isEmpty()) sClinicName = "-";
-        if (sCategory == null || sCategory.isEmpty()) sCategory = "-";
+//        if (sCategory == null || sCategory.isEmpty()) sCategory = "-";
         if (sAddress == null || sAddress.isEmpty()) sAddress = "-";
 
         CalligraphyTypefaceSpan typefaceName = new CalligraphyTypefaceSpan(
                 TypefaceUtils.load(getResources().getAssets(), getString(R.string.font_compact_avenir_bold)));
 
-        CalligraphyTypefaceSpan typefaceCategory = new CalligraphyTypefaceSpan(
-                TypefaceUtils.load(getResources().getAssets(), getString(R.string.font_compact_avenir_medium)));
+//        CalligraphyTypefaceSpan typefaceCategory = new CalligraphyTypefaceSpan(
+//                TypefaceUtils.load(getResources().getAssets(), getString(R.string.font_compact_avenir_medium)));
 
         CalligraphyTypefaceSpan typefaceAddress = new CalligraphyTypefaceSpan(
-                TypefaceUtils.load(getResources().getAssets(), getString(R.string.font_compact_avenir_medium)));
+                TypefaceUtils.load(getResources().getAssets(), getString(R.string.font_compact_avenir_light)));
 
-        String formatInfo = sClinicName + "\n" + sCategory + "\n" + sAddress;
+        String formatInfo = sClinicName /*+ "\n" + sCategory*/ + "\n" + sAddress;
         SpannableStringBuilder spannableInfo = new SpannableStringBuilder(formatInfo);
         spannableInfo.setSpan(typefaceName, formatInfo.indexOf(sClinicName), formatInfo.indexOf(sClinicName) + sClinicName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spannableInfo.setSpan(typefaceCategory, formatInfo.indexOf(sCategory), formatInfo.indexOf(sCategory) + sCategory.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        spannableInfo.setSpan(typefaceCategory, formatInfo.indexOf(sCategory), formatInfo.indexOf(sCategory) + sCategory.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         spannableInfo.setSpan(typefaceAddress, formatInfo.indexOf(sAddress), formatInfo.indexOf(sAddress) + sAddress.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         spannableInfo.setSpan(new RelativeSizeSpan(1.5f), formatInfo.indexOf(sClinicName), formatInfo.indexOf(sClinicName) + sClinicName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//resize size
-        spannableInfo.setSpan(new RelativeSizeSpan(1.3f), formatInfo.indexOf(sCategory), formatInfo.indexOf(sCategory) + sCategory.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//resize size
+//        spannableInfo.setSpan(new RelativeSizeSpan(1.3f), formatInfo.indexOf(sCategory), formatInfo.indexOf(sCategory) + sCategory.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//resize size
         spannableInfo.setSpan(new RelativeSizeSpan(1.0f), formatInfo.indexOf(sAddress), formatInfo.indexOf(sAddress) + sAddress.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);//resize size
 
         return spannableInfo;
@@ -135,14 +169,16 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
 
     @Override
     public void onSuccessAdd() {
-        mMenu.getItem(1).setTitle(getString(R.string.menu_remove_favorite));
+//        mMenu.getItem(1).setTitle(getString(R.string.menu_remove_favorite));
+        mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
         mMustRefresh = true;
         Toast.makeText(this, getString(R.string.added_to_favorite), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccessRemove() {
-        mMenu.getItem(1).setTitle(getString(R.string.menu_add_favorite));
+//        mMenu.getItem(1).setTitle(getString(R.string.menu_add_favorite));
+        mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
         mMustRefresh = true;
         Toast.makeText(this, getString(R.string.removed_from_favorite), Toast.LENGTH_SHORT).show();
     }
@@ -151,22 +187,22 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
         return categoryList;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_rate_clinic, menu);
-        mMenu = menu;
-
-        if (mClinic.isRated())
-            mMenu.getItem(0).setVisible(false);
-        else
-            mMenu.getItem(0).setVisible(true);
-
-        if (mClinic.isFavorite())
-            mMenu.getItem(1).setTitle(getString(R.string.menu_remove_favorite));
-        else
-            mMenu.getItem(1).setTitle(getString(R.string.menu_add_favorite));
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_rate_clinic, menu);
+//        mMenu = menu;
+//
+//        if (mClinic.isRated())
+//            mMenu.getItem(0).setVisible(false);
+//        else
+//            mMenu.getItem(0).setVisible(true);
+//
+//        if (mClinic.isFavorite())
+//            mMenu.getItem(1).setTitle(getString(R.string.menu_remove_favorite));
+//        else
+//            mMenu.getItem(1).setTitle(getString(R.string.menu_add_favorite));
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -176,7 +212,7 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
             UserClient userClient = AppPreference.getUser(this);
             if (userClient != null) {
                 Intent intent = new Intent(this, RateActivity.class);
-                intent.putExtra(RateActivity.ARG_CLINIC_DOCTOR, mClinic);
+                intent.putExtra(ARG_CLINIC_DOCTOR, mClinic);
                 startActivityForResult(intent, RateActivity.REQUEST_CODE);
             } else
                 startActivity(new Intent(this, StartActivity.class));

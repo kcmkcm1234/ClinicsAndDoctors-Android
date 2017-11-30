@@ -31,17 +31,6 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatRatingBar
-                    android:id="@+id/mRate"
-                    style="@style/CustomRatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_app"
-                    android:isIndicator="true"
-                    android:rating="5"
-                    android:theme="@style/CustomRatingBar" />
-
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/mPhotoClinic"
                     android:layout_width="@dimen/profile_photo_doctor_size"
@@ -53,14 +42,24 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/placeholder_heart" />
 
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/mRate"
+                    style="@style/CustomRatingBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_app"
+                    android:isIndicator="true"
+                    android:rating="5"
+                    android:theme="@style/CustomRatingBar" />
+
                 <TextView
                     android:id="@+id/mDoctorName"
                     style="@style/TextLabelStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="@dimen/margin_app"
-                    android:layout_marginTop="@dimen/margin_app"
+                    android:layout_marginTop="@dimen/margin_same_view"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="@color/white"
@@ -109,13 +108,36 @@
         android:text="@string/reviews"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_big"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:visibility="gone"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/bg_tab"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/mRateButton"
+            style="@style/TextLabelStyleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/bg_rectangle_rounded_green"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:text="@string/rate_doctor"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_big" />
+    </FrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mReviews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="70dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>

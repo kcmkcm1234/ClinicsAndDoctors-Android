@@ -74,6 +74,7 @@ public class PreviewClinicDialog extends Dialog {
 
         findViewById(R.id.mCall).setOnClickListener(v -> mCallbackDialog.onGo(this, clinicAndDoctor));
         findViewById(R.id.mInfo).setOnClickListener(v -> mCallbackDialog.onInfo(this, clinicAndDoctor));
+        findViewById(R.id.mDirections).setOnClickListener(v -> mCallbackDialog.onHowToArrive(this, clinicAndDoctor));
     }
 
     private void setDistance() {

@@ -15,17 +15,34 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="18dp">
 
-        <TextView
-            android:id="@+id/mProviderName"
-            style="@style/TextLabelStyleBold"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="@dimen/margin_app"
-            android:layout_marginTop="@dimen/margin_app"
-            android:text="Name"
-            android:textSize="@dimen/text_size_normal"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/mProviderName"
+                style="@style/TextLabelStyleBold"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="@dimen/margin_app"
+                android:layout_marginTop="@dimen/margin_app"
+                android:text="Name"
+                android:textSize="@dimen/text_size_normal"
+                android:textStyle="bold" />
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/mRate"
+                style="@style/CustomRatingBarBlack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/margin_app"
+                android:rating="3"
+                android:theme="@style/CustomRatingBar"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/mCantDoctors"
@@ -41,7 +58,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginRight="@dimen/margin_app"
             android:layout_marginTop="@dimen/margin_same_view"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -55,14 +71,16 @@
                 android:text="Distance"
                 android:textColor="@color/gray_line" />
 
-
-            <android.support.v7.widget.AppCompatRatingBar
-                android:id="@+id/mRate"
-                style="@style/CustomRatingBarBlack"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/mDirections"
+                style="@style/TextLabelStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:rating="3"
-                android:theme="@style/CustomRatingBar" />
+                android:drawablePadding="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_how_arrive"
+                android:text="@string/get_directions_with_underline"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -82,7 +100,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/go"
+                android:text="@string/call"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

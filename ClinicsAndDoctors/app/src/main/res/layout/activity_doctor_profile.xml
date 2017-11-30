@@ -38,7 +38,7 @@
             <TextView
                 android:id="@+id/mSeeReview"
                 style="@style/TextLabelStyle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_different_view"
                 android:gravity="center"
@@ -78,7 +78,8 @@
                 android:layout_margin="@dimen/margin_same_view"
                 android:gravity="center"
                 android:text="Australian"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/mAddress"
@@ -88,24 +89,43 @@
                 android:layout_margin="@dimen/margin_same_view"
                 android:gravity="center"
                 android:text="Address"
+                android:visibility="gone"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/mProfession"
+                style="@style/TextLabelStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/margin_app"
+                android:layout_marginBottom="@dimen/margin_app"
+                android:gravity="center"
+                android:text="Cardeology"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_big" />
 
             <TextView
                 android:id="@+id/mNameClinic"
                 style="@style/TextLabelStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/height_buttons"
                 android:layout_marginTop="@dimen/margin_different_view"
+                android:layout_marginLeft="@dimen/margin_app"
+                android:layout_marginRight="@dimen/margin_app"
                 android:gravity="center"
                 android:text="Mayo Clinic"
-                android:textColor="@color/white" />
+                android:background="@drawable/bg_rectangle_rounded_green"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_normal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_different_view"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/mDistance"
@@ -139,82 +159,118 @@
                         android:layout_height="30dp"
                         android:src="@drawable/ic_category_profile" />
 
-                    <TextView
-                        android:id="@+id/mProfession"
-                        style="@style/TextLabelStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/margin_same_view"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="Cardeology"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_big" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/mProfession"-->
+                        <!--style="@style/TextLabelStyle"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center_vertical"-->
+                        <!--android:layout_marginLeft="@dimen/margin_same_view"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="Cardeology"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="@dimen/text_size_big" />-->
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/mHowArrive"
-                style="@style/TextLabelStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/margin_different_view"
-                android:drawablePadding="5dp"
-                android:drawableRight="@drawable/ic_how_arrive"
-                android:gravity="center"
-                android:text="Get instruction"
-                android:textColor="@color/white"
-                android:visibility="gone" />
+            <!--<TextView-->
+                <!--android:id="@+id/mHowArrive"-->
+                <!--style="@style/TextLabelStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginTop="@dimen/margin_different_view"-->
+                <!--android:drawablePadding="5dp"-->
+                <!--android:drawableRight="@drawable/ic_how_arrive"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Get instruction"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:visibility="gone" />-->
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_marginTop="@dimen/margin_different_view"
-                android:background="@color/gray_line" />
+                android:background="@color/gray_line"
+                android:visibility="gone"/>
 
-            <RelativeLayout
-                android:id="@+id/mContainerCall"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_buttons"
-                android:layout_marginBottom="@dimen/margin_app"
-                android:layout_marginTop="@dimen/margin_app"
-                android:background="@drawable/bg_rectangle_rounded_green">
-
-                <TextView
-                    android:id="@+id/mCall"
-                    style="@style/TextLabelStyleBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="-"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_normal" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:weightSum="4">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/margin_different_view"
-                    android:layout_toLeftOf="@+id/mCall"
-                    android:src="@drawable/ic_phone" />
+                    android:id="@+id/mHowArrive"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/size_phone"
+                    android:src="@drawable/ic_clinic_location" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/mAddFavorite"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/size_phone"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_favorite_profile" />
 
-            <TextView
-                android:id="@+id/mAddFavorite"
-                style="@style/TextLabelStyleBold"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_buttons"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/margin_app"
-                android:background="@drawable/bg_rectangle_rounded_green"
-                android:gravity="center"
-                android:text="@string/add_to_favorite"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_normal" />
+                <ImageView
+                    android:id="@+id/mContainerCall"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/size_phone"
+                    android:src="@drawable/ic_phone_profile" />
+
+                <ImageView
+                    android:id="@+id/mShare"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/size_phone"
+                    android:src="@drawable/ic_share" />
+            </LinearLayout>
+
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/mContainerCall"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_buttons"-->
+                <!--android:layout_marginBottom="@dimen/margin_app"-->
+                <!--android:layout_marginTop="@dimen/margin_app"-->
+                <!--android:background="@drawable/bg_rectangle_rounded_green">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/mCall"-->
+                    <!--style="@style/TextLabelStyleBold"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="-"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/text_size_normal" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="@dimen/margin_different_view"-->
+                    <!--android:layout_toLeftOf="@+id/mCall"-->
+                    <!--android:src="@drawable/ic_phone" />-->
+
+            <!--</RelativeLayout>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/mAddFavorite"-->
+                <!--style="@style/TextLabelStyleBold"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="@dimen/height_buttons"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:layout_marginBottom="@dimen/margin_app"-->
+                <!--android:background="@drawable/bg_rectangle_rounded_green"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/add_to_favorite"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="@dimen/text_size_normal" />-->
 
         </LinearLayout>
 

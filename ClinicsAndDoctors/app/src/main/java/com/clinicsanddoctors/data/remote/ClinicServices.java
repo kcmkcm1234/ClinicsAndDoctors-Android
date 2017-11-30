@@ -1,6 +1,7 @@
 package com.clinicsanddoctors.data.remote;
 
 import com.clinicsanddoctors.data.entity.ErrorApi;
+import com.clinicsanddoctors.data.entity.Review;
 import com.clinicsanddoctors.data.entity.SettingDescription;
 import com.clinicsanddoctors.data.remote.requests.AddRemoveFavoriteRequest;
 import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
@@ -13,6 +14,9 @@ import com.clinicsanddoctors.data.remote.requests.LogoutRequest;
 import com.clinicsanddoctors.data.remote.requests.RateRequest;
 import com.clinicsanddoctors.data.remote.requests.RegisterFacebookRequest;
 import com.clinicsanddoctors.data.remote.requests.RegisterRequest;
+import com.clinicsanddoctors.data.remote.requests.ReviewClinicRequest;
+import com.clinicsanddoctors.data.remote.requests.ReviewDoctorRequest;
+import com.clinicsanddoctors.data.remote.requests.SearchRequest;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
 import com.clinicsanddoctors.data.remote.respons.DoctorResponse;
@@ -157,5 +161,14 @@ public class ClinicServices {
 
         @POST("edit_profile")
         Observable<EditProfileRequest> editProfile(@Body EditProfileRequest editProfileRequest);
+
+        @POST("get_reviews")
+        Observable<List<Review>> getReviews(@Body ReviewDoctorRequest reviewDoctorRequest);
+
+        @POST("get_reviews")
+        Observable<List<Review>> getReviews(@Body ReviewClinicRequest reviewClinicRequest);
+
+        @POST("search")
+        Observable<List<ClinicAndDoctorResponse>> search(@Body SearchRequest searchRequest);
     }
 }

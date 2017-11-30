@@ -33,7 +33,7 @@
     <dimen name="request_photo_height">180dp</dimen>
 
     <!-- CLINICS PROFILE -->
-    <dimen name="high_clinic_detail">180dp</dimen>
+    <dimen name="high_clinic_detail">200dp</dimen>
     <dimen name="photo_clinic_size">75dp</dimen>
     <dimen name="size_phone">50dp</dimen>
 

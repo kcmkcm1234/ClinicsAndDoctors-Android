@@ -1,48 +1,69 @@
 package com.clinicsanddoctors.data.entity;
 
+import com.clinicsanddoctors.data.remote.respons.UserPostResponse;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import org.parceler.Parcel;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Daro on 20/10/2017.
  */
 
+@Parcel
 public class Review {
+    @Expose
     private String id;
-    private String description;
-    private UserClient userClient;
-    private String date;
+    @Expose
+    private String comment;
+    @SerializedName("created_date_time")
+    @Expose
+    private String createdDateTime;
+    @SerializedName("updated_date_time")
+    @Expose
+    private String updatedDateTime;
+    @SerializedName("user")
+    @Expose
+    private UserPostResponse userClient;
+    @Expose
+    private int rating;
 
     public String getId() {
         return id;
     }
 
-    public Review setId(String id) {
-        this.id = id;
-        return this;
+    public String getComment() {
+        return comment;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public Review setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public UserClient getUserClient() {
+    public UserPostResponse getUserClient() {
         return userClient;
     }
 
-    public Review setUserClient(UserClient userClient) {
-        this.userClient = userClient;
-        return this;
+    public String getCreatedDateTime() {
+        Date date = null;
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+            date = simpleDateFormat.parse(createdDateTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
+        String dateString = simpleDateFormat.format(date);
+
+        return dateString;
     }
 
-    public String getDate() {
-        return date;
+    public String getUpdatedDateTime() {
+        return updatedDateTime;
     }
 
-    public Review setDate(String date) {
-        this.date = date;
-        return this;
+    public int getRating() {
+        return rating;
     }
 }

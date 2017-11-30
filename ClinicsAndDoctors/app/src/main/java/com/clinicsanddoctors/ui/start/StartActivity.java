@@ -40,6 +40,7 @@ public class StartActivity extends BaseClinicActivity implements StartContract.V
 
         findViewById(R.id.mAccessFacebook).setOnClickListener(v -> mPresenter.attendOnClickFacebook(this));
         findViewById(R.id.mSignIn).setOnClickListener(v -> openSigIn());
+        findViewById(R.id.mSkip).setOnClickListener(v -> onFacebookConnected());
         findViewById(R.id.mForgotPassword).setOnClickListener(v -> forgotPassword());
 
         spannableOnClick(getString(R.string.not_account), "Register Here", mHaveAccount, registerSpan);

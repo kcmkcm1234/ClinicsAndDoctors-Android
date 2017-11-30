@@ -71,6 +71,14 @@ public class DoctorResponse {
     @Expose
     private boolean isRated;
 
+    @SerializedName("type")
+    @Expose
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
     public String getId() {
         return id;
     }

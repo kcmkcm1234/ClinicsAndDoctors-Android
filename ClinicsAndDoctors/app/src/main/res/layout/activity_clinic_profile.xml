@@ -32,9 +32,7 @@
                     android:id="@+id/mPhotoClinic"
                     android:layout_width="@dimen/photo_clinic_size"
                     android:layout_height="@dimen/photo_clinic_size"
-                    android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/margin_different_view"
                     android:background="@drawable/bg_photo_profile"
                     android:padding="10dp"
                     android:scaleType="centerCrop"
@@ -45,49 +43,93 @@
                     style="@style/TextLabelStyleBold"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_above="@+id/mHowToArrive"
+                    android:layout_above="@+id/mContainerButtons"
                     android:layout_marginBottom="@dimen/margin_different_view"
                     android:layout_marginLeft="@dimen/margin_different_view"
                     android:layout_marginRight="@dimen/margin_different_view"
-                    android:layout_toLeftOf="@+id/mPhone"
+                    android:layout_toLeftOf="@+id/mRate"
                     android:layout_toRightOf="@+id/mPhotoClinic"
                     android:textColor="@color/white" />
 
-                <ImageView
-                    android:id="@+id/mPhone"
-                    android:layout_width="@dimen/size_phone"
-                    android:layout_height="@dimen/size_phone"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/circular_green"
-                    android:padding="10dp"
-                    android:src="@drawable/ic_phone" />
-
-                <TextView
-                    android:id="@+id/mHowToArrive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
+                <LinearLayout
+                    android:id="@+id/mContainerButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="@dimen/margin_different_view"
-                    android:layout_toRightOf="@+id/mPhotoClinic"
-                    android:background="@drawable/bg_rectangle_rounded_green_small"
-                    android:drawablePadding="@dimen/margin_same_view"
-                    android:drawableRight="@drawable/ic_navigation"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/margin_same_view"
-                    android:paddingRight="@dimen/margin_same_view"
-                    android:text="@string/get_directions"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_small" />
+                    android:layout_marginTop="40dp"
+                    android:weightSum="4">
+
+                    <ImageView
+                        android:id="@+id/mHowToArrive"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/size_phone"
+                        android:src="@drawable/ic_clinic_location" />
+
+                    <ImageView
+                        android:id="@+id/mAddFavorite"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/size_phone"
+                        android:src="@drawable/ic_favorite_profile" />
+
+                    <ImageView
+                        android:id="@+id/mPhone"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/size_phone"
+                        android:src="@drawable/ic_phone_profile" />
+
+                    <ImageView
+                        android:id="@+id/mShare"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="@dimen/size_phone"
+                        android:src="@drawable/ic_share" />
+                </LinearLayout>
+
+                <!--<TextView-->
+                    <!--android:id="@+id/mHowToArrive"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:layout_marginLeft="@dimen/margin_different_view"-->
+                    <!--android:layout_toRightOf="@+id/mPhotoClinic"-->
+                    <!--android:background="@drawable/bg_rectangle_rounded_green_small"-->
+                    <!--android:drawablePadding="@dimen/margin_same_view"-->
+                    <!--android:drawableRight="@drawable/ic_navigation"-->
+                    <!--android:gravity="center"-->
+                    <!--android:paddingLeft="@dimen/margin_same_view"-->
+                    <!--android:paddingRight="@dimen/margin_same_view"-->
+                    <!--android:text="@string/get_directions"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/text_size_small"-->
+                    <!--android:visibility="gone"/>-->
 
                 <android.support.v7.widget.AppCompatRatingBar
                     android:id="@+id/mRate"
                     style="@style/CustomRatingBarBlack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:rating="0"
                     android:theme="@style/CustomRatingBar" />
+
+                <TextView
+                    android:id="@+id/mSeeReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_alignRight="@+id/mRate"
+                    android:layout_alignLeft="@+id/mRate"
+                    android:layout_below="@+id/mRate"
+                    android:layout_marginTop="5dp"
+                    fontPath="@string/font_compact_avenir_light"
+                    android:gravity="center"
+                    android:text="@string/clinic_see_review"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_small" />
 
             </RelativeLayout>
 

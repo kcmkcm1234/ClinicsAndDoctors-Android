@@ -25,13 +25,14 @@
     <!-- START -->
     <string name="clinic_and_doctors">CLINICS &amp; DOCTORS</string>
     <string name="access_facebook">CONTINUE WITH FACEBOOK</string>
-    <string name="sign_in">LOGIN WITH MOBILE</string>
+    <string name="sign_in">LOGIN WITH EMAIL</string>
     <string name="not_account">Dont\'t have an account? Register Here</string>
     <string name="forgot_password">Forgot your Password?</string>
+    <string name="skip"><u>SKIP</u></string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="title_create_account">Register</string>
-    <string name="title_login">Login With Mobile</string>
+    <string name="title_login">Login With Email</string>
     <string name="email">Email</string>
     <string name="email_optional">Email (optional)</string>
     <string name="send">Send</string>
@@ -57,8 +58,8 @@
     <string name="menu_privacy_policy">Privacy Policy</string>
 
     <!-- MENU -->
-    <string name="see_profile">See Profile</string>
-    <string name="menu_title_profile">Profile</string>
+    <string name="see_profile"><u>See Profile</u></string>
+    <string name="menu_title_profile">PROFILE</string>
     <string name="menu_title_favorite">Favorites</string>
     <string name="menu_title_terms_use">Terms of Use</string>
     <string name="menu_title_privacy_policy">Privacy Policy</string>
@@ -70,7 +71,8 @@
     <string name="go">GO</string>
     <string name="info">INFO</string>
 
-    <string name="see_review">See Reviews</string>
+    <string name="see_review"><u>Reviews</u></string>
+    <string name="clinic_see_review"><u>Reviews</u></string>
     <string name="add_to_favorite">ADD TO FAVORITES</string>
     <string name="remove_from_favorite">REMOVE FROM FAVORITES</string>
     <string name="get_directions">Get Directions</string>
@@ -82,6 +84,7 @@
     <string name="title_rating">RATING</string>
     <string name="title_reviews">REVIEWS</string>
     <string name="reviews">Reviews</string>
+    <string name="rate_doctor">RATE DOCTOR</string>
 
     <!-- RATING -->
     <string name="rate_bad_comment1">The waiting was too long.</string>
@@ -100,10 +103,10 @@
     <string name="empty_favorite_clinics">You don\'t have favorite clinics yet.</string>
 
     <!-- SIN TRADUCIR -->
-    <string name="kilometers_away">Kilometers Away</string>
-    <string name="km_away">km Away</string>
+    <string name="kilometers_away">Km Away</string>
+    <string name="km_away">Km Away</string>
     <string name="mtrs_away">mtrs Away</string>
-    <string name="login_register">Login/Register</string>
+    <string name="login_register"><u>Login/Register</u></string>
     <string name="empty_doctors">Currently there are no doctors around you. Try increasing the mile range with the above slider.</string>
     <string name="empty_doctors_in_clinic">Currently there are no doctors in this clinic.</string>
 
@@ -114,5 +117,11 @@
     <string name="menu_rate_doctor">Rate Doctor</string>
     <string name="added_to_favorite">Added to favorite</string>
     <string name="removed_from_favorite">Removed from favorite</string>
+
+    <string name="rate_clinic">RATE CLINIC</string>
+    <string name="logout"><u>Logout</u></string>
+    <string name="edit_rate">EDIT RATE</string>
+    <string name="get_directions_with_underline"><u>Get Directions</u></string>
+    <string name="call">CALL</string>
 
 </resources>

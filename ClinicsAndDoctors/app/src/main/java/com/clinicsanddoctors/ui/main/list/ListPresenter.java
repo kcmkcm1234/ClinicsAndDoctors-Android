@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
+import com.clinicsanddoctors.data.remote.requests.SearchRequest;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
+import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,19 @@ public class ListPresenter implements ListContract.Presenter {
                 .map(this::getCategory)
                 .toList()
                 .subscribe(this::onSuccess, this::onError);
+    }
+
+    @Override
+    public void search(String query) {
+        int userId = AppPreference.getUser(mContext).getId();
+        ClinicServices.getServiceClient().search(new SearchRequest(query,userId))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccessSearch, this::onError);
+    }
+
+    private void onSuccessSearch(List<ClinicAndDoctorResponse> clinicAndDoctorResponses) {
+        mView.loadResults(clinicAndDoctorResponses);
     }
 
     private void onSuccess(List<Category> categories) {

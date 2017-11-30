@@ -78,7 +78,6 @@ public class StartPresenter implements StartContract.Presenter {
     }
 
     private void requestFacebookData() {
-
         GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 (object, response) -> {

@@ -1,6 +1,7 @@
 
 package com.clinicsanddoctors.data.remote.respons;
 
+import com.clinicsanddoctors.data.entity.Category;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -20,6 +21,9 @@ public class ClinicAndDoctorResponse {
     @SerializedName("full_name")
     @Expose
     private String name;
+    @SerializedName("specialty")
+    @Expose
+    private Category category;
     @SerializedName("specialties")
     @Expose
     private List<CategoryResponse> categoryResponseList;
@@ -70,6 +74,10 @@ public class ClinicAndDoctorResponse {
     @SerializedName("is_rated")
     @Expose
     private boolean isRated;
+
+    public Category getCategory() {
+        return category;
+    }
 
     public String getId() {
         return id;

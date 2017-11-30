@@ -13,13 +13,11 @@ public interface MainContract {
 
     interface View extends LoaderView {
         void showCategory(List<Category> categories);
-
         void onSuccessLogout();
     }
 
     interface Presenter {
         void getCategory();
-
         void logout();
     }
 }

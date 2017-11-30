@@ -4,6 +4,9 @@ package com.clinicsanddoctors.data.remote.respons;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class UserPostResponse {
 
     @SerializedName("id")
@@ -12,6 +15,9 @@ public class UserPostResponse {
     @SerializedName("name")
     @Expose
     private String name;
+    @SerializedName("full_name")
+    @Expose
+    private String fullName;
     @SerializedName("surname")
     @Expose
     private String surname;
@@ -73,4 +79,7 @@ public class UserPostResponse {
         this.picture = picture;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
 }

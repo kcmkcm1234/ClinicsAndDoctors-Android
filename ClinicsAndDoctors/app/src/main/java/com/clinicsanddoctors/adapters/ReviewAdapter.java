@@ -1,12 +1,14 @@
 package com.clinicsanddoctors.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Doctor;
 import com.clinicsanddoctors.data.entity.Review;
@@ -53,19 +55,26 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         private View mItemView;
         private ImageView mPhoto;
-        private TextView mDescription, mNameDate;
+        private TextView mDescription, mName, mDate;
 
         public ArtistInfoViewHolder(View itemView) {
             super(itemView);
             mItemView = itemView;
             mPhoto = (ImageView) itemView.findViewById(R.id.mPhoto);
             mDescription = (TextView) itemView.findViewById(R.id.mDescription);
-            mNameDate = (TextView) itemView.findViewById(R.id.mNameDate);
+            mName = (TextView) itemView.findViewById(R.id.mName);
+            mDate = (TextView) itemView.findViewById(R.id.mDate);
         }
 
         @Override
         public void bindItem(Review data, int position) {
-
+            Glide.with(mPhoto.getContext())
+                    .load(data.getUserClient().getPicture())
+                    .placeholder(R.drawable.placeholder_clinic)
+                    .into(mPhoto);
+            mDescription.setText(data.getComment());
+            mName.setText(data.getUserClient().getFullName());
+            mDate.setText(data.getCreatedDateTime());
         }
     }
 

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_different_view"
-            android:text="100\nKilometers Away" />
+            android:text="100\nKm Away" />
 
         <RelativeLayout
             android:layout_width="wrap_content"

@@ -19,6 +19,7 @@ import com.clinicsanddoctors.data.entity.ClinicAndDoctor;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.ClinicsRequest;
+import com.clinicsanddoctors.data.remote.requests.SearchRequest;
 import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -81,6 +82,19 @@ public class MapPresenter implements MapContract.Presenter {
     @Override
     public void addSubscription(Subscription subscription) {
         mCompositeSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void search(String query) {
+        int userId = AppPreference.getUser(mContext).getId();
+        ClinicServices.getServiceClient().search(new SearchRequest(query,userId))
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccessSearch, this::onError);
+    }
+
+    private void onSuccessSearch(List<ClinicAndDoctorResponse> clinicAndDoctorResponses) {
+        mView.loadResults(clinicAndDoctorResponses);
     }
 
     @Override

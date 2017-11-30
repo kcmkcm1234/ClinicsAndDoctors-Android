@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatRatingBar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +27,8 @@ import com.clinicsanddoctors.ui.start.StartActivity;
 
 import java.util.Locale;
 
+import static com.clinicsanddoctors.ui.rate.RateActivity.ARG_CLINIC_DOCTOR;
+
 /**
  * Created by Daro on 07/08/2017.
  */
@@ -41,8 +42,8 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
 
     private ClinicAndDoctor mClinicAndDoctor;
 
-    private ImageView mPhoto, mIconCategory;
-    private TextView mDoctorName, mProfession, mNationality, mAddress, mNameClinic, mCall, mDistance, mAddFavorite;
+    private ImageView mPhoto, mIconCategory, mAddFavorite;
+    private TextView mDoctorName, mProfession, mNationality, mAddress, mNameClinic, mCall, mDistance;
     private AppCompatRatingBar mRate;
     private boolean mMustRefresh = false;
 
@@ -62,13 +63,13 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         mAddress = (TextView) findViewById(R.id.mAddress);
         mNameClinic = (TextView) findViewById(R.id.mNameClinic);
         mDistance = (TextView) findViewById(R.id.mDistance);
-        mCall = (TextView) findViewById(R.id.mCall);
-        mAddFavorite = (TextView) findViewById(R.id.mAddFavorite);
+//        mCall = (TextView) findViewById(R.id.mCall);
+        mAddFavorite = (ImageView) findViewById(R.id.mAddFavorite);
         mRate = (AppCompatRatingBar) findViewById(R.id.mRate);
 
         findViewById(R.id.mSeeReview).setOnClickListener(v -> {
             Intent intent = new Intent(this, ReviewActivity.class);
-            intent.putExtra(ReviewActivity.ARG_DOCTOR, mClinicAndDoctor);
+            intent.putExtra(ARG_CLINIC_DOCTOR, mClinicAndDoctor);
             startActivity(intent);
         });
 
@@ -91,16 +92,15 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         if (mClinicAndDoctor.getName() != null && !mClinicAndDoctor.getName().isEmpty())
             mDoctorName.setText(mClinicAndDoctor.getName());
 
-        if (mClinicAndDoctor.isFavorite())
-            mAddFavorite.setText(getString(R.string.remove_from_favorite));
-        else
-            mAddFavorite.setText(getString(R.string.add_to_favorite));
+//        if (mClinicAndDoctor.isFavorite())
+//            mAddFavorite.setText(getString(R.string.remove_from_favorite));
+//        else
+//            mAddFavorite.setText(getString(R.string.add_to_favorite));
 
         mAddFavorite.setOnClickListener(v -> {
-
             UserClient userClient = AppPreference.getUser(this);
             if (userClient != null) {
-                if (mAddFavorite.getText().toString().equalsIgnoreCase(getString(R.string.add_to_favorite)))
+                if (!mClinicAndDoctor.isFavorite())
                     mPresenter.addToFavorite((Doctor) mClinicAndDoctor);
                 else
                     mPresenter.removeFromFavorite((Doctor) mClinicAndDoctor);
@@ -108,12 +108,37 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
                 startActivity(new Intent(this, StartActivity.class));
         });
 
+        if(mClinicAndDoctor.isFavorite())
+            mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
+        else
+            mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
+
+        findViewById(R.id.mShare).setOnClickListener(v -> {
+            String shareBody = mClinicAndDoctor.getName() + " - " + mClinicAndDoctor.getCategory().getName() + " - " + mClinicAndDoctor.getPhoneNumber();
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(shareIntent, "Compartir con"));
+        });
+
+        findViewById(R.id.mNameClinic).setOnClickListener(v -> {
+            Clinic clinic = ((Doctor) mClinicAndDoctor).getClinic();
+            if (clinic != null) {
+                Intent intent = new Intent(this, ClinicProfileActivity.class);
+                intent.putExtra(ClinicProfileActivity.ARG_CLINIC, clinic);
+                startActivity(intent);
+            }
+        });
+
         String sNationality = ((Doctor) mClinicAndDoctor).getNationality();
         if (sNationality != null && !sNationality.isEmpty())
             mNationality.setText(sNationality);
 
         if (mClinicAndDoctor.getCategory() != null) {
-            mProfession.setText(mClinicAndDoctor.getCategory().getName());
+            if(mClinicAndDoctor.getType()!=null) {
+                mProfession.setText(mClinicAndDoctor.getType() + " - " + mClinicAndDoctor.getCategory().getName());
+            } else
+                mProfession.setText(mClinicAndDoctor.getCategory().getName());
             if (mClinicAndDoctor.getCategory().getIcon() != null && !mClinicAndDoctor.getCategory().getIcon().isEmpty())
                 Glide.with(this).load(mClinicAndDoctor.getCategory().getIcon())
                         .dontAnimate().placeholder(R.drawable.ic_category_profile).into(mIconCategory);
@@ -129,15 +154,15 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             setDistance(clinic);
         }
 
-        if (mClinicAndDoctor.getPhoneNumber() != null && !mClinicAndDoctor.getPhoneNumber().isEmpty()) {
-            mCall.setText(mClinicAndDoctor.getPhoneNumber());
-            findViewById(R.id.mContainerCall).setEnabled(true);
-            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_green));
-        } else {
-            mCall.setText("-");
-            findViewById(R.id.mContainerCall).setEnabled(false);
-            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_gray));
-        }
+//        if (mClinicAndDoctor.getPhoneNumber() != null && !mClinicAndDoctor.getPhoneNumber().isEmpty()) {
+//            mCall.setText(mClinicAndDoctor.getPhoneNumber());
+//            findViewById(R.id.mContainerCall).setEnabled(true);
+//            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_green));
+//        } else {
+//            mCall.setText("-");
+//            findViewById(R.id.mContainerCall).setEnabled(false);
+//            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_gray));
+//        }
 
         findViewById(R.id.mContainerCall).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mClinicAndDoctor.getPhoneNumber()));
@@ -184,16 +209,16 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         return super.onSupportNavigateUp();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_rate, menu);
-
-        if (mClinicAndDoctor.isRated())
-            menu.getItem(1).setVisible(false);
-        else
-            menu.getItem(1).setVisible(true);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_rate, menu);
+//
+//        if (mClinicAndDoctor.isRated())
+//            menu.getItem(1).setVisible(false);
+//        else
+//            menu.getItem(1).setVisible(true);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -212,7 +237,7 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             UserClient userClient = AppPreference.getUser(this);
             if (userClient != null) {
                 Intent intent = new Intent(this, RateActivity.class);
-                intent.putExtra(RateActivity.ARG_CLINIC_DOCTOR, mClinicAndDoctor);
+                intent.putExtra(ARG_CLINIC_DOCTOR, mClinicAndDoctor);
                 startActivityForResult(intent, RateActivity.REQUEST_CODE);
             } else
                 startActivity(new Intent(this, StartActivity.class));
@@ -225,13 +250,13 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
     @Override
     public void onSuccessAdd() {
         mMustRefresh = true;
-        mAddFavorite.setText(getString(R.string.remove_from_favorite));
+        mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
     }
 
     @Override
     public void onSuccessRemove() {
         mMustRefresh = true;
-        mAddFavorite.setText(getString(R.string.add_to_favorite));
+        mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
     }
 
     @Override

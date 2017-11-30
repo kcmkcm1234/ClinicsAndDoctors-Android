@@ -25,13 +25,14 @@
     <!-- START -->
     <string name="clinic_and_doctors">العيادات والأطباء</string>
     <string name="access_facebook">تابع مع الفيسبوك</string>
-    <string name="sign_in">تسجيل الدخول مع المحمول</string>
+    <string name="skip"><u>تخطى</u></string>
+    <string name="sign_in">تسجيل الدخول باستخدام البريد الإلكتروني</string>
     <string name="not_account">ليس لديك حساب؟ سجل هنا</string>
     <string name="forgot_password">نسيت رقمك السري؟</string>
     <string name="username">اسم المستخدم</string>
     <string name="password">كلمه السر</string>
     <string name="title_create_account">تسجيل</string>
-    <string name="title_login">تسجيل الدخول مع الجوال</string>
+    <string name="title_login">تسجيل الدخول مع البريد الإلكتروني</string>
     <string name="email">البريد الإلكتروني</string>
     <string name="email_optional">البريد الإلكتروني اختياري</string>
     <string name="send">إرسال</string>
@@ -57,7 +58,7 @@
     <string name="menu_privacy_policy">سياسة الخصوصية</string>
 
     <!-- MENU -->
-    <string name="see_profile">انظر الملف الشخصي</string>
+    <string name="see_profile"><u>انظر الملف الشخصي</u></string>
     <string name="menu_title_profile">الملف الشخصي</string>
     <string name="menu_title_favorite">المفضلة</string>
     <string name="menu_title_terms_use">تعليمات الاستخدام</string>
@@ -70,7 +71,8 @@
     <string name="go">اذهب</string>
     <string name="info">معلومات</string>
 
-    <string name="see_review">انظر التعليقات</string>
+    <string name="see_review"><u>استعراض</u></string>
+    <string name="clinic_see_review"><u>استعراض</u></string>
     <string name="add_to_favorite">اضافة الى المفضلة</string>
     <string name="remove_from_favorite">إزالة من المفضلة</string>
     <string name="get_directions">احصل على الاتجاهات</string>
@@ -82,6 +84,7 @@
     <string name="title_rating">تقييم</string>
     <string name="title_reviews">استعراضات</string>
     <string name="reviews">التعليقات</string>
+    <string name="rate_doctor">ريت دكتور</string>
 
     <!-- RATING -->
     <string name="rate_bad_comment1">كان الانتظار طويلا جدا</string>
@@ -103,7 +106,7 @@
     <string name="kilometers_away">كم بعيدا</string>
     <string name="km_away">كم بعيدا</string>
     <string name="mtrs_away">مترس بعيدا</string>
-    <string name="login_register">دخولتسجيل</string>
+    <string name="login_register"><u>دخولتسجيل</u></string>
     <string name="empty_doctors">حاليا لا يوجد أطباء من حولك. حاول زيادة نطاق الميل مع شريط التمرير أعلاه.</string>
     <string name="empty_doctors_in_clinic">حاليا لا يوجد أطباء في هذه العيادة.</string>
 

@@ -9,7 +9,9 @@ import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.LogoutRequest;
+import com.clinicsanddoctors.data.remote.requests.SearchRequest;
 import com.clinicsanddoctors.data.remote.respons.CategoryResponse;
+import com.clinicsanddoctors.data.remote.respons.ClinicAndDoctorResponse;
 
 import org.json.JSONObject;
 
