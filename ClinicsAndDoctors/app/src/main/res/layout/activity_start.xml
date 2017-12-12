@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/bg_start" />
+        android:src="@drawable/background_new" />
 
     <TextView
         android:id="@+id/mSkip"
@@ -40,7 +40,17 @@
         android:text="@string/clinic_and_doctors"
         android:textSize="@dimen/text_size_super_big"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mLogo"
+        android:scaleType="fitStart"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/name_clinics"
+        android:visibility="visible"/>
 
     <View
         android:id="@+id/mViewMiddle"

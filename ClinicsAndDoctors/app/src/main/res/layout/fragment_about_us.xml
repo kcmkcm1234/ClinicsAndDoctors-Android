@@ -1,0 +1,122 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginRight="5dp"
+    tools:context="com.clinicsanddoctors.ui.aboutUs.AboutUsFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/decoration"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/info"
+            android:background="@drawable/ic_decoration"/>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_logo_clinic_green"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/name"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/clinics_green"
+            android:layout_below="@+id/logo"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/text_1"
+            android:layout_below="@+id/name"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/text_2"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_below="@+id/text1"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/text_3"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_below="@+id/text2"
+            android:layout_alignParentRight="true"/>
+
+        <ImageView
+            android:id="@+id/text4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/text_4"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_below="@+id/text3"
+            android:layout_alignParentRight="true"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:id="@+id/info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:paddingBottom="15dp"
+            android:layout_toRightOf="@+id/decoration"
+            android:layout_below="@+id/text4">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_twitter"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_snapchat"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/ic_instagram"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/colorAccent"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="15dp"
+                android:textSize="12sp"
+                android:text="@string/clinics_doctors_nick"
+                fontPath="@string/font_compact_avenir_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:layout_gravity="bottom"
+                android:text="@string/email_info"
+                fontPath="@string/font_compact_avenir_medium"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>

@@ -86,11 +86,13 @@ public class MapPresenter implements MapContract.Presenter {
 
     @Override
     public void search(String query) {
-        int userId = AppPreference.getUser(mContext).getId();
-        ClinicServices.getServiceClient().search(new SearchRequest(query,userId))
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onSuccessSearch, this::onError);
+        if(AppPreference.getUser(mContext)!=null) {
+            int userId = AppPreference.getUser(mContext).getId();
+            ClinicServices.getServiceClient().search(new SearchRequest(query,userId))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onSuccessSearch, this::onError);
+        }
     }
 
     private void onSuccessSearch(List<ClinicAndDoctorResponse> clinicAndDoctorResponses) {

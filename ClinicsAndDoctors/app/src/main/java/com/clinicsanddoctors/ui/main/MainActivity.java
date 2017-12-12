@@ -23,6 +23,7 @@ import com.clinicsanddoctors.data.entity.Category;
 import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
+import com.clinicsanddoctors.ui.aboutUs.AboutUsFragment;
 import com.clinicsanddoctors.ui.favorites.FavoriteFragment;
 import com.clinicsanddoctors.ui.main.list.ListFragment;
 import com.clinicsanddoctors.ui.main.map.MapFragment;
@@ -270,7 +271,14 @@ public class MainActivity extends BaseClinicActivity
                 this.menu.getItem(3).setVisible(false); //add request
                 changeFragmentSection(getString(R.string.menu_title_privacy_policy), new PrivacyPolicyFragment());
                 break;
-
+            case R.id.mAboutUs:
+                if (id == currentSection) break;
+                this.menu.getItem(0).setVisible(false); //map mode
+                this.menu.getItem(1).setVisible(false); //list mode
+                this.menu.getItem(2).setVisible(false); //edit
+                this.menu.getItem(3).setVisible(false); //add request
+                changeFragmentSection(getString(R.string.menu_about_us), new AboutUsFragment());
+                break;
         }
         currentSection = id;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

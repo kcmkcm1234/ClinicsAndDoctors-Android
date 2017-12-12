@@ -29,5 +29,12 @@
             android:title="@string/menu_privacy_policy" />
     </group>
 
+    <group>
+        <item
+            android:id="@+id/mAboutUs"
+            android:icon="@drawable/ic_about_us"
+            android:title="@string/menu_about_us" />
+    </group>
+
 
 </menu>

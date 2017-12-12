@@ -56,6 +56,7 @@
     <string name="menu_favorites">Favorites</string>
     <string name="menu_terms_use">Terms of Use</string>
     <string name="menu_privacy_policy">Privacy Policy</string>
+    <string name="menu_about_us">About us</string>
 
     <!-- MENU -->
     <string name="see_profile"><u>See Profile</u></string>
@@ -123,5 +124,10 @@
     <string name="edit_rate">EDIT RATE</string>
     <string name="get_directions_with_underline"><u>Get Directions</u></string>
     <string name="call">CALL</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="clinics_doctors_nick">\@Clinics_Doctors</string>
+    <string name="email_info">Info\@Clinicsanddoctors.net</string>
 
 </resources>
