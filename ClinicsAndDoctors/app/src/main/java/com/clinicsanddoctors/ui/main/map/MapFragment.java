@@ -11,6 +11,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
@@ -321,9 +322,14 @@ public class MapFragment extends BaseClinicFragment implements ClusterManager.On
             mGoogleMap.setOnCameraIdleListener(() -> {
                 Log.i("new_location", "" + mGoogleMap.getCameraPosition().target.latitude + ", " +
                         mGoogleMap.getCameraPosition().target.longitude);
-                mLocationMap.setLatitude(mGoogleMap.getCameraPosition().target.latitude);
-                mLocationMap.setLongitude(mGoogleMap.getCameraPosition().target.longitude);
-                getNearTattooShops(mLocationMap);
+
+                new Handler().postDelayed(() -> {
+                    if (mGoogleMap.getCameraPosition().target.latitude != 0 && mGoogleMap.getCameraPosition().target.longitude != 0) {
+                        mLocationMap.setLatitude(mGoogleMap.getCameraPosition().target.latitude);
+                        mLocationMap.setLongitude(mGoogleMap.getCameraPosition().target.longitude);
+                        getNearTattooShops(mLocationMap);
+                    }
+                }, 100);
                 mClusterManager.onCameraIdle();
             });
             setMarginTopMyLocationButton(mMap);
@@ -568,17 +574,16 @@ public class MapFragment extends BaseClinicFragment implements ClusterManager.On
         Clinic clinic;
         Doctor doctor;
         mToolbar.setVisibility(View.GONE);
-        ClinicAndDoctorResponse clinicAndDoctorResponse =  mSearchResults.get(position);
+        ClinicAndDoctorResponse clinicAndDoctorResponse = mSearchResults.get(position);
         Intent intent;
-        if(clinicAndDoctorResponse.getClinic()!=null) {
+        if (clinicAndDoctorResponse.getClinic() != null) {
             doctor = new Doctor(clinicAndDoctorResponse, clinicAndDoctorResponse.getCategory());
             intent = new Intent(getContext(), DoctorProfileActivity.class);
-            intent.putExtra(DoctorProfileActivity.ARG_DOCTOR, (ClinicAndDoctor)doctor);
-        }
-        else {
+            intent.putExtra(DoctorProfileActivity.ARG_DOCTOR, (ClinicAndDoctor) doctor);
+        } else {
             clinic = new Clinic(clinicAndDoctorResponse, new Category().setName("All").setId("0"));
             intent = new Intent(getContext(), ClinicProfileActivity.class);
-            intent.putExtra(ClinicProfileActivity.ARG_CLINIC, (ClinicAndDoctor)clinic);
+            intent.putExtra(ClinicProfileActivity.ARG_CLINIC, (ClinicAndDoctor) clinic);
         }
 
         startActivity(intent);

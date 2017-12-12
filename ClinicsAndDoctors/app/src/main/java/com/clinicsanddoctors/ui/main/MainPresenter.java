@@ -51,7 +51,7 @@ public class MainPresenter implements MainContract.Presenter {
             return;
         }
 
-        mView.showProgressDialog();
+        //mView.showProgressDialog();
         ClinicServices.getServiceClient().getCategories()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -62,10 +62,10 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     private void onSuccess(List<Category> categories) {
+        mView.hideProgressDialog();
         if (categories == null) categories = new ArrayList<>();
         categories.add(0, new Category().setName("All").setId("0"));
         this.categories = categories;
-        mView.hideProgressDialog();
         mView.showCategory(categories);
     }
 

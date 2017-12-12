@@ -24,6 +24,7 @@ public class BaseClinicFragment extends Fragment implements LoaderView {
                 .setTitleText(getString(R.string.app_name));
         mSweetAlertDialog.show();
         */
+        hideProgressDialog();
 
         loaderDialog = new LoaderDialog(getContext(), R.style.NewDialog);
         loaderDialog.show();

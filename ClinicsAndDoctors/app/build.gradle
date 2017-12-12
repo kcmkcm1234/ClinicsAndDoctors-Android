@@ -12,6 +12,12 @@ android {
         versionName "1.0"
     }
 
+    lintOptions{
+        checkReleaseBuilds false
+        abortOnError false
+        disable "ResourceType"
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -23,7 +29,8 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("/home/evaristo/Escritorio/Apps/infinixDebug.keystore")
+            //storeFile file("/home/evaristo/Escritorio/Apps/infinixDebug.keystore")
+            storeFile file("C:\\Users\\Daro\\.android\\debugKeystoreShared\\debug.keystore")
         }
     }
 }

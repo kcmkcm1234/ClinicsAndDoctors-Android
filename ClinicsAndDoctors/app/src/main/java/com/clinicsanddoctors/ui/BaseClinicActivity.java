@@ -49,6 +49,7 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
                 .setTitleText(getString(R.string.app_name));
         mSweetAlertDialog.show();
         */
+        hideProgressDialog();
         loaderDialog = new LoaderDialog(this, R.style.NewDialog);
         loaderDialog.show();
     }
