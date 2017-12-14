@@ -107,10 +107,12 @@ public class ReviewActivity extends BaseClinicActivity implements ReviewContract
         mReviews.setAdapter(new ReviewAdapter(list));
         mReviews.addItemDecoration(new MyDividerItemDecoration());
 
-        for (Review item: list) {
-            if(Integer.parseInt(item.getUserClient().getId())== AppPreference.getUser(this).getId()){
-                mMyReview = item;
-                return;
+        if(AppPreference.getUser(this)!=null) {
+            for (Review item: list) {
+                if(Integer.parseInt(item.getUserClient().getId())== AppPreference.getUser(this).getId()){
+                    mMyReview = item;
+                    return;
+                }
             }
         }
     }

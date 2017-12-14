@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_card_white"
         android:orientation="vertical"
+        android:layout_marginTop="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
@@ -18,6 +19,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -26,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="30dp"
                 android:layout_marginRight="@dimen/margin_app"
                 android:layout_marginTop="@dimen/margin_app"
                 android:text="Name"
@@ -36,12 +38,12 @@
             <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/mRate"
                 style="@style/CustomRatingBarBlack"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/margin_app"
-                android:rating="3"
-                android:theme="@style/CustomRatingBar"/>
+                android:layout_gravity="bottom"
+                android:numStars="5"
+                android:rating="2"
+                android:theme="@style/RatingBar"/>
         </LinearLayout>
 
         <TextView
@@ -49,7 +51,7 @@
             style="@style/TextLabelStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="@dimen/margin_app"
             android:layout_marginTop="@dimen/margin_same_view"
             android:text="22 doctors" />
@@ -57,7 +59,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:layout_marginTop="@dimen/margin_same_view"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -103,6 +105,12 @@
                 android:text="@string/call"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_margin="5dp"/>
 
             <TextView
                 android:id="@+id/mInfo"
