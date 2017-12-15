@@ -12,10 +12,14 @@ public class SearchRequest {
     @Expose String keyword;
     @Expose
     @SerializedName("user_id")
-    int userId;
+    Integer userId;
 
     public SearchRequest(String keyword, int userId) {
         this.keyword = keyword;
         this.userId = userId;
+    }
+
+    public SearchRequest(String keyword) {
+        this.keyword = keyword;
     }
 }
