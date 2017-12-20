@@ -42,7 +42,7 @@ public class ClinicAndDoctor implements Parcelable {
 
     public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse, Category category) {
         id = clinicAndDoctorResponse.getId();
-        name = clinicAndDoctorResponse.getName();
+        name = clinicAndDoctorResponse.getFullName();
         if (category != null)
             this.category = category;
 
@@ -100,7 +100,7 @@ public class ClinicAndDoctor implements Parcelable {
 
     public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse) {
         id = clinicAndDoctorResponse.getId();
-        name = clinicAndDoctorResponse.getName();
+        name = clinicAndDoctorResponse.getFullName();
 
         if (clinicAndDoctorResponse.getCategoryResponseList() != null
                 && !clinicAndDoctorResponse.getCategoryResponseList().isEmpty()) {

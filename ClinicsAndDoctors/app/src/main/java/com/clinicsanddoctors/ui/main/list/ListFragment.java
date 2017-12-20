@@ -227,7 +227,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
                 //Do searching
                 Log.i("query", "" + query);
                 mSearchResults.clear();
-                mPresenter.search(query);
+                mPresenter.search(query, mClinic);
             }
 
         });

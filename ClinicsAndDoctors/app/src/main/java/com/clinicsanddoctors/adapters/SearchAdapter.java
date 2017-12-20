@@ -62,7 +62,7 @@ public class SearchAdapter extends CursorAdapter {
         MatrixCursor cursor = new MatrixCursor(new String[]{ BaseColumns._ID, "photo", "name", "subtext" });
         for (int i = 0; i<items.size(); i++) {
             ClinicAndDoctorResponse  p = items.get(i);
-            cursor.addRow(new Object[]{ i, p.getPicture(), p.getName(), p.getPhoneNumber() });
+            cursor.addRow(new Object[]{ i, p.getPicture(), p.getFullName(), p.getPhoneNumber() });
         }
         return cursor;
     }

@@ -71,7 +71,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     @Override
     public void getDoctorsFromClinic(Clinic clinic, Category category) {
-        mView.showProgressDialog();
+        //mView.showProgressDialog();
 
         DoctorsRequest clinicsRequest = new DoctorsRequest();
         clinicsRequest

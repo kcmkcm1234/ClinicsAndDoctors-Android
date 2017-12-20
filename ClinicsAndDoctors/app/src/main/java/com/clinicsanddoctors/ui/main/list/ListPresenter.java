@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.clinicsanddoctors.R;
 import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.data.entity.Clinic;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.SearchRequest;
@@ -48,22 +49,28 @@ public class ListPresenter implements ListContract.Presenter {
     }
 
     @Override
-    public void search(String query) {
+    public void search(String query, Clinic clinic) {
+        SearchRequest request;
         if (AppPreference.getUser(mContext) != null) {
             int userId = AppPreference.getUser(mContext).getId();
-            ClinicServices.getServiceClient().search(new SearchRequest(query, userId))
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onSuccessSearch, this::onError);
-        } else {
-            ClinicServices.getServiceClient().search(new SearchRequest(query))
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onSuccessSearch, this::onError);
-        }
+            request = new SearchRequest(query, userId);
+        } else
+            request = new SearchRequest(query);
+
+        if (clinic != null)
+            request.setClinicId(Integer.parseInt(clinic.getId()));
+
+        ClinicServices.getServiceClient().search(request)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> onSuccessSearch(response, clinic), this::onError);
     }
 
-    private void onSuccessSearch(List<ClinicAndDoctorResponse> clinicAndDoctorResponses) {
+    private void onSuccessSearch(List<ClinicAndDoctorResponse> clinicAndDoctorResponses, Clinic clinic) {
+        if (clinic != null)
+            for (int i = 0; i < clinicAndDoctorResponses.size(); i++) {
+                clinicAndDoctorResponses.get(i).setClinic(new ClinicAndDoctorResponse(clinic));
+            }
         mView.loadResults(clinicAndDoctorResponses);
     }
 

@@ -2,6 +2,7 @@
 package com.clinicsanddoctors.data.remote.respons;
 
 import com.clinicsanddoctors.data.entity.Category;
+import com.clinicsanddoctors.data.entity.Clinic;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -19,6 +20,9 @@ public class ClinicAndDoctorResponse {
     @Expose
     private String updatedDateTime;
     @SerializedName("full_name")
+    @Expose
+    private String full_name;
+    @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("specialty")
@@ -75,6 +79,29 @@ public class ClinicAndDoctorResponse {
     @Expose
     private boolean isRated;
 
+    public ClinicAndDoctorResponse() {
+
+    }
+
+    public ClinicAndDoctorResponse(Clinic clinic) {
+        id = clinic.getId();
+        full_name = clinic.getName();
+        category = clinic.getCategory();
+        rating = clinic.getRating();
+        email = clinic.getEmail();
+        address = clinic.getAddress();
+        phoneNumber = clinic.getPhoneNumber();
+        country = clinic.getCountry();
+        state = clinic.getState();
+        city = clinic.getCity();
+        latitude = "" + clinic.getLatitude();
+        longitude = "" + clinic.getLongitude();
+        isFavorite = clinic.isFavorite();
+        isRated = clinic.isRated();
+        description = clinic.getDescription();
+        picture = clinic.getPicture();
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -103,12 +130,15 @@ public class ClinicAndDoctorResponse {
         this.updatedDateTime = updatedDateTime;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+
+        if (full_name == null || full_name.isEmpty())
+            full_name = name;
+        return full_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClinic(ClinicAndDoctorResponse clinic) {
+        this.clinic = clinic;
     }
 
     public List<CategoryResponse> getCategoryResponseList() {
@@ -221,5 +251,9 @@ public class ClinicAndDoctorResponse {
 
     public boolean isRated() {
         return isRated;
+    }
+
+    public String getName() {
+        return name;
     }
 }

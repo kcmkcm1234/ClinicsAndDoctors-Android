@@ -13,6 +13,9 @@ public class SearchRequest {
     @Expose
     @SerializedName("user_id")
     Integer userId;
+    @Expose
+    @SerializedName("clinic_id")
+    Integer clinic_id;
 
     public SearchRequest(String keyword, int userId) {
         this.keyword = keyword;
@@ -21,5 +24,10 @@ public class SearchRequest {
 
     public SearchRequest(String keyword) {
         this.keyword = keyword;
+    }
+
+    public SearchRequest setClinicId(Integer clinic_id) {
+        this.clinic_id = clinic_id;
+        return this;
     }
 }

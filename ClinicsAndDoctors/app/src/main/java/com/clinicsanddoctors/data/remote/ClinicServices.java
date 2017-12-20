@@ -48,7 +48,9 @@ import rx.exceptions.OnErrorFailedException;
  */
 
 public class ClinicServices {
-    public static String API_URL = "http://clinic.xanthops.com/api/v1/";
+    //public static String API_URL = "http://clinic.xanthops.com/api/v1/";
+    public static String API_URL = "https://clinics-and-doctors.com/api/v1/";
+
     private static ApiClientInterface sApiClient;
     private static Retrofit sRestAdapter;
 
