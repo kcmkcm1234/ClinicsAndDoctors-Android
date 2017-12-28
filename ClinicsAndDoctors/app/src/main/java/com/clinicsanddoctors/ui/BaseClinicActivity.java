@@ -20,6 +20,7 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
 
     //private SweetAlertDialog mSweetAlertDialog;
     private LoaderDialog loaderDialog;
+    static boolean isActive = false;
 
     protected void setupToolbar(String title) {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.mToolbar);
@@ -44,14 +45,11 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
 
     @Override
     public void showProgressDialog() {
-        /*
-        mSweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
-                .setTitleText(getString(R.string.app_name));
-        mSweetAlertDialog.show();
-        */
-        hideProgressDialog();
-        loaderDialog = new LoaderDialog(this, R.style.NewDialog);
-        loaderDialog.show();
+        if (isActive) {
+            hideProgressDialog();
+            loaderDialog = new LoaderDialog(this, R.style.NewDialog);
+            loaderDialog.show();
+        }
     }
 
     @Override
@@ -60,15 +58,34 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
         if (mSweetAlertDialog!=null && mSweetAlertDialog.isShowing())
         mSweetAlertDialog.hide();
         */
-        if (loaderDialog != null && loaderDialog.isShowing())
-            loaderDialog.hide();
+        if (isActive) {
+            if (loaderDialog != null && loaderDialog.isShowing())
+                loaderDialog.hide();
+        }
     }
 
     @Override
     public void showErrorAlert(String message) {
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
-        sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
-        sweetAlertDialog.setContentText(message);
-        sweetAlertDialog.show();
+        if (isActive) {
+            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
+            sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
+            sweetAlertDialog.setContentText(message);
+            if (isActive)
+                if (!isFinishing())
+                    sweetAlertDialog.show();
+        }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
+    }
+
 }

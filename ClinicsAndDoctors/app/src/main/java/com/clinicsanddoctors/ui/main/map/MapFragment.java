@@ -529,9 +529,10 @@ public class MapFragment extends BaseClinicFragment implements ClusterManager.On
 
         if (categories != null && !categories.isEmpty()) {
             this.categories = categories;
-            for (Category category : categories)
-                mTabLayout.addTab(mTabLayout.newTab().setText(category.getName()));
-
+            for (Category category : categories) {
+                if (category != null)
+                    mTabLayout.addTab(mTabLayout.newTab().setText(category.getName()));
+            }
             TabLayout.Tab tab = mTabLayout.getTabAt(positionTab);
             tab.select();
             mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

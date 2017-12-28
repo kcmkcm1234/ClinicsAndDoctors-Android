@@ -39,7 +39,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void getCategory() {
+        public void getCategory() {
 
         if (categories != null && !categories.isEmpty()) {
             new Handler().postDelayed(new Runnable() {

@@ -52,6 +52,11 @@ public class SignUpPresenter implements SignUpContract.Presenter {
     @Override
     public void validateData(String mobile, String email, String completeName, String password, String confirmPassword) {
 
+        if (completeName == null || mobile == null || password == null || confirmPassword == null) {
+            mView.showErrorAlert(mContext.getString(R.string.complete_all_fields));
+            return;
+        }
+
         if (completeName.isEmpty() || mobile.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             mView.showErrorAlert(mContext.getString(R.string.complete_all_fields));
             return;

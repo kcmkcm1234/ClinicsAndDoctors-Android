@@ -135,7 +135,7 @@ public class MapPresenter implements MapContract.Presenter {
         else
             clinicsRequest.setUser_id("0");
 
-        if (!category.getId().equalsIgnoreCase("0"))
+        if (category.getId() != null && !category.getId().equalsIgnoreCase("0"))
             clinicsRequest.setCategoryId(category.getId());
 
         ClinicServices.getServiceClient().getClinics(clinicsRequest)

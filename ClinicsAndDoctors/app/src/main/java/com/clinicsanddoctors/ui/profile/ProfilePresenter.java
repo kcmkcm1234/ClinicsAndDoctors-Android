@@ -122,6 +122,12 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     @Override
     public void editProfile(String fullName, String mobile, String email, String password, String confirmPassword) {
 
+        if (fullName == null || mobile == null || email == null || password == null || confirmPassword == null)
+            return;
+
+        UserClient userClient = AppPreference.getUser(mContext);
+        if (userClient == null) return;
+
         if (fullName.isEmpty()) {
             mView.showErrorAlert("You must write your name");
             return;
@@ -133,7 +139,7 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         }
 
         EditProfileRequest editProfileRequest = null;
-        UserClient userClient = AppPreference.getUser(mContext);
+
         if (!userClient.isFacebookUer() && !confirmPassword.isEmpty()) {
             if (password.length() < 5) {
                 mView.showErrorAlert(mContext.getString(R.string.error_password_length));

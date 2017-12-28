@@ -88,7 +88,7 @@ public class ProfileFragment extends BaseClinicFragment implements ProfileContra
 
     private void checkFacebookUser() {
         UserClient userClient = AppPreference.getUser(getContext());
-        if (userClient.isFacebookUer()) {
+        if (userClient != null && userClient.isFacebookUer()) {
             mPasswordLabel.setVisibility(View.GONE);
             mPassword.setVisibility(View.GONE);
             mConfirmPasswordLabel.setVisibility(View.GONE);
@@ -108,6 +108,7 @@ public class ProfileFragment extends BaseClinicFragment implements ProfileContra
 
     @Override
     public void showProfile(UserClient userClient) {
+        if (userClient == null) return;
         mEmail.setText(userClient.getEmail());
         mName.setText(userClient.getFullName());
         mPassword.setText(userClient.getPassword());
@@ -156,5 +157,9 @@ public class ProfileFragment extends BaseClinicFragment implements ProfileContra
             return true;
         }
         return false;
+    }
+
+    public ProfilePresenter getPresenter() {
+        return mPresenter;
     }
 }

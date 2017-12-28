@@ -17,6 +17,7 @@ import com.clinicsanddoctors.data.entity.UserClient;
 import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.ui.BaseClinicActivity;
 import com.clinicsanddoctors.ui.main.MainActivity;
+import com.clinicsanddoctors.ui.signIn.SignInPresenter;
 import com.tbruyelle.rxpermissions.RxPermissions;
 
 
@@ -103,14 +104,20 @@ public class SignUpActivity extends BaseClinicActivity implements SignUpContract
 
     @Override
     public void showProfilePhoto(Uri uriPhoto) {
-        Glide.with(this)
-                .load(uriPhoto)
-                .dontAnimate()
-                .into(mPhoto);
+        if (uriPhoto != null && !uriPhoto.toString().isEmpty())
+            Glide.with(this)
+                    .load(uriPhoto)
+                    .dontAnimate()
+                    .into(mPhoto);
     }
 
     @Override
     public void promptUserForPhoto(Intent photoIntent, int requestCode) {
         startActivityForResult(photoIntent, requestCode);
     }
+
+    public SignUpPresenter getPresenter() {
+        return mPresenter;
+    }
+
 }

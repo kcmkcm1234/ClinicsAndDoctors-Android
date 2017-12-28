@@ -60,4 +60,8 @@ public class SignInActivity extends BaseClinicActivity implements SignInContract
         startActivity(intent);
         finish();
     }
+
+    public SignInPresenter getPresenter() {
+        return mPresenter;
+    }
 }

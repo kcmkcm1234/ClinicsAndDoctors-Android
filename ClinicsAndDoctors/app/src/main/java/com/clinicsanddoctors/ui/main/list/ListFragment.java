@@ -104,7 +104,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                    circleReveal(R.id.searchtoolbar,1,true,true);
+                    circleReveal(R.id.searchtoolbar, 1, true, true);
                 else
                     mToolbar.setVisibility(View.VISIBLE);
 
@@ -123,18 +123,17 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
         return view;
     }
 
-    public void setSearchtollbar()
-    {
+    public void setSearchtollbar() {
 //        searchtollbar = (Toolbar) findViewById(R.id.searchtoolbar);
         if (mToolbar != null) {
             mToolbar.inflateMenu(R.menu.menu_search);
-            search_menu=mToolbar.getMenu();
+            search_menu = mToolbar.getMenu();
 
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                        circleReveal(R.id.searchtoolbar,1,true,false);
+                        circleReveal(R.id.searchtoolbar, 1, true, false);
                     else
                         mToolbar.setVisibility(View.GONE);
                 }
@@ -147,9 +146,8 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
                 public boolean onMenuItemActionCollapse(MenuItem item) {
                     // Do something when collapsed
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        circleReveal(R.id.searchtoolbar,1,true,false);
-                    }
-                    else
+                        circleReveal(R.id.searchtoolbar, 1, true, false);
+                    } else
                         mToolbar.setVisibility(View.GONE);
                     return true;
                 }
@@ -168,8 +166,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
             Log.d("toolbar", "setSearchtollbar: NULL");
     }
 
-    public void initSearchView()
-    {
+    public void initSearchView() {
         final SearchView searchView =
                 (SearchView) search_menu.findItem(R.id.action_filter_search).getActionView();
 
@@ -217,7 +214,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(newText.isEmpty())
+                if (newText.isEmpty())
                     return false;
                 callSearch(newText);
                 return true;
@@ -235,34 +232,32 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public void circleReveal(int viewID, int posFromRight, boolean containsOverflow, final boolean isShow)
-    {
+    public void circleReveal(int viewID, int posFromRight, boolean containsOverflow, final boolean isShow) {
         final View myView = mToolbar;//findViewById(viewID);
 
-        int width=myView.getWidth();
+        int width = myView.getWidth();
 
 //        if(posFromRight>0)
 //            width-=(posFromRight*getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_material))-(getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_material)/ 2);
 //        if(containsOverflow)
 //            width-=getResources().getDimensionPixelSize(R.dimen.abc_action_button_min_width_overflow_material);
 
-        int cx=width;
-        int cy=myView.getHeight()/2;
+        int cx = width;
+        int cy = myView.getHeight() / 2;
 
         Animator anim;
-        if(isShow)
-            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0,(float)width);
+        if (isShow)
+            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, (float) width);
         else
-            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, (float)width, 0);
+            anim = ViewAnimationUtils.createCircularReveal(myView, cx, cy, (float) width, 0);
 
-        anim.setDuration((long)220);
+        anim.setDuration((long) 220);
 
         // make the view invisible when the animation is done
         anim.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                if(!isShow)
-                {
+                if (!isShow) {
                     super.onAnimationEnd(animation);
                     myView.setVisibility(View.INVISIBLE);
                 }
@@ -270,7 +265,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
         });
 
         // make the view visible and start the animation
-        if(isShow)
+        if (isShow)
             myView.setVisibility(View.VISIBLE);
 
         // start the animation
@@ -279,15 +274,18 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
 
     @Override
     public void showCategory(List<Category> categories) {
+        if (!isAdded()) return;
 
         if (categories != null && !categories.isEmpty()) {
             int position = 0;
 
             for (int i = 0; i < categories.size(); i++) {
                 Category category = categories.get(i);
-                if (mCurrentCategory != null && category.getId().equalsIgnoreCase(mCurrentCategory.getId()))
-                    position = i;
-                mTabLayout.addTab(mTabLayout.newTab().setText(category.getName()));
+                if (category != null) {
+                    if (mCurrentCategory != null && category.getId() != null && category.getId().equalsIgnoreCase(mCurrentCategory.getId()))
+                        position = i;
+                    mTabLayout.addTab(mTabLayout.newTab().setText(category.getName()));
+                }
             }
 
             mViewPager.setAdapter(new CategoryAdapter(isFromCluster, getContext(), getFragmentManager(),
@@ -299,9 +297,11 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
 
             for (int i = 0; i < categories.size(); i++) {
                 Category category = categories.get(i);
-                TextView tabSimple = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.simple_tab, null);
-                tabSimple.setText(category.getName());
-                mTabLayout.getTabAt(i).setCustomView(tabSimple);
+                if (category != null) {
+                    TextView tabSimple = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.simple_tab, null);
+                    tabSimple.setText(category.getName());
+                    mTabLayout.getTabAt(i).setCustomView(tabSimple);
+                }
             }
         }
     }
@@ -333,17 +333,16 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
     public boolean onSuggestionClick(int position) {
         Clinic clinic;
         Doctor doctor;
-        ClinicAndDoctorResponse clinicAndDoctorResponse =  mSearchResults.get(position);
+        ClinicAndDoctorResponse clinicAndDoctorResponse = mSearchResults.get(position);
         Intent intent;
-        if(clinicAndDoctorResponse.getClinic()!=null) {
+        if (clinicAndDoctorResponse.getClinic() != null) {
             doctor = new Doctor(clinicAndDoctorResponse, new Category().setName("All").setId("0"));
             intent = new Intent(getContext(), DoctorProfileActivity.class);
-            intent.putExtra(DoctorProfileActivity.ARG_DOCTOR, (ClinicAndDoctor)doctor);
-        }
-        else {
+            intent.putExtra(DoctorProfileActivity.ARG_DOCTOR, (ClinicAndDoctor) doctor);
+        } else {
             clinic = new Clinic(clinicAndDoctorResponse, new Category().setName("All").setId("0"));
             intent = new Intent(getContext(), ClinicProfileActivity.class);
-            intent.putExtra(ClinicProfileActivity.ARG_CLINIC, (ClinicAndDoctor)clinic);
+            intent.putExtra(ClinicProfileActivity.ARG_CLINIC, (ClinicAndDoctor) clinic);
         }
 
         startActivity(intent);

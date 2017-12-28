@@ -41,7 +41,7 @@ public class CategoryAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
 
-        if (mCategory != null && mCategory.getId().equalsIgnoreCase(mCategories.get(position).getId()) && isFromCluster)
+        if (mCategory != null && mCategory.getId()!=null && mCategory.getId().equalsIgnoreCase(mCategories.get(position).getId()) && isFromCluster)
             fragment = new CategoryFragment(mCategories.get(position), mLocation, mClinicsCluster, mClinic);
         else
             fragment = new CategoryFragment(mCategories.get(position), mLocation, null, mClinic);

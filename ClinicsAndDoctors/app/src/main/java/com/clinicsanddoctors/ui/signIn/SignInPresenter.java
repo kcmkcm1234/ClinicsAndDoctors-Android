@@ -8,7 +8,9 @@ import com.clinicsanddoctors.data.local.AppPreference;
 import com.clinicsanddoctors.data.remote.ClinicServices;
 import com.clinicsanddoctors.data.remote.requests.LoginRequest;
 import com.clinicsanddoctors.data.remote.respons.RegisterResponse;
+
 import java.io.IOException;
+
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -26,7 +28,7 @@ public class SignInPresenter implements SignInContract.Presenter {
 
     @Override
     public void attendOnClickSigIn(String mobile, String password) {
-        if (mobile.isEmpty() || password.isEmpty()) {
+        if (mobile == null || password == null || mobile.isEmpty() || password.isEmpty()) {
             mView.showErrorAlert(mContext.getString(R.string.complete_all_fields));
             return;
         }
