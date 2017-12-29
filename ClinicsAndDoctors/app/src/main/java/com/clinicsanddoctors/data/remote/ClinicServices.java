@@ -99,7 +99,7 @@ public class ClinicServices {
 
     public static ApiError attendError(HttpException error) {
         try {
-            if (error.code() != 404)
+            if (error.code() != 404 && error.code() != 409)
                 return new Gson().fromJson(error.response().errorBody().string(), ErrorApi.class);
             else
                 return new ErrorApi("Something was wrong", "418");

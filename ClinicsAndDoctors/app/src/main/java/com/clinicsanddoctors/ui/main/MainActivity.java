@@ -46,7 +46,6 @@ public class MainActivity extends BaseClinicActivity
     private SweetAlertDialog mSweetAlertDialog;
     private MainPresenter mainPresenter;
 
-    private ListFragment mListFragment;
     private MapFragment mapFragment;
     private boolean showAdvertising = true;
 
@@ -222,13 +221,14 @@ public class MainActivity extends BaseClinicActivity
             category = mapFragment.getmCurrentCategory();
         }
         mapFragment.clearCluster();
+
+
         getSupportFragmentManager().beginTransaction()
                 .setCustomAnimations(R.anim.card_flip_right_in, R.anim.card_flip_left_out,
                         R.anim.card_flip_right_in, R.anim.card_flip_left_out)
-                .replace(R.id.mFragmentContainer, mListFragment = new ListFragment(mapFragment.getmClinicList(), location, category, fromCluster, null))
+                .replace(R.id.mFragmentContainer, new ListFragment(mapFragment.getmClinicList(), location, category, fromCluster, null))
                 .addToBackStack(null)
                 .commit();
-
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -330,9 +330,5 @@ public class MainActivity extends BaseClinicActivity
         AppPreference.deleteUserData(this);
         startActivity(new Intent(this, MainActivity.class));
         finish();
-    }
-
-    public ListFragment getListFragment() {
-        return mListFragment;
     }
 }

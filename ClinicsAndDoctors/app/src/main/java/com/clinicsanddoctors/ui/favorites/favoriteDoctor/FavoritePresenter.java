@@ -40,6 +40,8 @@ public class FavoritePresenter implements FavoriteContract.Presenter {
     @Override
     public void getDoctorFavorite() {
 
+        if (AppPreference.getUser(mContext) == null) return;
+
         mView.showProgressDialog();
 
         FavoriteRequest favoriteRequest = new FavoriteRequest();
@@ -66,7 +68,7 @@ public class FavoritePresenter implements FavoriteContract.Presenter {
 
     @Override
     public void getClinicFavorite() {
-
+        if (AppPreference.getUser(mContext) == null) return;
         mView.showProgressDialog();
         FavoriteRequest favoriteRequest = new FavoriteRequest();
         favoriteRequest.setUser_id("" + AppPreference.getUser(mContext).getId());

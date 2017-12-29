@@ -16,11 +16,13 @@ import org.junit.runner.RunWith;
 @LargeTest
 public class SignUpActivityTest {
 
+    private int SLEEP_TIME = 3000;
+
     @Rule
     public ActivityTestRule<SignUpActivity> mActivityRule = new ActivityTestRule<>(SignUpActivity.class);
 
     @Test
-    public void signUpTest() throws Exception {
+    public void signUp() throws Exception {
         SignUpActivity activity = mActivityRule.getActivity();
         activity.runOnUiThread(() -> {
             activity.getPresenter().validateData("+541122112211", "admin@admin.com", "Admin User", "123456", "123456");
@@ -35,15 +37,17 @@ public class SignUpActivityTest {
             //invalid mobile
             activity.getPresenter().validateData("test123", "admin@admin.com", "Admin User", "123456", "123456");
         });
+        Thread.sleep(SLEEP_TIME);
     }
 
     @Test
-    public void showProfilePhotoTest() throws Exception {
+    public void showProfilePhoto() throws Exception {
         SignUpActivity activity = mActivityRule.getActivity();
         activity.runOnUiThread(() -> {
             activity.showProfilePhoto(null);
             activity.showProfilePhoto(Uri.parse(""));
         });
+        Thread.sleep(SLEEP_TIME);
     }
 
 }

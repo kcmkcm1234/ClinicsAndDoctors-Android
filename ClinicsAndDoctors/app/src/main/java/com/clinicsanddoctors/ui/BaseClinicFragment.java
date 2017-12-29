@@ -24,8 +24,8 @@ public class BaseClinicFragment extends Fragment implements LoaderView {
                 .setTitleText(getString(R.string.app_name));
         mSweetAlertDialog.show();
         */
+        if (!isAdded()) return;
         hideProgressDialog();
-
         loaderDialog = new LoaderDialog(getContext(), R.style.NewDialog);
         loaderDialog.show();
     }
@@ -36,13 +36,14 @@ public class BaseClinicFragment extends Fragment implements LoaderView {
         if (mSweetAlertDialog != null && mSweetAlertDialog.isShowing())
             mSweetAlertDialog.hide();
             */
-
+        if (!isAdded()) return;
         if (loaderDialog != null && loaderDialog.isShowing())
             loaderDialog.hide();
     }
 
     @Override
     public void showErrorAlert(String message) {
+        if (!isAdded()) return;
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.ERROR_TYPE);
         sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
         sweetAlertDialog.setContentText(message);

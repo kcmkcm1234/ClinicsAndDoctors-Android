@@ -274,7 +274,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
 
     @Override
     public void showCategory(List<Category> categories) {
-        if (!isAdded()) return;
+        //if (!isAdded()) return;
 
         if (categories != null && !categories.isEmpty()) {
             int position = 0;
@@ -295,6 +295,7 @@ public class ListFragment extends BaseClinicFragment implements ListContract.Vie
             mViewPager.setCurrentItem(position, false);
             mTabLayout.setupWithViewPager(mViewPager);
 
+            if (!isAdded()) return;
             for (int i = 0; i < categories.size(); i++) {
                 Category category = categories.get(i);
                 if (category != null) {

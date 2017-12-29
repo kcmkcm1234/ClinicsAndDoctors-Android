@@ -43,6 +43,8 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @Override
     public void getDoctors(Category category, Location location, int radius) {
 
+        if (category == null || category.getId() == null || category.getId().isEmpty()) return;
+
         mView.showProgressDialog();
         if (location == null) location = new Location("");
 
@@ -57,7 +59,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         else
             clinicsRequest.setUser_id("0");
 
-        if (category.getId()!=null && !category.getId().equalsIgnoreCase("0"))
+        if (category.getId() != null && !category.getId().equalsIgnoreCase("0"))
             clinicsRequest.setCategoryId(category.getId());
 
         ClinicServices.getServiceClient().getDoctors(clinicsRequest)
@@ -72,6 +74,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @Override
     public void getDoctorsFromClinic(Clinic clinic, Category category) {
         //mView.showProgressDialog();
+        if (clinic == null || category == null || category.getId() == null) return;
 
         DoctorsRequest clinicsRequest = new DoctorsRequest();
         clinicsRequest

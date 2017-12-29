@@ -57,6 +57,7 @@ public class Category implements Parcelable {
     }
 
     public String getName() {
+        if (name == null) return "";
         return name;
     }
 

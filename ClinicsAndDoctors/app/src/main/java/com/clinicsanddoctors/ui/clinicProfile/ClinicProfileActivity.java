@@ -105,6 +105,14 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
             startActivity(intent);
         });
 
+        setDataClinic(mClinic);
+        mPresenter.getCategory();
+    }
+
+    public void setDataClinic(Clinic clinic) {
+        if (clinic == null) return;
+        if (mClinic == null) mClinic = clinic;
+
         mRate.setRating(Float.parseFloat(mClinic.getRating()));
         if (mClinic.getPicture() != null && !mClinic.getPicture().isEmpty())
             Glide.with(this).load(mClinic.getPicture())
@@ -112,7 +120,7 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
         else
             mPhotoClinic.setImageResource(R.drawable.placeholder_clinic);
 
-        if(mClinic.isFavorite())
+        if (mClinic.isFavorite())
             mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
         else
             mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
@@ -127,7 +135,6 @@ public class ClinicProfileActivity extends BaseClinicActivity implements ClinicP
                 sCategory = mClinic.getCategoryList().get(0).getName();
         }
         mInfoClinic.setText(setSpanBoldAndLight(mClinic.getName(), sCategory, mClinic.getAddress()));
-        mPresenter.getCategory();
     }
 
     private SpannableStringBuilder setSpanBoldAndLight(String sClinicName, String sCategory, String sAddress) {

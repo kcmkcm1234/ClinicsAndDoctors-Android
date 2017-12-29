@@ -73,15 +73,6 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             startActivity(intent);
         });
 
-        if (mClinicAndDoctor.getRating() != null && !mClinicAndDoctor.getRating().isEmpty())
-            mRate.setRating(Float.parseFloat(mClinicAndDoctor.getRating()));
-
-        if (mClinicAndDoctor.getPicture() != null && !mClinicAndDoctor.getPicture().isEmpty())
-            Glide.with(this).load(mClinicAndDoctor.getPicture())
-                    .dontAnimate().placeholder(R.drawable.placeholder_clinic).into(mPhoto);
-        else
-            mPhoto.setImageResource(R.drawable.placeholder_clinic);
-
         mDoctorName.setText("-");
         mNationality.setText("-");
         mProfession.setText("-");
@@ -89,13 +80,39 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
         mAddress.setText("-");
         mDistance.setText("-");
 
+        /*
         if (mClinicAndDoctor.getName() != null && !mClinicAndDoctor.getName().isEmpty())
             mDoctorName.setText(mClinicAndDoctor.getName());
 
-//        if (mClinicAndDoctor.isFavorite())
-//            mAddFavorite.setText(getString(R.string.remove_from_favorite));
-//        else
-//            mAddFavorite.setText(getString(R.string.add_to_favorite));
+        if (mClinicAndDoctor.isFavorite())
+            mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
+        else
+            mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
+
+        String sNationality = ((Doctor) mClinicAndDoctor).getNationality();
+        if (sNationality != null && !sNationality.isEmpty())
+            mNationality.setText(sNationality);
+
+        if (mClinicAndDoctor.getCategory() != null) {
+            if (mClinicAndDoctor.getType() != null) {
+                mProfession.setText(mClinicAndDoctor.getType() + " - " + mClinicAndDoctor.getCategory().getName());
+            } else
+                mProfession.setText(mClinicAndDoctor.getCategory().getName());
+            if (mClinicAndDoctor.getCategory().getIcon() != null && !mClinicAndDoctor.getCategory().getIcon().isEmpty())
+                Glide.with(this).load(mClinicAndDoctor.getCategory().getIcon())
+                        .dontAnimate().placeholder(R.drawable.ic_category_profile).into(mIconCategory);
+        }
+
+        Clinic clinic = ((Doctor) mClinicAndDoctor).getClinic();
+        if (clinic != null) {
+            mNameClinic.setText(clinic.getName());
+            if (clinic.getAddress() != null && !clinic.getAddress().isEmpty())
+                mAddress.setText(clinic.getAddress());
+            else
+                mAddress.setText(clinic.getCity() + ", " + clinic.getCountry());
+            setDistance(clinic);
+        }
+        */
 
         mAddFavorite.setOnClickListener(v -> {
             UserClient userClient = AppPreference.getUser(this);
@@ -107,11 +124,6 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             } else
                 startActivity(new Intent(this, StartActivity.class));
         });
-
-        if(mClinicAndDoctor.isFavorite())
-            mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
-        else
-            mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
 
         findViewById(R.id.mShare).setOnClickListener(v -> {
             String shareBody = mClinicAndDoctor.getName() + " - " + mClinicAndDoctor.getCategory().getName() + " - " + mClinicAndDoctor.getPhoneNumber();
@@ -130,40 +142,6 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
             }
         });
 
-        String sNationality = ((Doctor) mClinicAndDoctor).getNationality();
-        if (sNationality != null && !sNationality.isEmpty())
-            mNationality.setText(sNationality);
-
-        if (mClinicAndDoctor.getCategory() != null) {
-            if(mClinicAndDoctor.getType()!=null) {
-                mProfession.setText(mClinicAndDoctor.getType() + " - " + mClinicAndDoctor.getCategory().getName());
-            } else
-                mProfession.setText(mClinicAndDoctor.getCategory().getName());
-            if (mClinicAndDoctor.getCategory().getIcon() != null && !mClinicAndDoctor.getCategory().getIcon().isEmpty())
-                Glide.with(this).load(mClinicAndDoctor.getCategory().getIcon())
-                        .dontAnimate().placeholder(R.drawable.ic_category_profile).into(mIconCategory);
-        }
-
-        Clinic clinic = ((Doctor) mClinicAndDoctor).getClinic();
-        if (clinic != null) {
-            mNameClinic.setText(clinic.getName());
-            if (clinic.getAddress() != null && !clinic.getAddress().isEmpty())
-                mAddress.setText(clinic.getAddress());
-            else
-                mAddress.setText(clinic.getCity() + ", " + clinic.getCountry());
-            setDistance(clinic);
-        }
-
-//        if (mClinicAndDoctor.getPhoneNumber() != null && !mClinicAndDoctor.getPhoneNumber().isEmpty()) {
-//            mCall.setText(mClinicAndDoctor.getPhoneNumber());
-//            findViewById(R.id.mContainerCall).setEnabled(true);
-//            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_green));
-//        } else {
-//            mCall.setText("-");
-//            findViewById(R.id.mContainerCall).setEnabled(false);
-//            findViewById(R.id.mContainerCall).setBackground(getResources().getDrawable(R.drawable.bg_rectangle_rounded_gray));
-//        }
-
         findViewById(R.id.mContainerCall).setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + mClinicAndDoctor.getPhoneNumber()));
             startActivity(intent);
@@ -176,6 +154,57 @@ public class DoctorProfileActivity extends BaseClinicActivity implements DoctorP
                     Uri.parse("http://maps.google.com/maps?daddr=" + latitude + "," + longitude));
             startActivity(intent);
         });
+
+        setDataDoctor((Doctor) mClinicAndDoctor);
+    }
+
+    public void setDataDoctor(Doctor dataDoctor) {
+
+        if (dataDoctor == null) return;
+
+        if (mClinicAndDoctor == null)
+            mClinicAndDoctor = dataDoctor;
+
+        if (dataDoctor.getRating() != null && !dataDoctor.getRating().isEmpty())
+            mRate.setRating(Float.parseFloat(dataDoctor.getRating()));
+
+        if (dataDoctor.getPicture() != null && !dataDoctor.getPicture().isEmpty())
+            Glide.with(this).load(dataDoctor.getPicture())
+                    .dontAnimate().placeholder(R.drawable.placeholder_clinic).into(mPhoto);
+        else
+            mPhoto.setImageResource(R.drawable.placeholder_clinic);
+
+        if (dataDoctor.getName() != null && !dataDoctor.getName().isEmpty())
+            mDoctorName.setText(dataDoctor.getName());
+
+        if (dataDoctor.isFavorite())
+            mAddFavorite.setImageResource(R.drawable.ic_favorite_profile);
+        else
+            mAddFavorite.setImageResource(R.drawable.ic_no_favorite);
+
+        String sNationality = dataDoctor.getNationality();
+        if (sNationality != null && !sNationality.isEmpty())
+            mNationality.setText(sNationality);
+
+        if (dataDoctor.getCategory() != null) {
+            if (dataDoctor.getType() != null) {
+                mProfession.setText(dataDoctor.getType() + " - " + dataDoctor.getCategory().getName());
+            } else
+                mProfession.setText(dataDoctor.getCategory().getName());
+            if (dataDoctor.getCategory().getIcon() != null && !dataDoctor.getCategory().getIcon().isEmpty())
+                Glide.with(this).load(dataDoctor.getCategory().getIcon())
+                        .dontAnimate().placeholder(R.drawable.ic_category_profile).into(mIconCategory);
+        }
+
+        Clinic clinic = dataDoctor.getClinic();
+        if (clinic != null) {
+            mNameClinic.setText(clinic.getName());
+            if (clinic.getAddress() != null && !clinic.getAddress().isEmpty())
+                mAddress.setText(clinic.getAddress());
+            else
+                mAddress.setText(clinic.getCity() + ", " + clinic.getCountry());
+            setDistance(clinic);
+        }
     }
 
     private void setDistance(Clinic clinic) {

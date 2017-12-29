@@ -45,7 +45,7 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
 
     @Override
     public void showProgressDialog() {
-        if (isActive) {
+        if (isActive && !isFinishing()) {
             hideProgressDialog();
             loaderDialog = new LoaderDialog(this, R.style.NewDialog);
             loaderDialog.show();
@@ -58,7 +58,7 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
         if (mSweetAlertDialog!=null && mSweetAlertDialog.isShowing())
         mSweetAlertDialog.hide();
         */
-        if (isActive) {
+        if (isActive && !isFinishing()) {
             if (loaderDialog != null && loaderDialog.isShowing())
                 loaderDialog.hide();
         }
@@ -66,11 +66,11 @@ public class BaseClinicActivity extends AppCompatActivity implements LoaderView 
 
     @Override
     public void showErrorAlert(String message) {
-        if (isActive) {
+        if (isActive && !isFinishing()) {
             SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
             sweetAlertDialog.setTitleText(getString(R.string.alert_title_error));
             sweetAlertDialog.setContentText(message);
-            if (isActive)
+            if (isActive && !isFinishing())
                 if (!isFinishing())
                     sweetAlertDialog.show();
         }

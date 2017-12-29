@@ -108,6 +108,7 @@ public class ProfileFragment extends BaseClinicFragment implements ProfileContra
 
     @Override
     public void showProfile(UserClient userClient) {
+        if (!isAdded()) return;
         if (userClient == null) return;
         mEmail.setText(userClient.getEmail());
         mName.setText(userClient.getFullName());
@@ -147,6 +148,7 @@ public class ProfileFragment extends BaseClinicFragment implements ProfileContra
 
     @Override
     public void onEditSuccess() {
+        if (!isAdded()) return;
         isEdited = true;
         Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
     }

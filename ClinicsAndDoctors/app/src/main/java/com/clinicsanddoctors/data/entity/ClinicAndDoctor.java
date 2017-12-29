@@ -39,7 +39,6 @@ public class ClinicAndDoctor implements Parcelable {
 
     }
 
-
     public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse, Category category) {
         id = clinicAndDoctorResponse.getId();
         name = clinicAndDoctorResponse.getFullName();
@@ -99,6 +98,7 @@ public class ClinicAndDoctor implements Parcelable {
     }
 
     public ClinicAndDoctor(ClinicAndDoctorResponse clinicAndDoctorResponse) {
+        if (clinicAndDoctorResponse == null) return;
         id = clinicAndDoctorResponse.getId();
         name = clinicAndDoctorResponse.getFullName();
 
@@ -170,6 +170,7 @@ public class ClinicAndDoctor implements Parcelable {
     }
 
     public String getName() {
+        if (name == null) return "";
         return name;
     }
 
@@ -310,6 +311,7 @@ public class ClinicAndDoctor implements Parcelable {
     }
 
     public String getType() {
+        if (type == null) return "";
         return type;
     }
 
